@@ -1,7 +1,7 @@
 // --- Login Logik ---
 function checkPassword() {
     const pwd = document.getElementById('password-input').value;
-    if (pwd === 'Curry') {
+    if (pwd === 'Admin') {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('app-layout').style.display = 'flex';
     } else {
@@ -11,6 +11,11 @@ function checkPassword() {
 
 function handleEnter(e) {
     if (e.key === 'Enter') checkPassword();
+}
+
+function show(id, contentname) {
+  element = document.getElementById(id);
+  element.innerHTML = apps[contentname];
 }
 
 // --- Theme Logik ---

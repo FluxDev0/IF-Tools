@@ -41,6 +41,8 @@
     --neuro-bg-secondary: #4dce11;
     --neuro-shadow-dark: #148d09;
     --neuro-shadow-light: #47ff37;
+
+    --text-color: #161616;
 }
 
 [data-neuro="light_blue"] {
@@ -48,8 +50,6 @@
     --neuro-bg-secondary: #077dcc;
     --neuro-shadow-dark: #09328b;
     --neuro-shadow-light: #54d7ee;
-
-    --text-color: #ffffff;
 }
 
 
