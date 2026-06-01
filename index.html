@@ -6,14 +6,14 @@
     <title>Meine Tool-Suite</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-theme="dark">
 
     <div id="login-screen">
-        <div class="login-box">
+        <div class="login-box neuro-raised rounded">
             <h2>Willkommen!</h2>
             <p class="hint">(Passwort ist: IF)</p>
             <input type="password" id="password-input" placeholder="Passwort..." onkeypress="handleEnter(event)">
-            <button onclick="checkPassword()">Einloggen</button>
+            <button class="neuro-inset" onclick="checkPassword()">Einloggen</button>
             <p id="error-msg">Falsches Passwort!</p>
         </div>
     </div>
