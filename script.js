@@ -1,7 +1,7 @@
 // --- Login Logik ---
 function checkPassword() {
     const pwd = document.getElementById('password-input').value;
-    if (pwd === 'baum123') {
+    if (pwd === 'IF') {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('app-layout').style.display = 'flex';
     } else {
