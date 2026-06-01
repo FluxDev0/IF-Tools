@@ -29,6 +29,32 @@
     --neuro-shadow-light: #4b5563;
 }
 
+[data-neuro="red"] {
+    --neuro-bg-primary: #f72119;
+    --neuro-bg-secondary: #ce1d17;
+    --neuro-shadow-dark: #851010;
+    --neuro-shadow-light: #ee3d3d;
+}
+
+[data-neuro="green"] {
+    --neuro-bg-primary: #22eb1b;
+    --neuro-bg-secondary: #4dce11;
+    --neuro-shadow-dark: #148d09;
+    --neuro-shadow-light: #47ff37;
+}
+
+[data-neuro="light_blue"] {
+    --neuro-bg-primary: #374151;
+    --neuro-bg-secondary: #1f2937;
+    --neuro-shadow-dark: #111827;
+    --neuro-shadow-light: #4b5563;
+
+    --neuro-bg-primary: #1093c7;
+    --neuro-bg-secondary: #077dcc;
+    --neuro-shadow-dark: #09328b;
+    --neuro-shadow-light: #54d7ee;
+}
+
 
 /* Globale Styles */
 * {

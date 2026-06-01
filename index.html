@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meine Tool-Suite</title>
+    <title>IF Tools</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body data-theme="dark">
@@ -13,7 +13,7 @@
             <h2>Willkommen!</h2>
             <p class="hint">(Passwort ist: IF)</p>
             <input class="neuro-inset" type="password" id="password-input" placeholder="Passwort..." onkeypress="handleEnter(event)">
-            <button class="neuro-raised" onclick="checkPassword()">Einloggen</button>
+            <button class="neuro-inset" data-neuro="red" onclick="checkPassword()">Einloggen</button>
             <p id="error-msg">Falsches Passwort!</p>
         </div>
     </div>
