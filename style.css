@@ -44,15 +44,12 @@
 }
 
 [data-neuro="light_blue"] {
-    --neuro-bg-primary: #374151;
-    --neuro-bg-secondary: #1f2937;
-    --neuro-shadow-dark: #111827;
-    --neuro-shadow-light: #4b5563;
-
     --neuro-bg-primary: #1093c7;
     --neuro-bg-secondary: #077dcc;
     --neuro-shadow-dark: #09328b;
     --neuro-shadow-light: #54d7ee;
+
+    --text-color: #fdfdfd;
 }
 
 
