@@ -77,15 +77,25 @@ body {
 #error-msg { color: var(--danger-color); margin-top: 10px; display: none; font-weight: bold; }
 
 input[type="password"] {
-    width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--border-color);
-    border-radius: 6px; background: var(--bg-color); color: var(--text-color);
+    width: 100%; 
+    padding: 12px; 
+    margin-bottom: 15px; 
+    border: none;
+    border-radius: 6px; 
+    color: var(--text-color);
 }
 
 /* Buttons */
 button {
-    background-color: var(--primary-color); color: white; border: none;
-    padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;
+    color: white; 
+    border: none;
+    padding: 12px 20px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    transition: 0.2s;
 }
+
 button:hover { background-color: var(--primary-hover); }
 .btn-delete { background-color: var(--danger-color); }
 .btn-delete:hover { background-color: var(--danger-hover); }
@@ -114,7 +124,24 @@ button:hover { background-color: var(--primary-hover); }
 .theme-switch { margin-top: auto; text-align: center; }
 
 .main-content { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
-.card { background-color: var(--card-bg); padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+.card {
+    background-color: var(--card-bg); 
+    padding: 20px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+}
+
+.card.neuro-inset {
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.card.neuro-raised {
+    padding: 20px; 
+    border-radius: 12px; 
+}
+
 .card-desc { margin-bottom: 15px; font-size: 0.9rem; color: #888; }
 .placeholder-text { color: #888; margin-top: 20px; text-align: center; }
 .controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }

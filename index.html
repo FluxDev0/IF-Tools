@@ -12,8 +12,8 @@
         <div class="login-box neuro-raised rounded">
             <h2>Willkommen!</h2>
             <p class="hint">(Passwort ist: IF)</p>
-            <input type="password" id="password-input" placeholder="Passwort..." onkeypress="handleEnter(event)">
-            <button class="neuro-inset" onclick="checkPassword()">Einloggen</button>
+            <input class="neuro-inset" type="password" id="password-input" placeholder="Passwort..." onkeypress="handleEnter(event)">
+            <button class="neuro-raised" onclick="checkPassword()">Einloggen</button>
             <p id="error-msg">Falsches Passwort!</p>
         </div>
     </div>
@@ -39,11 +39,11 @@
                     Die letzte Spalte wird als "Ergebnis" gewertet. Klicke in die Zellen, um Text zu ändern.
                 </p>
                 <div class="controls">
-                    <button class="btn-add" onclick="addColumn()">+ Spalte</button>
-                    <button class="btn-delete" onclick="removeColumn()">- Spalte löschen</button>
-                    <button class="btn-add" onclick="addRow()">+ Zeile</button>
-                    <button class="btn-delete" onclick="removeRow()">- Zeile löschen</button>
-                    <button class="btn-generate" onclick="generateTree()">🌳 Baum generieren</button>
+                    <button class="btn-add neuro-raised" onclick="addColumn()">+ Spalte</button>
+                    <button class="btn-delete neuro-raised" onclick="removeColumn()">- Spalte löschen</button>
+                    <button class="btn-add neuro-raised" onclick="addRow()">+ Zeile</button>
+                    <button class="btn-delete neuro-raised" onclick="removeRow()">- Zeile löschen</button>
+                    <button class="btn-generate neuro-raised" onclick="generateTree()">🌳 Baum generieren</button>
                 </div>
                 
                 <table id="data-table">
