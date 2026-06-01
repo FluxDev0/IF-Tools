@@ -1,7 +1,7 @@
 // --- Login Logik ---
 function checkPassword() {
     const pwd = document.getElementById('password-input').value;
-    if (pwd === 'IF') {
+    if (pwd === 'Curry') {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('app-layout').style.display = 'flex';
     } else {
