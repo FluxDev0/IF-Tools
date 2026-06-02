@@ -94,7 +94,7 @@ button:hover { background-color: var(--primary-hover); }
 }
 
 .card {
-    background-color: var(--card-bg); 
+    background-color: var(--card-bg);
     padding: 20px; 
     border-radius: 12px; 
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);

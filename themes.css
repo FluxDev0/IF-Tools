@@ -35,11 +35,20 @@
     --neuro-shadow-light: #ee3d3d;
 }
 
-[data-neuro="green"] {
+[data-neuro="light_green"] {
     --neuro-bg-primary: #22eb1b;
     --neuro-bg-secondary: #4dce11;
     --neuro-shadow-dark: #148d09;
-    --neuro-shadow-light: #47ff37;
+    --neuro-shadow-light: #91f877;
+
+    --text-color: #161616;
+}
+
+[data-neuro="green"] {
+    --neuro-bg-primary: #22961e;
+    --neuro-bg-secondary: #10910b;
+    --neuro-shadow-dark: #13470e;
+    --neuro-shadow-light: #95ff8b;
 
     --text-color: #161616;
 }
