@@ -52,3 +52,57 @@ function renderTreeHTML(node) {
     html += `</li>`;
     return html;
 }
+
+function test(headers, dataSets) {
+    const alleGleich = arr => arr.every(wert => wert === arr[0]);
+    const targetColIndex = headers.length - 1;
+
+    headers.slice(0, -1).forEach((header, colIndex) => {
+        groupByCol(dataSets, colIndex).forEach(array => {
+            if (alleGleich(getCol(array, targetColIndex))) {
+                console.log("Wurzel:");
+                console.log(header, array[0][colIndex], array[0][targetColIndex]);
+            }
+        });
+    });
+}
+
+function groupByCol(dataSets, colIndex) {
+    const gruppenObjekt = {};
+
+    // 1. Schlage für jede Zeile nach, welcher Wert in der gesuchten Spalte steht
+    dataSets.forEach(zeile => {
+        const schluessel = zeile[colIndex]; // z.B. "Sonnig" oder "Regen"
+
+        // Wenn es für diesen Wert noch kein Array gibt, erstelle ein leeres
+        if (!gruppenObjekt[schluessel]) {
+            gruppenObjekt[schluessel] = [];
+        }
+
+        // Schiebe die komplette Zeile in das passende Gruppen-Array
+        gruppenObjekt[schluessel].push(zeile);
+    });
+
+    // 2. Extrahiere nur die Arrays aus dem Hilfsobjekt
+    return Object.values(gruppenObjekt);
+}
+
+function getCol(dataSets, colIndex) {
+    const rows = [];
+
+    dataSets.forEach(row => {
+        rows.push(row[colIndex]);
+    });
+
+    return rows;
+}
+
+function removeCol(dataSets, headers, colIndex) {
+    neueHeaders = headers.filter((_, index) => index !== colIndex);
+
+    neueDataSets = dataSets.map(zeile => 
+        zeile.filter((_, index) => index !== colIndex)
+    );
+
+    return neueDataSets, neueHeaders;
+}

@@ -14,6 +14,15 @@ apps = {
                 <button class="btn-delete neuro-raised" onclick="removeRow()">- Zeile löschen</button>
                 <button class="btn-generate neuro-raised" onclick="generateTree()">🌳 Baum generieren</button>
             </div>
+
+            <div class="import-section">
+                <h3>Daten importieren</h3>
+                <label for="csv-file" class="custom-file-upload">
+                    📁 CSV-Datei auswählen
+                </label>
+                <input type="file" id="csv-file" accept=".csv" onchange="importCSV(event)">
+                <p id="file-name-display" style="font-style: italic; color: gray;"></p>
+            </div>
             
             <table id="data-table">
                 <thead>
@@ -26,18 +35,23 @@ apps = {
                 <tbody>
                     <tr>
                         <td contenteditable="true">Sonnig</td>
-                        <td contenteditable="true">Heiß</td>
-                        <td contenteditable="true">Nein</td>
+                        <td contenteditable="true">Warm</td>
+                        <td contenteditable="true">Ja</td>
                     </tr>
                     <tr>
                         <td contenteditable="true">Regen</td>
-                        <td contenteditable="true">Kalt</td>
+                        <td contenteditable="true">Warm</td>
                         <td contenteditable="true">Nein</td>
                     </tr>
                     <tr>
                         <td contenteditable="true">Sonnig</td>
-                        <td contenteditable="true">Mild</td>
+                        <td contenteditable="true">Warm</td>
                         <td contenteditable="true">Ja</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true">Sonnig</td>
+                        <td contenteditable="true">Heiß</td>
+                        <td contenteditable="true">Nein</td>
                     </tr>
                 </tbody>
             </table>
