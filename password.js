@@ -16,9 +16,7 @@ async function checkPassword() {
         const data = await response.json();
 
         if (data.success) {
-            // Server sagt ja -> Login erfolgreich!
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('app-layout').style.display = 'flex';
+            login()
         } else {
             // Server sagt nein
             errorMsg.innerText = data.error;
@@ -28,4 +26,9 @@ async function checkPassword() {
         errorMsg.innerText = "Server antwortet nicht. (Falls er schläft, warte 30 Sek.)";
         errorMsg.style.display = 'block';
     }
+}
+
+function login() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app-layout').style.display = 'flex';
 }
