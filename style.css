@@ -1,57 +1,5 @@
-/* CSS Variablen für Themes */
-:root {
-    --bg-color: #f4f4f9;
-    --text-color: #333;
-    --sidebar-bg: #2c3e50;
-    --sidebar-text: #ecf0f1;
-    --primary-color: #3498db;
-    --primary-hover: #2980b9;
-    --card-bg: #ffffff;
-    --border-color: #ddd;
-    --danger-color: #e74c3c;
-    --danger-hover: #c0392b;
-    --success-color: #27ae60;
-}
-
-[data-theme="dark"] {
-    --bg-color: #1a1a2e;
-    --text-color: #e0e0e0;
-    --sidebar-bg: #16213e;
-    --sidebar-text: #e0e0e0;
-    --primary-color: #e94560;
-    --primary-hover: #d13050;
-    --card-bg: #0f3460;
-    --border-color: #2a2a4a;
-
-    --neuro-bg-primary: #374151;
-    --neuro-bg-secondary: #1f2937;
-    --neuro-shadow-dark: #111827;
-    --neuro-shadow-light: #4b5563;
-}
-
-[data-neuro="red"] {
-    --neuro-bg-primary: #f72119;
-    --neuro-bg-secondary: #ce1d17;
-    --neuro-shadow-dark: #851010;
-    --neuro-shadow-light: #ee3d3d;
-}
-
-[data-neuro="green"] {
-    --neuro-bg-primary: #22eb1b;
-    --neuro-bg-secondary: #4dce11;
-    --neuro-shadow-dark: #148d09;
-    --neuro-shadow-light: #47ff37;
-
-    --text-color: #161616;
-}
-
-[data-neuro="light_blue"] {
-    --neuro-bg-primary: #1093c7;
-    --neuro-bg-secondary: #077dcc;
-    --neuro-shadow-dark: #09328b;
-    --neuro-shadow-light: #54d7ee;
-}
-
+@import url('themes.css');
+@import url('neuro.css');
 
 /* Globale Styles */
 * {
@@ -67,16 +15,6 @@ body {
     transition: background-color 0.3s, color 0.3s; 
     height: 100vh; 
     overflow: hidden; 
-}
-
-.neuro-inset {
-  background: linear-gradient(145deg, var(--neuro-bg-secondary), var(--neuro-bg-primary));
-  box-shadow: inset 4px 4px 8px #1d1e22, inset -4px -4px 8px var(--neuro-shadow-light);
-}
-
-.neuro-raised {
-  background: linear-gradient(145deg, var(--neuro-bg-primary), var(--neuro-bg-secondary));
-  box-shadow: 8px 8px 16px var(--neuro-shadow-dark), -8px -8px 16px var(--neuro-shadow-light);
 }
 
 .rounded {
@@ -146,23 +84,34 @@ button:hover { background-color: var(--primary-hover); }
 .nav-item:hover, .nav-item.active { background: var(--primary-color); color: white; }
 .theme-switch { margin-top: auto; text-align: center; }
 
-.main-content { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+.main-content { 
+    flex: 1; 
+    padding: 30px; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+}
 
 .card {
     background-color: var(--card-bg); 
     padding: 20px; 
     border-radius: 12px; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 .card.neuro-inset {
+    background: linear-gradient(145deg, var(--neuro-bg-secondary), var(--neuro-bg-primary));
+    box-shadow: inset 4px 4px 8px #1d1e22, inset -4px -4px 8px var(--neuro-shadow-light);
     padding: 20px;
     border-radius: 12px;
 }
 
 .card.neuro-raised {
-    padding: 20px; 
-    border-radius: 12px; 
+    background: linear-gradient(145deg, var(--neuro-bg-primary), var(--neuro-bg-secondary));
+    box-shadow: 8px 8px 16px var(--neuro-shadow-dark), -8px -8px 16px var(--neuro-shadow-light);
+    padding: 20px;
+    border-radius: 12px;
 }
 
 .card-desc { margin-bottom: 15px; font-size: 0.9rem; color: #888; }

@@ -16,6 +16,9 @@ function handleEnter(e) {
 function show(id, contentname) {
   element = document.getElementById(id);
   element.innerHTML = apps[contentname];
+  if (extrafuncs[contentname]) {
+    extrafuncs[contentname]();
+  };
 }
 
 // --- Theme Logik ---
@@ -29,7 +32,7 @@ function toggleTheme() {
 }
 
 // --- Tabellen Logik ---
-const table = document.getElementById('data-table');
+table = document.getElementById('data-table');
 
 function addColumn() {
     const trHead = table.querySelector('thead tr');
@@ -105,3 +108,5 @@ function generateTree() {
     const container = document.getElementById('tree-container');
     container.innerHTML = `<div class="tree"><ul>${renderTreeHTML(treeData)}</ul></div>`;
 }
+
+show("main-content", "tree_generator")

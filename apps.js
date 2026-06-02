@@ -2,7 +2,7 @@ apps = {
     "tree_generator": `
         <h1>Entscheidungsbaum-Generator</h1>
             
-        <div class="card">
+        <div class="card neuro-inset">
             <h3>1. Datensatz eingeben</h3>
             <p class="card-desc">
                 Die letzte Spalte wird als "Ergebnis" gewertet. Klicke in die Zellen, um Text zu ändern.
@@ -102,3 +102,7 @@ apps = {
         </div>
     `
 }
+
+extrafuncs = {
+  "tree_generator": function() {table = document.getElementById('data-table');}
+};

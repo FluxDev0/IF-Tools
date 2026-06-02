@@ -1,0 +1,9 @@
+.neuro-inset {
+  background: linear-gradient(145deg, var(--neuro-bg-secondary), var(--neuro-bg-primary));
+  box-shadow: inset 4px 4px 8px #1d1e22, inset -4px -4px 8px var(--neuro-shadow-light);
+}
+
+.neuro-raised {
+  background: linear-gradient(145deg, var(--neuro-bg-primary), var(--neuro-bg-secondary));
+  box-shadow: 8px 8px 16px var(--neuro-shadow-dark), -8px -8px 16px var(--neuro-shadow-light);
+}
