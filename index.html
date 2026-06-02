@@ -13,7 +13,8 @@
             <h2>Willkommen!</h2>
             <p class="hint">Passwort eingeben:</p>
             <input class="neuro-inset" data-neuro="green" type="password" id="password-input" placeholder="Passwort..." onkeypress="handleEnter(event)">
-            <button class="neuro-inset" data-neuro="red" onclick="checkPassword()">Einloggen</button>
+            <button class="neuro-inset" data-neuro="red" onclick="loginAdmin()">Als Admin Einloggen</button>
+            <button class="neuro-inset" data-neuro="red" onclick="login()">Ohne Passwort Einloggen</button>
             <p id="error-msg">Falsches Passwort!</p>
         </div>
     </div>
@@ -34,7 +35,7 @@
         <div id="main-content" class="main-content"></div>
     </div>
 
-    <script src="password.js"></script>
+    <script src="security.js"></script>
     <script src="apps.js"></script>
     <script src="tree.js"></script>
     <script src="script.js"></script>

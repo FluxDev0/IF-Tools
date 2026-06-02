@@ -1,5 +1,5 @@
 function handleEnter(e) {
-    if (e.key === 'Enter') checkPassword();
+    if (e.key === 'Enter') loginAdmin();
 }
 
 function show(id, contentname) {
@@ -190,5 +190,4 @@ function importCSV(event) {
     reader.readAsText(file);
 }
 
-login()
 show("main-content", "tree_generator")
