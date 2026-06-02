@@ -1,14 +1,3 @@
-// --- Login Logik ---
-function checkPassword() {
-    const pwd = document.getElementById('password-input').value;
-    if (pwd === 'Admin') {
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('app-layout').style.display = 'flex';
-    } else {
-        document.getElementById('error-msg').style.display = 'block';
-    }
-}
-
 function handleEnter(e) {
     if (e.key === 'Enter') checkPassword();
 }
