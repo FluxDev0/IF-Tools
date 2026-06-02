@@ -86,22 +86,22 @@ function removeRow() {
 
 // --- Entscheidungsbaum-Trigger ---
 function generateTree() {
-    const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.innerText);
-    const rows = Array.from(table.querySelectorAll('tbody tr')).map(tr => {
-        return Array.from(tr.querySelectorAll('td')).map(td => td.innerText);
+    const table = document.getElementById('data-table');
+    const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.innerText.trim());
+    const dataSets = Array.from(table.querySelectorAll('tbody tr')).map(tr => {
+        return Array.from(tr.querySelectorAll('td')).map(td => td.innerText.trim());
     });
 
-    console.log(rows)
+    generateTreeFromData(dataSets, headers);
+}
 
-    // Ruft die Logik aus der tree.js auf
-    const treeData = buildSimpleTree(rows, headers, 0);
-
-    test(headers, rows);
-
-    console.log(treeData)
+// Der Aufruf an die Baum-KI
+function generateTreeFromData(dataSets, headers) {
+    // Hier rufen wir jetzt buildSmartTree auf!
+    const rootNode = buildSmartTree(dataSets, headers);
     
     const container = document.getElementById('tree-container');
-    container.innerHTML = `<div class="tree"><ul>${renderTreeHTML(treeData)}</ul></div>`;
+    container.innerHTML = `<div class="tree"><ul>${renderTreeHTML(rootNode)}</ul></div>`;
 }
 
 function importCSV(event) {
