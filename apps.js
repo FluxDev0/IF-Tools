@@ -90,10 +90,11 @@ apps = {
     "chat": `
     <div class="chat-container">
         <div id="chat-window" class="chat-window">
-            </div>
+            
+        </div>
         <div class="chat-input-area">
             <input type="text" id="chat-input" placeholder="Nachricht schreiben..." autocomplete="off">
-            <button class="btn-1" id="">Senden</button>
+            <button class="btn-1" onclick="sendChatMessage();">Senden</button>
         </div>
     </div>
     `,

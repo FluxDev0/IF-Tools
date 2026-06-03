@@ -58,8 +58,15 @@ function verbindeWebSocket() {
         }
 
         if (daten.type === 'CHAT_MESSAGE') {
-            const infoBox = document.getElementById('admin-announcement');
-            if (infoBox) infoBox.innerText = daten.text;
+            const chatWindow = document.getElementById('chat-window');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.innerText = daten.username + ": " + daten.text;
+            
+            chatWindow.appendChild(messageElement);
+            
+            // Automatisch nach ganz unten scrollen bei neuer Nachricht
+            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
     };
 
@@ -156,45 +163,33 @@ async function sendeAlert(textNachricht) {
   }
 }
 
-async function sendeAlert(textNachricht) {
-  const token = sessionStorage.getItem('adminToken'); 
+async function sendChatMessage() {
+    const message = document.querySelector("#chat-input").value;
 
-  if (!token) {
-    console.error('Kein Admin-Token gefunden! Bitte erst einloggen.');
-    alert('Kein Admin-Token gefunden! Bitte erst einloggen.');
-    return;
-  }
-
-  try {
+    try {
     // 2. Den POST-Request an dein Backend senden
-    const antwort = await fetch(`${SERVER_URL}/api/admin/alert`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // Hier schickst du den Token mit. 
-        // Falls dein Backend "Bearer <Token>" erwartet, schreib: `Bearer ${token}`
-        'Authorization': `Bearer ${token}`
-      },
-      // Das Backend entpackt { nachricht } aus req.body
-      body: JSON.stringify({ nachricht: textNachricht })
+    const antwort = await fetch(`${SERVER_URL}/api/chat_message`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: sessionStorage.getItem("username"), nachricht: message })
     });
 
     // 3. Antwort vom Server auswerten
     const daten = await antwort.json();
 
     if (!antwort.ok) {
-      // Falls z.B. 400 (Nachricht leer) oder 401/403 (Token falsch) zurückkommt
-      throw new Error(daten.message || 'Etwas ging schief');
+        // Falls z.B. 400 (Nachricht leer) oder 401/403 (Token falsch) zurückkommt
+        throw new Error(daten.message || 'Etwas ging schief');
     }
 
     // Erfolg! (z.B. "Nachricht an 5 Clients gesendet!")
     console.log('Erfolg:', daten.message);
     alert(daten.message);
 
-  } catch (fehler) {
-    console.error('Fehler beim Senden des Alerts:', fehler.message);
-    alert('Fehler: ' + fehler.message);
-  }
+    } catch (fehler) {
+        console.error('Fehler beim Senden des Alerts:', fehler.message);
+        alert('Fehler: ' + fehler.message);
+    }
 }
 
 // Beim Laden der Seite ausführen
