@@ -6,7 +6,7 @@
     <title>IF Tools</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="dark">
+<body data-theme="dark" style="--test: none;">
 
     <div id="login-screen">
         <div class="login-box neuro-raised rounded">
@@ -22,10 +22,11 @@
     <div id="app-layout">
         
         <div class="sidebar">
-            <h2>🛠️ Tool Suite</h2>
+            <h2>🛠️ Informatik Tools</h2>
             <div class="nav-item active" onclick="show(`main-content`, `tree_generator`)">Entscheidungsbaum</div>
+            <div class="nav-item test" onclick="show(`main-content`, `multiplayer`)">Multiplayer Test</div>
+            <div class="nav-item test" onclick="show(`main-content`, `buttons`)">Buttons</div>
             <div class="nav-item" onclick="showLoginScreen()">Admin Login</div>
-            <div class="nav-item" onclick="alert('Bro so schnell kann ich nicht neue Sachen programmieren!')">+ Neues Tool</div>
             
             <div class="theme-switch">
                 <button class="btn-1" data-neuro="light_green" onclick="toggleTheme()">🌓 Theme wechseln</button>

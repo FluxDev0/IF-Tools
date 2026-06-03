@@ -18,6 +18,10 @@ body {
     overflow: hidden; 
 }
 
+.test {
+    display: var(--test);
+}
+
 .rounded {
     border-radius: 1rem;
 }

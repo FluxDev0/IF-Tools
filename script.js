@@ -1,3 +1,5 @@
+const body = document.body
+
 function handleEnter(e) {
     if (e.key === 'Enter') loginAdmin();
 }
@@ -10,9 +12,24 @@ function show(id, contentname) {
   };
 }
 
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'F1') {
+        toggleTest();
+    }
+});
+
+function toggleTest() {
+    if (body.style.getPropertyValue("--test") == "none") {
+        body.style.setProperty("--test","flex");
+        console.log("flex");
+    } else {
+        body.style.setProperty("--test","none");
+        console.log("none");
+    }
+}
+
 // --- Theme Logik ---
 function toggleTheme() {
-    const body = document.body;
     if (body.getAttribute('data-theme') === 'dark') {
         body.removeAttribute('data-theme');
     } else {
