@@ -65,60 +65,27 @@ apps = {
         </div>
     `,
     "multiplayer": `
-        <h1>Multiplayer Test</h1>
-            
-        <div class="card">
-            <h3>1. Datensatz eingeben</h3>
-            <p class="card-desc">
-                Die letzte Spalte wird als "Ergebnis" gewertet. Klicke in die Zellen, um Text zu ändern.
-            </p>
-            <div class="controls">
-                <button class="btn-add neuro-raised" onclick="addColumn()">+ Spalte</button>
-                <button class="btn-delete neuro-raised" onclick="removeColumn()">- Spalte löschen</button>
-                <button class="btn-add neuro-raised" onclick="addRow()">+ Zeile</button>
-                <button class="btn-delete neuro-raised" onclick="removeRow()">- Zeile löschen</button>
-                <button class="btn-generate neuro-raised" onclick="generateTree()">🌳 Baum generieren</button>
-            </div>
-            
-            <table id="data-table">
-                <thead>
-                    <tr>
-                        <th contenteditable="true">Wetter</th>
-                        <th contenteditable="true">Temperatur</th>
-                        <th contenteditable="true" class="target-column">Spielen? (Ziel)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td contenteditable="true">Sonnig</td>
-                        <td contenteditable="true">Heiß</td>
-                        <td contenteditable="true">Nein</td>
-                    </tr>
-                    <tr>
-                        <td contenteditable="true">Regen</td>
-                        <td contenteditable="true">Kalt</td>
-                        <td contenteditable="true">Nein</td>
-                    </tr>
-                    <tr>
-                        <td contenteditable="true">Sonnig</td>
-                        <td contenteditable="true">Mild</td>
-                        <td contenteditable="true">Ja</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="card">
-            <h3>2. Dein generierter Baum</h3>
-            <div class="tree-container" id="tree-container">
-                <p class="placeholder-text">Klicke oben auf "Baum generieren".</p>
-            </div>
-        </div>
     `,
     "buttons": `
         <button class="btn-1" data-btn="blue">Klick mich!</button>
         <button class="btn-1" data-btn="red">Klick mich!</button>
         <button class="btn-1" data-btn="green">Klick mich!</button>
+        <button class="btn-1" data-btn="gray">Klick mich!</button>
+    `,
+    "settings": `
+        <div class="settings-box">
+            <h3>Erweiterte Einstellungen</h3>
+            
+            <div>
+                <label for="tree-border-size-input">Baum Linien Breite (in px):</label>
+                <input type="number" id="tree-border-size-input" value="2" min="0" max="100">
+            </div>
+            
+            <div>
+                <label for="border-checkbox">Runde Ecken aktivieren:</label>
+                <input type="checkbox" id="border-checkbox" checked>
+            </div>
+        </div>
     `
 }
 

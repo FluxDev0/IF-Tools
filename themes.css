@@ -16,7 +16,8 @@
     --btn-shadow: #8d0d23;
     --btn-text: white;
 
-    --tree-border: 2px;
+    --tree-border-size: 2px;
+    --tree-border-color: var(--primary-color);
 }
 
 [data-theme="dark"] {
@@ -33,6 +34,9 @@
     --neuro-bg-secondary: #1f2937;
     --neuro-shadow-dark: #111827;
     --neuro-shadow-light: #4b5563;
+
+    --tree-border-size: 2px;
+    --tree-border-color: var(--primary-color);
 }
 
 [data-neuro="red"] {

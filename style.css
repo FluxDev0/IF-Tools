@@ -72,12 +72,17 @@ button:hover { background-color: var(--primary-hover); }
 #app-layout { display: none; height: 100vh; }
         
 .sidebar {
-    width: 250px; background-color: var(--sidebar-bg); color: var(--sidebar-text);
-    padding: 20px; display: flex; flex-direction: column;
+    width: 250px; 
+    background-color: var(--sidebar-bg); 
+    color: var(--sidebar-text);
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column;
+    gap: 20px;
 }
 
 .sidebar h2 { 
-    margin-bottom: 30px; 
+    margin-bottom: 10px; 
     font-size: 1.5rem; 
     text-align: center; 
 }
@@ -146,15 +151,15 @@ td[contenteditable="true"]:focus { background: rgba(52, 152, 219, 0.1); }
     position: absolute; 
     top: 0; 
     right: 50%;
-    border-top: var(--tree-border) solid var(--primary-color); 
+    border-top: var(--tree-border-size) solid var(--tree-border-color); 
     width: 50%; 
     height: 20px;
 }
 
 .tree li::after { 
     right: auto; 
-    left: calc(50% - (var(--tree-border) / 2)); 
-    border-left: var(--tree-border) solid var(--primary-color); 
+    left: calc(50% - (var(--tree-border-size) / 2)); 
+    border-left: var(--tree-border-size) solid var(--tree-border-color); 
 }
 
 .tree li:only-child::after, .tree li:only-child::before { display: none; }
@@ -162,7 +167,7 @@ td[contenteditable="true"]:focus { background: rgba(52, 152, 219, 0.1); }
 
 .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
 .tree li:last-child::before { 
-    border-right: var(--tree-border) solid var(--primary-color); 
+    border-right: var(--tree-border-size) solid var(--tree-border-color); 
     border-radius: 0 5px 0 0; 
 }
 
@@ -172,15 +177,21 @@ td[contenteditable="true"]:focus { background: rgba(52, 152, 219, 0.1); }
     content: ''; 
     position: absolute; 
     top: 0; 
-    left: calc(50% - (var(--tree-border) / 2));
-    border-left: var(--tree-border) solid var(--primary-color); 
+    left: calc(50% - (var(--tree-border-size) / 2));
+    border-left: var(--tree-border-size) solid var(--tree-border-color); 
     width: 0; 
     height: 20px;
 }
 
 .tree li .node {
-    border: var(--tree-border) solid var(--primary-color); padding: 10px 15px; text-decoration: none;
-    color: var(--text-color); background: var(--card-bg); border-radius: 8px;
-    display: inline-block; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: var(--tree-border-size) solid var(--tree-border-color); 
+    padding: 10px 15px; 
+    text-decoration: none;
+    color: var(--text-color); 
+    background: var(--card-bg); 
+    border-radius: 8px;
+    display: inline-block; 
+    font-weight: bold; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-.tree li .edge-label { font-size: 0.8rem; color: #888; margin-bottom: 5px; display: block; }
+.tree li .edge-label { font-size: 0.8rem; color: #aaaaaa; margin-bottom: 5px; display: block; }

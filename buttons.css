@@ -19,8 +19,15 @@
     --btn-text: white;
 }
 
+[data-btn="gray"] {
+    --btn-bg: #3b3b3b;
+    --btn-bg-hover: rgb(70, 70, 70);
+    --btn-shadow: #1f1f1f;
+    --btn-text: white;
+}
+
 .btn-1 {
-    padding: 15px 30px;
+    padding: 15px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;

@@ -23,10 +23,11 @@
         
         <div class="sidebar">
             <h2>🛠️ Informatik Tools</h2>
-            <div class="nav-item active" onclick="show(`main-content`, `tree_generator`)">Entscheidungsbaum</div>
-            <div class="nav-item test" onclick="show(`main-content`, `multiplayer`)">Multiplayer Test</div>
-            <div class="nav-item test" onclick="show(`main-content`, `buttons`)">Buttons</div>
-            <div class="nav-item" onclick="showLoginScreen()">Admin Login</div>
+            <div data-btn="green" class="btn-1" onclick="show(`main-content`, `tree_generator`)">Entscheidungsbaum</div>
+            <div data-btn="gray" class="btn-1 test" onclick="show(`main-content`, `multiplayer`)">Multiplayer Test</div>
+            <div data-btn="gray" class="btn-1 test" onclick="show(`main-content`, `buttons`)">Buttons</div>
+            <div data-btn="gray" class="btn-1 test" onclick="show(`main-content`, `settings`)">Settings</div>
+            <div data-btn="gray" class="btn-1" onclick="showLoginScreen()">Admin Login</div>
             
             <div class="theme-switch">
                 <button class="btn-1" data-neuro="light_green" onclick="toggleTheme()">🌓 Theme wechseln</button>
@@ -37,6 +38,7 @@
     </div>
 
     <script src="security.js"></script>
+    <script src="table.js"></script>
     <script src="apps.js"></script>
     <script src="tree.js"></script>
     <script src="script.js"></script>
