@@ -86,7 +86,14 @@ apps = {
                 <input type="checkbox" id="border-checkbox" checked>
             </div>
         </div>
-    `
+    `,
+    "chat": `
+    `,
+    "admin_menu": `
+        <input type="text" id="text-input" placeholder="Nachricht eingeben" onkeypress="handleEnter(event)">
+        <div data-btn="blue" class="btn-1" onclick="sendeBroadcast(document.querySelector('#text-input').value);">Broadcast senden</div>
+        <div data-btn="blue" class="btn-1" onclick="sendeAlert(document.querySelector('#text-input').value);">Alert senden</div>
+    `,
 }
 
 extrafuncs = {

@@ -13,6 +13,7 @@ async function loginAdmin() {
     
     if (data.success) {
         // Ausweis im Browser merken!
+        sessionStorage.removeItem("adminToken")
         sessionStorage.setItem('adminToken', data.token);
         alert("Erfolgreich als Admin angemeldet!");
         hideLoginScreen();
@@ -55,6 +56,11 @@ function verbindeWebSocket() {
         if (daten.type === 'ALERT') {
             alert(daten.text);
         }
+
+        if (daten.type === 'CHAT_MESSAGE') {
+            const infoBox = document.getElementById('admin-announcement');
+            if (infoBox) infoBox.innerText = daten.text;
+        }
     };
 
     // Falls Render den Server schlafen legt, versuchen wir nach 5 Sekunden automatisch neu zu verbinden
@@ -66,6 +72,88 @@ function verbindeWebSocket() {
 
 function logOut() {
     sessionStorage.removeItem("adminToken")
+}
+
+async function sendeBroadcast(textNachricht) {
+  const token = sessionStorage.getItem('adminToken'); 
+
+  if (!token) {
+    alert('Kein Admin-Token gefunden! Bitte erst einloggen.');
+    console.error('Kein Admin-Token gefunden! Bitte erst einloggen.');
+    return;
+  }
+
+  try {
+    // 2. Den POST-Request an dein Backend senden
+    const antwort = await fetch(`${SERVER_URL}/api/admin/broadcast`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Hier schickst du den Token mit. 
+        // Falls dein Backend "Bearer <Token>" erwartet, schreib: `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
+      },
+      // Das Backend entpackt { nachricht } aus req.body
+      body: JSON.stringify({ nachricht: textNachricht })
+    });
+
+    // 3. Antwort vom Server auswerten
+    const daten = await antwort.json();
+
+    if (!antwort.ok) {
+      // Falls z.B. 400 (Nachricht leer) oder 401/403 (Token falsch) zurückkommt
+      throw new Error(daten.message || 'Etwas ging schief');
+    }
+
+    // Erfolg! (z.B. "Nachricht an 5 Clients gesendet!")
+    console.log('Erfolg:', daten.message);
+    alert(daten.message);
+
+  } catch (fehler) {
+    console.error('Fehler beim Senden des Broadcasts:', fehler.message);
+    alert('Fehler: ' + fehler.message);
+  }
+}
+
+async function sendeAlert(textNachricht) {
+  const token = sessionStorage.getItem('adminToken'); 
+
+  if (!token) {
+    console.error('Kein Admin-Token gefunden! Bitte erst einloggen.');
+    alert('Kein Admin-Token gefunden! Bitte erst einloggen.');
+    return;
+  }
+
+  try {
+    // 2. Den POST-Request an dein Backend senden
+    const antwort = await fetch(`${SERVER_URL}/api/admin/alert`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Hier schickst du den Token mit. 
+        // Falls dein Backend "Bearer <Token>" erwartet, schreib: `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
+      },
+      // Das Backend entpackt { nachricht } aus req.body
+      body: JSON.stringify({ nachricht: textNachricht })
+    });
+
+    // 3. Antwort vom Server auswerten
+    const daten = await antwort.json();
+
+    if (!antwort.ok) {
+      // Falls z.B. 400 (Nachricht leer) oder 401/403 (Token falsch) zurückkommt
+      throw new Error(daten.message || 'Etwas ging schief');
+    }
+
+    // Erfolg! (z.B. "Nachricht an 5 Clients gesendet!")
+    console.log('Erfolg:', daten.message);
+    alert(daten.message);
+
+  } catch (fehler) {
+    console.error('Fehler beim Senden des Alerts:', fehler.message);
+    alert('Fehler: ' + fehler.message);
+  }
 }
 
 // Beim Laden der Seite ausführen
