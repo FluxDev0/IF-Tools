@@ -2,17 +2,17 @@ apps = {
     "tree_generator": `
         <h1>Entscheidungsbaum-Generator</h1>
             
-        <div class="card neuro-inset">
+        <div class="card">
             <h3>1. Datensatz eingeben</h3>
             <p class="card-desc">
                 Die letzte Spalte wird als "Ergebnis" gewertet. Klicke in die Zellen, um Text zu ändern.
             </p>
             <div class="controls">
-                <button class="btn-add neuro-raised" onclick="addColumn()">+ Spalte</button>
-                <button class="btn-delete neuro-raised" onclick="removeColumn()">- Spalte löschen</button>
-                <button class="btn-add neuro-raised" onclick="addRow()">+ Zeile</button>
-                <button class="btn-delete neuro-raised" onclick="removeRow()">- Zeile löschen</button>
-                <button class="btn-generate neuro-raised" onclick="generateTree()">🌳 Baum generieren</button>
+                <button class="btn-1" data-btn="green" onclick="addColumn()">+ Spalte</button>
+                <button class="btn-1" data-btn="red" onclick="removeColumn()">- Spalte löschen</button>
+                <button class="btn-1" data-btn="green" onclick="addRow()">+ Zeile</button>
+                <button class="btn-1" data-btn="red" onclick="removeRow()">- Zeile löschen</button>
+                <button class="btn-1" data-btn="blue" onclick="generateTree()">🌳 Baum generieren</button>
             </div>
 
             <div class="import-section">
