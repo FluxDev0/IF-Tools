@@ -192,6 +192,11 @@ async function sendChatMessage() {
     }
 }
 
+function changeUsername(newUsername) {
+    sessionStorage.removeItem("username");
+    sessionStorage.setItem("username", newUsername);
+}
+
 // Beim Laden der Seite ausführen
 window.addEventListener('DOMContentLoaded', verbindeWebSocket);
 

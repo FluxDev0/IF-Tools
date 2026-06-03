@@ -96,6 +96,10 @@ apps = {
             <input type="text" id="chat-input" placeholder="Nachricht schreiben..." autocomplete="off">
             <button class="btn-1" onclick="sendChatMessage();">Senden</button>
         </div>
+        <div class="username-input-area">
+            <input type="text" id="username-input" placeholder="Benutzername schreiben..." autocomplete="off">
+            <button class="btn-1" onclick="changeUsername(document.querySelector('#username-input').value)">Benutzername ändern</button>
+        </div>
     </div>
     `,
     "admin_menu": `
