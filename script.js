@@ -190,4 +190,4 @@ function importCSV(event) {
     reader.readAsText(file);
 }
 
-show("main-content", "tree_generator")
+show("main-content", "tree_generator");

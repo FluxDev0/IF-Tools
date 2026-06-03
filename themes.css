@@ -10,6 +10,13 @@
     --danger-color: #e74c3c;
     --danger-hover: #c0392b;
     --success-color: #27ae60;
+
+    --btn-bg: #007bff;
+    --btn-bg-hover: #1485ff;
+    --btn-shadow: #0056b3;
+    --btn-text: white;
+
+    --tree-border: 2px;
 }
 
 [data-theme="dark"] {

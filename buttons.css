@@ -1,0 +1,50 @@
+[data-btn="blue"] {
+    --btn-bg: #007bff;
+    --btn-bg-hover: #1485ff;
+    --btn-shadow: #0056b3;
+    --btn-text: white;
+}
+
+[data-btn="red"] {
+    --btn-bg: #db1c3c;
+    --btn-bg-hover: #ee3755;
+    --btn-shadow: #8d0d23;
+    --btn-text: white;
+}
+
+[data-btn="green"] {
+    --btn-bg: #35da20;
+    --btn-bg-hover: #66f054;
+    --btn-shadow: #257e19;
+    --btn-text: white;
+}
+
+.btn-1 {
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+  
+    position: relative;
+    transition: all 0.2s ease;
+  
+    box-shadow: 0px 6px 0px var(--btn-shadow);
+}
+
+/* 1. Hover-Effekt (Wenn man mit der Maus drüberfährt) */
+.btn-1:hover {
+    background-color: var(--btn-bg-hover);
+
+    transform: translateY(-2px);
+  
+    box-shadow: 0px 8px 0px var(--btn-shadow);
+}
+
+.btn-1:active {
+    transform: translateY(6px);
+    box-shadow: 0px 0px 0px var(--btn-shadow);
+}

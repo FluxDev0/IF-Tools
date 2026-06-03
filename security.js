@@ -13,17 +13,22 @@ async function loginAdmin() {
     
     if (data.success) {
         // Ausweis im Browser merken!
-        localStorage.setItem('adminToken', data.token);
+        sessionStorage.setItem('adminToken', data.token);
         alert("Erfolgreich als Admin angemeldet!");
-        login();
+        hideLoginScreen();
     } else {
         alert("Falsches Passwort!");
     }
 }
 
-function login() {
+function hideLoginScreen() {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app-layout').style.display = 'flex';
+}
+
+function showLoginScreen() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app-layout').style.display = 'none';
 }
 
 const SOCKET_URL = SERVER_URL.replace(/^http/, 'ws');
@@ -43,13 +48,12 @@ function verbindeWebSocket() {
         const daten = JSON.parse(event.data);
 
         if (daten.type === 'BROADCAST_MESSAGE') {
-            // Eine Nachricht vom Admin ist angekommen!
-            // Du kannst sie als alert anzeigen, oder hübsch ins HTML schreiben
-            alert(daten.text);
-            
-            // Beispiel: Text in ein bestehendes HTML-Element schreiben
             const infoBox = document.getElementById('admin-announcement');
             if (infoBox) infoBox.innerText = daten.text;
+        }
+
+        if (daten.type === 'ALERT') {
+            alert(daten.text);
         }
     };
 
@@ -60,5 +64,11 @@ function verbindeWebSocket() {
     };
 }
 
+function logOut() {
+    sessionStorage.removeItem("adminToken")
+}
+
 // Beim Laden der Seite ausführen
 window.addEventListener('DOMContentLoaded', verbindeWebSocket);
+
+hideLoginScreen();

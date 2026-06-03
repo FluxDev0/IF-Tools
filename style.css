@@ -1,4 +1,5 @@
 @import url('themes.css');
+@import url('buttons.css');
 @import url('neuro.css');
 
 /* Globale Styles */
@@ -132,14 +133,18 @@ td[contenteditable="true"]:focus { background: rgba(52, 152, 219, 0.1); }
     padding: 20px; 
     display: flex; 
     justify-content: center;
-    --tree-border: 2px;
 }
 .tree ul { padding-top: 20px; position: relative; transition: all 0.5s; display: flex; }
 .tree li { text-align: center; list-style-type: none; position: relative; padding: 20px 5px 0 5px; }
 
 .tree li::before, .tree li::after {
-    content: ''; position: absolute; top: 0; right: 50%;
-    border-top: var(--tree-border) solid var(--primary-color); width: 50%; height: 20px;
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    right: 50%;
+    border-top: var(--tree-border) solid var(--primary-color); 
+    width: 50%; 
+    height: 20px;
 }
 
 .tree li::after { 
@@ -152,7 +157,10 @@ td[contenteditable="true"]:focus { background: rgba(52, 152, 219, 0.1); }
 .tree li:only-child { padding-top: 0; }
 
 .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
-.tree li:last-child::before { border-right: var(--tree-border) solid var(--primary-color); border-radius: 0 5px 0 0; }
+.tree li:last-child::before { 
+    border-right: var(--tree-border) solid var(--primary-color); 
+    border-radius: 0 5px 0 0; 
+}
 
 .tree li:first-child::after { border-radius: 5px 0 0 0; }
 

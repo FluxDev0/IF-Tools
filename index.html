@@ -12,9 +12,9 @@
         <div class="login-box neuro-raised rounded">
             <h2>Willkommen!</h2>
             <p class="hint">Passwort eingeben:</p>
-            <input class="neuro-inset" data-neuro="green" type="password" id="password-input" placeholder="Passwort..." onkeypress="handleEnter(event)">
+            <input class="neuro-inset" data-neuro="light_green" type="password" id="password-input" placeholder="Passwort..." onkeypress="handleEnter(event)">
             <button class="neuro-inset" data-neuro="red" onclick="loginAdmin()">Als Admin Einloggen</button>
-            <button class="neuro-inset" data-neuro="red" onclick="login()">Ohne Passwort Einloggen</button>
+            <button class="neuro-inset" data-neuro="red" onclick="hideLoginScreen()">Zurück</button>
             <p id="error-msg">Falsches Passwort!</p>
         </div>
     </div>
@@ -24,7 +24,7 @@
         <div class="sidebar">
             <h2>🛠️ Tool Suite</h2>
             <div class="nav-item active" onclick="show(`main-content`, `tree_generator`)">Entscheidungsbaum</div>
-            <div class="nav-item" onclick="show(`main-content`, `multiplayer`)">Multiplayer Test</div>
+            <div class="nav-item" onclick="showLoginScreen()">Admin Login</div>
             <div class="nav-item" onclick="alert('Bro so schnell kann ich nicht neue Sachen programmieren!')">+ Neues Tool</div>
             
             <div class="theme-switch">

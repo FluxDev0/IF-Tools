@@ -114,6 +114,11 @@ apps = {
                 <p class="placeholder-text">Klicke oben auf "Baum generieren".</p>
             </div>
         </div>
+    `,
+    "buttons": `
+        <button class="btn-1" data-btn="blue">Klick mich!</button>
+        <button class="btn-1" data-btn="red">Klick mich!</button>
+        <button class="btn-1" data-btn="green">Klick mich!</button>
     `
 }
 
