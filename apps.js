@@ -67,10 +67,10 @@ apps = {
     "multiplayer": `
     `,
     "buttons": `
-        <button class="btn-1" data-btn="blue">Klick mich!</button>
-        <button class="btn-1" data-btn="red">Klick mich!</button>
-        <button class="btn-1" data-btn="green">Klick mich!</button>
-        <button class="btn-1" data-btn="gray">Klick mich!</button>
+        <button class="btn-1" data-btn="blue">Klick mich!!</button>
+        <button class="btn-1" data-btn="red">Klick mich!!</button>
+        <button class="btn-1" data-btn="green">Klick mich!!</button>
+        <button class="btn-1" data-btn="gray">Klick mich!!</button>
     `,
     "settings": `
         <div class="settings-box">
@@ -88,6 +88,14 @@ apps = {
         </div>
     `,
     "chat": `
+    <div class="chat-container">
+        <div id="chat-window" class="chat-window">
+            </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Nachricht schreiben..." autocomplete="off">
+            <button class="btn-1" id="">Senden</button>
+        </div>
+    </div>
     `,
     "admin_menu": `
         <input type="text" id="text-input" placeholder="Nachricht eingeben" onkeypress="handleEnter(event)">
