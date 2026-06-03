@@ -184,7 +184,6 @@ async function sendChatMessage() {
 
     // Erfolg! (z.B. "Nachricht an 5 Clients gesendet!")
     console.log('Erfolg:', daten.message);
-    alert(daten.message);
 
     } catch (fehler) {
         console.error('Fehler beim Senden des Alerts:', fehler.message);
