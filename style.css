@@ -1,4 +1,5 @@
 @import url('themes.css');
+@import url('chat.css');
 @import url('buttons.css');
 @import url('neuro.css');
 
@@ -24,6 +25,10 @@ body {
 
 .rounded {
     border-radius: 1rem;
+}
+
+.message div {
+    display: contents;
 }
 
 #login-screen {
@@ -111,7 +116,7 @@ button:hover { background-color: var(--primary-hover); }
 
 .main-content .app { 
     flex: 1; 
-    padding: 30px; 
+    padding: 30px;
     overflow-y: auto; 
     display: flex; 
     flex-direction: column; 

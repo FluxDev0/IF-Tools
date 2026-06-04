@@ -61,8 +61,13 @@ function verbindeWebSocket() {
             const chatWindow = document.getElementById('chat-window');
             const messageElement = document.createElement('div');
             messageElement.classList.add('message');
-            messageElement.innerText = daten.username + ": " + daten.text;
+            const username = document.createElement('div');
+            username.innerText = daten.username + ": ";
+            const message = document.createElement('div');
+            message.innerText = daten.text;
             
+            messageElement.appendChild(username);
+            messageElement.appendChild(message);
             chatWindow.appendChild(messageElement);
             
             // Automatisch nach ganz unten scrollen bei neuer Nachricht
@@ -137,8 +142,6 @@ async function sendeAlert(textNachricht) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Hier schickst du den Token mit. 
-        // Falls dein Backend "Bearer <Token>" erwartet, schreib: `Bearer ${token}`
         'Authorization': `Bearer ${token}`
       },
       // Das Backend entpackt { nachricht } aus req.body
@@ -167,11 +170,16 @@ async function sendChatMessage() {
     const message = document.querySelector("#chat-input").value;
     if (!message) console.log("leere nachricht");
 
+    const token = sessionStorage.getItem("adminToken");
+
     try {
     // 2. Den POST-Request an dein Backend senden
     const antwort = await fetch(`${SERVER_URL}/api/chat_message`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
         body: JSON.stringify({ username: sessionStorage.getItem("username"), message: message })
     });
 

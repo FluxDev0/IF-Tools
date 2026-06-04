@@ -28,7 +28,7 @@
 
 .btn-1 {
     padding: var(--btn-pad);
-    font-size: 18px;
+    font-size: var(--btn-font-size);
     font-weight: var(--btn-font-weight);
     cursor: pointer;
     border: none;

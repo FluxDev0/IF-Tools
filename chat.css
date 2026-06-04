@@ -1,0 +1,26 @@
+.chat-container {
+    --btn-font-size: 15px;
+    --btn-pad: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: auto;
+    height: 100%;
+    gap: 20px;
+    padding-bottom: 10px;
+}
+
+.chat-container input {
+    position: relative;
+    top: 6px;
+    height: 40px;
+    border-radius: 12px;
+    width: 200px;
+    border: none;
+}
+
+.chat-window {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
