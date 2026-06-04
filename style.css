@@ -1,8 +1,8 @@
-@import url('tictacto.css');
 @import url('themes.css');
 @import url('chat.css');
 @import url('buttons.css');
 @import url('neuro.css');
+@import url('tictacto.css');
 
 * {
     box-sizing: border-box;
