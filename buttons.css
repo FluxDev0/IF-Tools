@@ -27,7 +27,7 @@
 }
 
 .btn-1 {
-    padding: 15px;
+    padding: var(--btn-pad);
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;

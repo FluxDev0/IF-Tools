@@ -17,3 +17,5 @@ function showApp(app) {
         }
     }
 }
+
+showApp("tree-generator");
