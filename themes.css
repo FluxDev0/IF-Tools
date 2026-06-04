@@ -16,6 +16,8 @@
     --btn-shadow: #8d0d23;
     --btn-text: white;
     --btn-pad: 15px;
+    --btn-font-size: 18px;
+    --btn-font-weight: bold;
 
     --tree-border-size: 2px;
     --tree-border-color: var(--primary-color);

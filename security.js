@@ -165,13 +165,14 @@ async function sendeAlert(textNachricht) {
 
 async function sendChatMessage() {
     const message = document.querySelector("#chat-input").value;
+    if (!message) console.log("leere nachricht");
 
     try {
     // 2. Den POST-Request an dein Backend senden
     const antwort = await fetch(`${SERVER_URL}/api/chat_message`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: sessionStorage.getItem("username"), nachricht: message })
+        body: JSON.stringify({ username: sessionStorage.getItem("username"), message: message })
     });
 
     // 3. Antwort vom Server auswerten
