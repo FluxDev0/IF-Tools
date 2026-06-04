@@ -75,6 +75,14 @@ button:hover { background-color: var(--primary-hover); }
     width: 250px; 
     background-color: var(--sidebar-bg); 
     color: var(--sidebar-text);
+    display: flex; 
+    flex-direction: column;
+}
+
+#apps {
+    width: 250px; 
+    background-color: var(--sidebar-bg); 
+    color: var(--sidebar-text);
     padding: 20px; 
     display: flex; 
     flex-direction: column;
@@ -92,15 +100,31 @@ button:hover { background-color: var(--primary-hover); }
     border-radius: 6px; cursor: pointer; transition: 0.2s;
 }
 .nav-item:hover, .nav-item.active { background: var(--primary-color); color: white; }
-.theme-switch { margin-top: auto; text-align: center; }
+.other-btns {
+    display: flex; 
+    flex-direction: column;
+    margin-top: auto; 
+    text-align: center;
+    padding: 20px; 
+    gap: 20px;
+}
 
-.main-content { 
+.main-content .app { 
     flex: 1; 
     padding: 30px; 
     overflow-y: auto; 
     display: flex; 
     flex-direction: column; 
-    gap: 20px; 
+    gap: 20px;
+}
+
+.main-content { 
+    flex: 1; 
+    padding: 0px; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px;
 }
 
 .card {

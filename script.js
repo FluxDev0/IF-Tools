@@ -4,14 +4,6 @@ function handleEnter(e) {
     if (e.key === 'Enter') loginAdmin();
 }
 
-function show(id, contentname) {
-  element = document.getElementById(id);
-  element.innerHTML = apps[contentname];
-  if (extrafuncs[contentname]) {
-    extrafuncs[contentname]();
-  };
-}
-
 window.addEventListener('keydown', (event) => {
     if (event.key === 'F1') {
         toggleTest();
@@ -142,5 +134,3 @@ function importCSV(event) {
     // Datei als Text einlesen
     reader.readAsText(file);
 }
-
-show("main-content", "tree_generator");
