@@ -62,9 +62,10 @@ function verbindeWebSocket() {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message');
             const username = document.createElement('div');
-            username.innerText = daten.username + ": ";
+            username.innerText = daten.username;
+            username.classList.add(`${daten.role}-role`);
             const message = document.createElement('div');
-            message.innerText = daten.text;
+            message.innerText =  ": " + daten.text;
             
             messageElement.appendChild(username);
             messageElement.appendChild(message);

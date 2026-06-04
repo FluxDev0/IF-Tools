@@ -1,9 +1,9 @@
+@import url('tictacto.css');
 @import url('themes.css');
 @import url('chat.css');
 @import url('buttons.css');
 @import url('neuro.css');
 
-/* Globale Styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -25,10 +25,6 @@ body {
 
 .rounded {
     border-radius: 1rem;
-}
-
-.message div {
-    display: contents;
 }
 
 #login-screen {
