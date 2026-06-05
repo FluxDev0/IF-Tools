@@ -73,6 +73,10 @@ function verbindeWebSocket() {
             
             // Automatisch nach ganz unten scrollen bei neuer Nachricht
             chatWindow.scrollTop = chatWindow.scrollHeight;
+            
+            if (activeApp !== "chat") {
+              showToast(`${username} hat eine neue Nachricht gesenedet: ${message}`, "chat")
+            }
         }
     };
 

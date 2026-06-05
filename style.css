@@ -3,6 +3,7 @@
 @import url('buttons.css');
 @import url('neuro.css');
 @import url('tictacto.css');
+@import url('toasts.css');
 
 * {
     box-sizing: border-box;
@@ -16,7 +17,7 @@ body {
     color: var(--text-color); 
     transition: background-color 0.3s, color 0.3s; 
     height: 100vh; 
-    overflow: hidden; 
+    overflow: auto; 
 }
 
 .test {

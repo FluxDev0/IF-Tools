@@ -2,7 +2,10 @@ extrafuncs = {
   "tree_generator": function() {table = document.getElementById('data-table');}
 };
 
+let activeApp = "";
+
 function showApp(app) {
+    activeApp = app;
     for (const child of document.querySelector("#main-content").children) {
         child.style.display = "none";
         if (child.id == app) {
