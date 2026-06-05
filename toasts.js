@@ -19,7 +19,3 @@ function showToast(text, typ = 'info') {
         
     }, 4000);
 }
-
-showToast("Test 1");
-showToast("Test 2", "error");
-showToast("Test 1", "chat");
