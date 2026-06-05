@@ -75,7 +75,7 @@ function verbindeWebSocket() {
             chatWindow.scrollTop = chatWindow.scrollHeight;
             
             if (activeApp !== "chat") {
-              showToast(`${username} hat eine neue Nachricht gesenedet: ${message}`, "chat")
+              showToast(`${daten.username} hat eine neue Nachricht gesenedet: ${daten.text}`, "chat")
             }
         }
     };
