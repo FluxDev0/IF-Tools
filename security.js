@@ -78,6 +78,22 @@ function verbindeWebSocket() {
               showToast(`${daten.username} hat eine neue Nachricht gesenedet: ${daten.text}`, "chat")
             }
         }
+
+        if (daten.type === 'SNAKE_UPDATE') {
+            const statusText = document.getElementById('snake-status');
+            if (statusText) statusText.innerText = "Spiel läuft aktiv! Steuerung via WASD / Pfeiltasten.";
+            
+            zeichneSnakeSpiel(daten.snake, daten.food);
+        }
+
+        if (daten.type === 'SNAKE_RESET') {
+            // Wenn jemand gecrasht ist, werfen wir kurz einen Toast oder Alert
+            if (typeof showToast === "function") {
+                showToast(daten.message, "error");
+            } else {
+                console.log(daten.message);
+            }
+        }
     };
 
     // Falls Render den Server schlafen legt, versuchen wir nach 5 Sekunden automatisch neu zu verbinden

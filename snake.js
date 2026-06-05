@@ -6,7 +6,9 @@ const CELL_SIZE = 20;
 
 // Tastatur-Eingaben abfangen und direkt an den Server funken!
 window.addEventListener('keydown', (e) => {
-    // Nur senden, wenn wir auch wirklich in der Snake-App aktiv sind
+    
+    console.log("test 1", e);
+
     if (activeApp !== "multiplayer-snake" || !socket || socket.readyState !== 1) return;
 
     let dir = null;
@@ -16,11 +18,11 @@ window.addEventListener('keydown', (e) => {
     if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") dir = "RIGHT";
 
     if (dir) {
+        console.log("test 2")
         socket.send(JSON.stringify({ type: 'SNAKE_INPUT', dir: dir }));
     }
 });
 
-// Diese Funktion zeichnet das Spielfeld, wenn der Server uns Daten schickt
 function zeichneSnakeSpiel(snakeData, foodData) {
     if (!ctx) return;
 
