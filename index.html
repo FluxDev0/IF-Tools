@@ -24,9 +24,10 @@
         <div class="login-box neuro-raised rounded">
             <h2>Willkommen!</h2>
             <p class="hint">Passwort eingeben:</p>
-            <input class="neuro-inset" data-neuro="light_green" type="password" id="password-input" placeholder="Passwort..." onkeypress="handleEnter(event)">
-            <button class="neuro-inset" data-neuro="red" onclick="loginAdmin()">Als Admin Einloggen</button>
-            <button class="neuro-inset" data-neuro="red" onclick="hideLoginScreen()">Zurück</button>
+            <input type="text" id="username-input" placeholder="Benutzername..." onkeypress="handleEnter(event)">
+            <input type="password" id="password-input" placeholder="Passwort..." onkeypress="handleEnter(event)">
+            <button class="btn-1" data-btn="green" onclick="login()">Einloggen</button>
+            <button class="btn-1" data-btn="red" onclick="hideLoginScreen()">Zurück</button>
             <p id="error-msg">Falsches Passwort!</p>
         </div>
     </div>
@@ -47,7 +48,7 @@
             </div>
 
             <div data-btn="blue" class="other-btns">
-                <button class="btn-1" onclick="showLoginScreen()">Admin Login</button>
+                <button class="btn-1" onclick="showLoginScreen()">Login</button>
                 <button class="btn-1" onclick="toggleTheme()">🌓 Theme wechseln</button>
             </div>
         </div>
@@ -144,11 +145,6 @@
             </div>
             <div class="app" id="chat" style="display: none;">
                 <div class="chat-container">
-                    <div class="username-input-area">
-                        <input type="text" id="username-input" placeholder="Benutzername schreiben..." autocomplete="off">
-                        <button class="btn-1" onclick="changeUsername(document.querySelector('#username-input').value)">Benutzername ändern</button>
-                    </div>
-
                     <div class="chat-input-area">
                         <input type="text" id="chat-input" placeholder="Nachricht schreiben..." autocomplete="off">
                         <button class="btn-1" onclick="sendChatMessage();">Senden</button>

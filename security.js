@@ -1,24 +1,27 @@
 const SERVER_URL = "https://if-tools-backend.onrender.com";
 
-async function loginAdmin() {
-    const passwordInput = document.getElementById('password-input').value;
-    
+async function login() {
     const response = await fetch(`${SERVER_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: passwordInput })
+        body: JSON.stringify({
+          username: document.querySelector('.login-box #username-input').value, 
+          password: document.querySelector('.login-box #password-input').value
+        })
     });
     
     const data = await response.json();
     
     if (data.success) {
         // Ausweis im Browser merken!
-        sessionStorage.removeItem("adminToken")
-        sessionStorage.setItem('adminToken', data.token);
-        alert("Erfolgreich als Admin angemeldet!");
+        sessionStorage.removeItem("accountToken")
+        sessionStorage.setItem('accountToken', data.token);
+        sessionStorage.setItem('username', data.username);
+        sessionStorage.setItem('role', data.role);
+        showToast(data.message, "info");
         hideLoginScreen();
     } else {
-        alert("Falsches Passwort!");
+        alert(data.message);
     }
 }
 
@@ -104,11 +107,11 @@ function verbindeWebSocket() {
 }
 
 function logOut() {
-    sessionStorage.removeItem("adminToken")
+    sessionStorage.removeItem("accountToken")
 }
 
 async function sendeBroadcast(textNachricht) {
-  const token = sessionStorage.getItem('adminToken'); 
+  const token = sessionStorage.getItem('accountToken'); 
 
   if (!token) {
     alert('Kein Admin-Token gefunden! Bitte erst einloggen.');
@@ -149,7 +152,7 @@ async function sendeBroadcast(textNachricht) {
 }
 
 async function sendeAlert(textNachricht) {
-  const token = sessionStorage.getItem('adminToken'); 
+  const token = sessionStorage.getItem('accountToken'); 
 
   if (!token) {
     console.error('Kein Admin-Token gefunden! Bitte erst einloggen.');
@@ -188,10 +191,10 @@ async function sendeAlert(textNachricht) {
 }
 
 async function sendChatMessage() {
-    const message = document.querySelector("#chat-input").value;
+    const message = document.querySelector(".chat-container #chat-input").value;
     if (!message) console.log("leere nachricht");
 
-    const token = sessionStorage.getItem("adminToken");
+    const token = sessionStorage.getItem("accountToken");
 
     try {
     // 2. Den POST-Request an dein Backend senden

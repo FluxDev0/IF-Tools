@@ -5,7 +5,7 @@ function handleEnter(e) {
 }
 
 window.addEventListener('keydown', (event) => {
-    if (event.key === 'F1') {
+    if (event.key === 'ß') {
         toggleTest();
     }
 });

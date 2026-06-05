@@ -6,8 +6,6 @@ const CELL_SIZE = 20;
 
 // Tastatur-Eingaben abfangen und direkt an den Server funken!
 window.addEventListener('keydown', (e) => {
-    
-    console.log("test 1", e);
 
     if (activeApp !== "multiplayer-snake" || !socket || socket.readyState !== 1) return;
 
@@ -18,7 +16,6 @@ window.addEventListener('keydown', (e) => {
     if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") dir = "RIGHT";
 
     if (dir) {
-        console.log("test 2")
         socket.send(JSON.stringify({ type: 'SNAKE_INPUT', dir: dir }));
     }
 });

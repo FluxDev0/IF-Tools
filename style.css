@@ -44,13 +44,13 @@ body {
 .hint { margin-bottom: 15px; font-size: 0.9em; color: gray; }
 #error-msg { color: var(--danger-color); margin-top: 10px; display: none; font-weight: bold; }
 
-input[type="password"] {
+.login-box input[type="password"], .login-box input#username-input {
     width: 100%; 
     padding: 12px; 
     margin-bottom: 15px; 
     border: none;
     border-radius: 6px; 
-    color: var(--text-color);
+    color: #000;
 }
 
 /* Buttons */
