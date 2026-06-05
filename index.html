@@ -17,7 +17,7 @@
     </div>
 
     <div id="toast-container"> 
-        
+
     </div>
 
     <div id="login-screen">
@@ -43,6 +43,7 @@
                 <div data-app="chat" class="btn-1" onclick="showApp(`chat`)">Chat</div>
                 <div data-app="admin-menu" class="btn-1 test" onclick="showApp(`admin-menu`)">Admin Menü</div>
                 <div data-app="tic-tac-to" class="btn-1 test" onclick="showApp(`tic-tac-to`)">Tic Tac To</div>
+                <div data-app="multiplayer-snake" class="btn-1 test" onclick="showApp('multiplayer-snake')">🐍 Multiplayer Snake</div>
             </div>
 
             <div data-btn="blue" class="other-btns">
@@ -181,6 +182,14 @@
                     <button id="reset-btn" data-btn="blue" class="btn-1">Spiel neu starten</button>
                 </body2>
             </div>
+            <div class="app" id="multiplayer-snake" style="display: none;">
+                <div class="game-container">
+                    <h1>🌐 Multiplayer Snake</h1>
+                    <p id="snake-status">Verbinde mit dem Server...</p>
+                    
+                    <canvas id="snakeCanvas" width="400" height="400" style="background-color: #1e272e; border: 4px solid #2f3542; border-radius: 8px;"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -191,5 +200,6 @@
     <script src="script.js"></script>
     <script src="tictacto.js"></script>
     <script src="toasts.js"></script>
+    <script src="snake.js"></script>
 </body>
 </html>

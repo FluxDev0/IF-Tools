@@ -4,6 +4,7 @@
 @import url('neuro.css');
 @import url('tictacto.css');
 @import url('toasts.css');
+@import url('snake.css');
 
 * {
     box-sizing: border-box;
