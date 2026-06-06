@@ -27,7 +27,8 @@
             <input type="text" id="username-input" placeholder="Benutzername..." onkeypress="handleEnter(event)">
             <input type="password" id="password-input" placeholder="Passwort..." onkeypress="handleEnter(event)">
             <button class="btn-1" data-btn="green" onclick="login()">Einloggen</button>
-            <button class="btn-1" data-btn="red" onclick="hideLoginScreen()">Zurück</button>
+            <button class="btn-1" data-btn="red" onclick="logOut()">Ausloggen</button>
+            <button class="btn-1" data-btn="gray" onclick="hideLoginScreen()">Zurück</button>
             <p id="error-msg">Falsches Passwort!</p>
         </div>
     </div>
@@ -48,7 +49,7 @@
             </div>
 
             <div data-btn="blue" class="other-btns">
-                <button class="btn-1" onclick="showLoginScreen()">Login</button>
+                <button class="btn-1" id="login-btn" onclick="showLoginScreen()">Login</button>
                 <button class="btn-1" onclick="toggleTheme()">🌓 Theme wechseln</button>
             </div>
         </div>

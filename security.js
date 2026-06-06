@@ -19,6 +19,7 @@ async function login() {
         sessionStorage.setItem('username', data.username);
         sessionStorage.setItem('role', data.role);
         showToast(data.message, "info");
+        document.querySelector(".other-btns #login-btn").innerText = data.username;
         hideLoginScreen();
     } else {
         alert(data.message);
@@ -107,15 +108,18 @@ function verbindeWebSocket() {
 }
 
 function logOut() {
-    sessionStorage.removeItem("accountToken")
+  sessionStorage.removeItem("accountToken")
+  sessionStorage.removeItem("role")
+  sessionStorage.setItem("username", "Kein Benutzername")
+  document.querySelector(".other-btns #login-btn").innerText = "Login";
 }
 
 async function sendeBroadcast(textNachricht) {
   const token = sessionStorage.getItem('accountToken'); 
 
   if (!token) {
-    alert('Kein Admin-Token gefunden! Bitte erst einloggen.');
-    console.error('Kein Admin-Token gefunden! Bitte erst einloggen.');
+    alert('Kein Account-Token gefunden! Bitte erst einloggen.');
+    console.error('Kein Account-Token gefunden! Bitte erst einloggen.');
     return;
   }
 
@@ -155,8 +159,8 @@ async function sendeAlert(textNachricht) {
   const token = sessionStorage.getItem('accountToken'); 
 
   if (!token) {
-    console.error('Kein Admin-Token gefunden! Bitte erst einloggen.');
-    alert('Kein Admin-Token gefunden! Bitte erst einloggen.');
+    console.error('Kein Account-Token gefunden! Bitte erst einloggen.');
+    alert('Kein Account-Token gefunden! Bitte erst einloggen.');
     return;
   }
 
@@ -169,7 +173,7 @@ async function sendeAlert(textNachricht) {
         'Authorization': `Bearer ${token}`
       },
       // Das Backend entpackt { nachricht } aus req.body
-      body: JSON.stringify({ nachricht: textNachricht })
+      body: JSON.stringify({ message: textNachricht })
     });
 
     // 3. Antwort vom Server auswerten
@@ -196,8 +200,12 @@ async function sendChatMessage() {
 
     const token = sessionStorage.getItem("accountToken");
 
+    if (!sessionStorage.getItem("accountToken")) {
+      showToast("Du musst dich einloggen um eine Chatnachricht zu senden", "error")
+      return;
+    }
+
     try {
-    // 2. Den POST-Request an dein Backend senden
     const antwort = await fetch(`${SERVER_URL}/api/chat_message`, {
         method: 'POST',
         headers: {
@@ -234,4 +242,8 @@ window.addEventListener('DOMContentLoaded', verbindeWebSocket);
 
 hideLoginScreen();
 
-sessionStorage.setItem("username", "Kein Benutzername")
+if (sessionStorage.getItem("accountToken")) {
+  document.querySelector(".other-btns #login-btn").innerText = sessionStorage.getItem("username");
+} else {
+  sessionStorage.setItem("username", "Kein Benutzername")
+}
