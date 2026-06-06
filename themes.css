@@ -21,6 +21,8 @@
 
     --tree-border-size: 2px;
     --tree-border-color: var(--primary-color);
+
+    --logic-main-color: #0a2650;
 }
 
 [data-theme="dark"] {

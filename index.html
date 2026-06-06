@@ -39,8 +39,9 @@
             <h2>🛠️ Informatik Tools</h2>
             <div id="apps">
                 <div data-app="tree-generator" class="btn-1" onclick="showApp(`tree-generator`)">Entscheidungsbaum</div>
-                <div data-app="multiplayer" class="btn-1 test" onclick="showApp(`multiplayer`)">Multiplayer Test</div>
                 <div data-app="buttons" class="btn-1 test" onclick="showApp(`buttons`)">Buttons</div>
+                <div data-app="logicgates" class="btn-1" onclick="showApp(`logicgates`)">Logikgatter</div>
+                <div data-app="testing" class="btn-1 test" onclick="showApp(`testing`)">Testbereich</div>
                 <div data-app="settings" class="btn-1 test" onclick="showApp(`settings`)">Settings</div>
                 <div data-app="chat" class="btn-1" onclick="showApp(`chat`)">Chat</div>
                 <div data-app="admin-menu" class="btn-1 test" onclick="showApp(`admin-menu`)">Admin Menü</div>
@@ -120,9 +121,6 @@
                     </div>
                 </div>
             </div>
-            <div class="app" id="mutliplayer" style="display: none;">
-                
-            </div>
             <div class="app" id="buttons" style="display: none;">
                 <button class="btn-1" data-btn="blue">Klick mich!!</button>
                 <button class="btn-1" data-btn="red">Klick mich!!</button>
@@ -187,10 +185,23 @@
                     <canvas id="snakeCanvas" width="400" height="400" style="background-color: #1e272e; border: 4px solid #2f3542; border-radius: 8px;"></canvas>
                 </div>
             </div>
+            <div class="app" id="logicgates" style="display: none;">
+                <button class="btn-1" onclick="createGate('NOT')">NOT Gatter</button>
+                <button class="btn-1" onclick="createGate('OR')">OR Gatter</button>
+                <button class="btn-1" onclick="createGate('AND')">AND Gatter</button>
+            </div>
+            <div class="app" id="testing" style="display: none;">
+                <div id="test-area"></div>
+                <input type="text" id="html-input" placeholder="HTML...">
+
+                <input type="text" id="jsInput" placeholder="z. B. 2 + 2 oder alert('Hi!')">
+                <button id="runBtn" class="btn-1">Los!</button>
+            </div>
         </div>
     </div>
 
-    <script src="security.js"></script>
+    <svg id="cable-layer"></svg>
+
     <script src="table.js"></script>
     <script src="apps.js"></script>
     <script src="tree.js"></script>
@@ -198,5 +209,9 @@
     <script src="tictacto.js"></script>
     <script src="toasts.js"></script>
     <script src="snake.js"></script>
+    <script src="test/testing.js"></script>
+    <script src="test/cables.js"></script>
+    <script src="test/logic.js"></script>
+    <script src="security.js"></script>
 </body>
 </html>

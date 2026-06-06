@@ -1,0 +1,111 @@
+.draggable {
+    position: absolute;
+}
+
+.on {
+    --logic-main-color: #15aed4;
+}
+
+.bit {
+    background-color: var(--logic-main-color);
+    height: 40px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid #285ed1;
+}
+
+#cable-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 50;
+}
+
+/* Das Aussehen der Kabel */
+.cable {
+    fill: none;
+    stroke: var(--logic-main-color, #ff4757); /* Standard Neon-Rot, falls die Variable fehlt */
+    stroke-width: 4;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 5px var(--logic-main-color));
+    transition: d 0.1s ease-out;
+
+    pointer-events: stroke; /* Nur die sichtbare Linie fängt Klicks ab! */
+    cursor: pointer;
+}
+
+.draggable-box {
+    position: absolute; /* Wichtig für die freie Bewegung! */
+    width: 250px;
+    background-color: var(--neuro-bg-primary, #2f3640);
+    border: 1px solid #718093;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+.box-content {
+    padding: 15px;
+    color: white;
+}
+
+.gate-box {
+    width: 100px;
+    background-color: #121938;
+    border: 2px solid #1472ec;
+    border-radius: 10px;
+    user-select: none;
+    cursor: grab;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    height: 70px;
+}
+
+.gate-box:active {
+    cursor: grabbing;
+}
+
+/* Das Logik-Symbol in der Mitte (&, >=1, 1) */
+.gate-symbol {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    width: 100%;
+    text-align: center;
+}
+
+/* Container für die Pins */
+.gate-inputs, .gate-outputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.gate-inputs { left: -8px; }   /* Leicht nach links über den Rand schieben */
+.gate-outputs { right: -8px; } /* Leicht nach rechts über den Rand schieben */
+
+/* Die eigentlichen Kabel-Anschlüsse (Pins) */
+.pin {
+    width: 14px;
+    height: 14px;
+    background-color: var(--logic-main-color);
+    border: 2px solid #1179ce;
+    border-radius: 50%;
+    cursor: crosshair;
+    transition: background-color 0.2s;
+}
+
+.pin.selected {
+    background-color: #ffca28 !important; /* Gelb */
+    box-shadow: 0 0 12px #ffca28;
+    transform: scale(1.2);
+}

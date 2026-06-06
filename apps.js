@@ -6,6 +6,7 @@ let activeApp = "";
 
 function showApp(app) {
     activeApp = app;
+    sessionStorage.setItem("activeApp", app);
     for (const child of document.querySelector("#main-content").children) {
         child.style.display = "none";
         if (child.id == app) {
@@ -21,4 +22,9 @@ function showApp(app) {
     }
 }
 
-showApp("tree-generator");
+if (sessionStorage.getItem("activeApp")) {
+    showApp(sessionStorage.getItem("activeApp"));
+}
+else {
+    showApp("tree-generator");
+}

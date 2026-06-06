@@ -1,6 +1,4 @@
-table = document.getElementById('data-table');
-
-function addColumn() {
+function addColumn(table = document.querySelector('#data-table')) {
     const trHead = table.querySelector('thead tr');
     const th = document.createElement('th');
     th.contentEditable = "true";
@@ -18,7 +16,7 @@ function addColumn() {
     });
 }
 
-function removeColumn() {
+function removeColumn(table = document.querySelector('#data-table')) {
     const trHead = table.querySelector('thead tr');
     const cols = trHead.querySelectorAll('th');
     
@@ -37,7 +35,7 @@ function removeColumn() {
     }
 }
 
-function addRow() {
+function addRow(table = document.querySelector('#data-table')) {
     const tbody = table.querySelector('tbody');
     const cols = table.querySelectorAll('thead th').length;
     const tr = document.createElement('tr');
@@ -50,7 +48,7 @@ function addRow() {
     tbody.appendChild(tr);
 }
 
-function removeRow() {
+function removeRow(table = document.querySelector('#data-table')) {
     const tbody = table.querySelector('tbody');
     const rows = tbody.querySelectorAll('tr');
     

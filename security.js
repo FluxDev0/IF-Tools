@@ -247,3 +247,5 @@ if (sessionStorage.getItem("accountToken")) {
 } else {
   sessionStorage.setItem("username", "Kein Benutzername")
 }
+
+showApp

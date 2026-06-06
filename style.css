@@ -5,12 +5,13 @@
 @import url('tictacto.css');
 @import url('toasts.css');
 @import url('snake.css');
+@import url('test/style.css');
+@import url('test/testing.css');
 
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -19,6 +20,7 @@ body {
     transition: background-color 0.3s, color 0.3s; 
     height: 100vh; 
     overflow: auto; 
+    margin: 0px;
 }
 
 .test {
@@ -47,13 +49,12 @@ body {
 .login-box input[type="password"], .login-box input#username-input {
     width: 100%; 
     padding: 12px; 
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
     border: none;
     border-radius: 6px; 
     color: #000;
 }
 
-/* Buttons */
 button {
     color: white; 
     border: none;
@@ -93,7 +94,8 @@ button:hover { background-color: var(--primary-hover); }
 }
 
 .sidebar h2 { 
-    margin-bottom: 10px; 
+    margin: 0px;
+    margin-bottom: 10px;
     font-size: 1.5rem; 
     text-align: center; 
 }
@@ -156,12 +158,12 @@ button:hover { background-color: var(--primary-hover); }
 .controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
 
 /* Tabelle */
-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-th, td { border: 1px solid var(--border-color); padding: 10px; text-align: center; }
-th { background-color: rgba(0,0,0,0.05); }
-.target-column { color: var(--primary-color); font-weight: bold; }
-td[contenteditable="true"] { outline: none; transition: background 0.2s; }
-td[contenteditable="true"]:focus { background: rgba(52, 152, 219, 0.1); }
+table#data-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+table#data-table th, table#data-table td { border: 1px solid var(--border-color); padding: 10px; text-align: center; }
+table#data-table th { background-color: rgba(0,0,0,0.05); }
+table#data-table .target-column { color: var(--primary-color); font-weight: bold; }
+table#data-table td[contenteditable="true"] { outline: none; transition: background 0.2s; }
+table#data-table td[contenteditable="true"]:focus { background: rgba(52, 152, 219, 0.1); }
 
 /* --- CSS Tree Visualisierung --- */
 .tree-container { 
