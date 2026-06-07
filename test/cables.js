@@ -57,7 +57,7 @@ class Cable {
     }
 
     update() {
-        if (!this.el1 || !this.el2) return;
+        if (this.isRemoved || !this.el1 || !this.el2) return;
 
         const color = window.getComputedStyle(this.el1).getPropertyValue('--logic-main-color').trim();
         this.path.style.setProperty("--logic-main-color", color);
@@ -104,8 +104,31 @@ class Cable {
     }
 
     remove() {
+        this.isRemoved = true;
+
+        // 2. Globale Event-Listener entfernen (wichtig gegen Memory Leaks!)
+        window.removeEventListener('resize', this.resizeHandler);
+        window.removeEventListener('scroll', this.scrollHandler, true);
+
+        // 3. MutationObserver stoppen
+        if (this.observer) {
+            this.observer.disconnect();
+        }
+
+        // 4. SVG-Pfad löschen
         if (this.path && this.path.parentNode) {
             this.path.parentNode.removeChild(this.path);
+        }
+
+        // 5. Verbindungslogik zurücksetzen
+        // Wenn el1 der Output war, muss der Input (el2) ausgeschaltet werden und umgekehrt
+        if (this.el1 && this.el2) {
+            if (this.el1.classList.contains("input")) {
+                this.el1.classList.remove("on");
+            }
+            if (this.el2.classList.contains("input")) {
+                this.el2.classList.remove("on");
+            }
         }
     }
 

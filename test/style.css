@@ -109,3 +109,34 @@
     box-shadow: 0 0 12px #ffca28;
     transform: scale(1.2);
 }
+
+#custom-menu {
+    position: absolute;
+    background-color: #04184e;
+    border-radius: 15px;
+    border: 1px solid #128ddf;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    width: 150px;
+}
+
+#custom-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#custom-menu li {
+    border-radius: 15px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+#custom-menu li:hover {
+    background-color: #082983;
+}
+
+/* Hilfsklasse zum Verstecken */
+.hidden {
+    display: none;
+}

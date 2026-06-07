@@ -162,7 +162,18 @@ class BitOutput extends LogicGate {
 
 class AndGate extends LogicGate {
     update() {
-        if (this.in1.classList.contains("on") & this.in2.classList.contains("on")) {
+        if (this.in1On() || this.in2On()) {
+            this.out.classList.add("on");
+        }
+        else {
+            this.out.classList.remove("on");
+        }
+    }
+}
+
+class NandGate extends LogicGate {
+    update() {
+        if (!(this.in1On() || this.in2On())) {
             this.out.classList.add("on");
         }
         else {
@@ -174,6 +185,39 @@ class AndGate extends LogicGate {
 class OrGate extends LogicGate {
     update() {
         if (this.in1On() || this.in2On()) {
+            this.out.classList.add("on");
+        }
+        else {
+            this.out.classList.remove("on");
+        }
+    }
+}
+
+class NorGate extends LogicGate {
+    update() {
+        if (!(this.in1On() || this.in2On())) {
+            this.out.classList.add("on");
+        }
+        else {
+            this.out.classList.remove("on");
+        }
+    }
+}
+
+class XorGate extends LogicGate {
+    update() {
+        if (xor(this.in1On(), this.in2On())) {
+            this.out.classList.add("on");
+        }
+        else {
+            this.out.classList.remove("on");
+        }
+    }
+}
+
+class XnorGate extends LogicGate {
+    update() {
+        if (xnor(this.in1On(), this.in2On())) {
             this.out.classList.add("on");
         }
         else {
@@ -213,6 +257,18 @@ function createGate(type) {
     }
     if (type == "OR") {
         new OrGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
+    }
+    if (type == "NAND") {
+        new NandGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
+    }
+    if (type == "NOR") {
+        new NorGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
+    }
+    if (type == "XOR") {
+        new XorGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
+    }
+    if (type == "XNOR") {
+        new XnorGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
     }
     if (type == "NOT") {
         new NotGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
@@ -262,5 +318,27 @@ document.addEventListener('click', (event) => {
 
         // Speicher zurücksetzen für das nächste Kabel
         startPinId = null;
+    }
+});
+
+const customMenu = document.getElementById('custom-menu');
+
+document.addEventListener('contextmenu', function(event) {
+    if (activeApp == "logicgates") {
+        event.preventDefault(); // Standard-Menü blockieren
+        
+        // Position des Menüs anpassen
+        customMenu.style.left = event.pageX + 'px';
+        customMenu.style.top = event.pageY + 'px';
+        
+        // Menü sichtbar machen
+        customMenu.classList.remove('hidden');
+    }
+});
+
+// Menü schließen, wenn man irgendwo anders klickt
+document.addEventListener('click', function() {
+    if (activeApp == "logicgates") {
+        customMenu.classList.add('hidden');
     }
 });

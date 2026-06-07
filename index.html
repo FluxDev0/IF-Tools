@@ -186,9 +186,17 @@
                 </div>
             </div>
             <div class="app" id="logicgates" style="display: none;">
-                <button class="btn-1" onclick="createGate('NOT')">NOT Gatter</button>
-                <button class="btn-1" onclick="createGate('OR')">OR Gatter</button>
-                <button class="btn-1" onclick="createGate('AND')">AND Gatter</button>
+                <div id="custom-menu" class="hidden">
+                    <ul>
+                        <li onclick="createGate('NOT')">NOT Gatter</li>
+                        <li onclick="createGate('AND')">AND Gatter</li>
+                        <li onclick="createGate('OR')">OR Gatter</li>
+                        <li onclick="createGate('XOR')">XOR Gatter</li>
+                        <li onclick="createGate('NAND')">NAND Gatter</li>
+                        <li onclick="createGate('NOR')">NOR Gatter</li>
+                        <li onclick="createGate('XNOR')">XNOR Gatter</li>
+                    </ul>
+                </div>
             </div>
             <div class="app" id="testing" style="display: none;">
                 <div id="test-area"></div>
