@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IF Tools</title>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body data-theme="dark" style="--test: none;">
 
@@ -42,7 +44,7 @@
                 <div data-app="multiplayer-snake" class="btn-1" onclick="showApp('multiplayer-snake')">Multiplayer Snake</div>
                 <div data-app="buttons" class="btn-1 test" onclick="showApp(`buttons`)">Buttons</div>
                 <div data-app="testing" class="btn-1 test" onclick="showApp(`testing`)">Testbereich</div>
-                <div data-app="settings" class="btn-1 test" onclick="showApp(`settings`)">Settings</div>
+                <div data-app="settings" class="btn-1 test" onclick="showApp(`settings`)">Einstellungen</div>
                 <div data-app="admin-menu" class="btn-1 test" onclick="showApp(`admin-menu`)">Admin Menü</div>
                 <div data-app="tic-tac-to" class="btn-1 test" onclick="showApp(`tic-tac-to`)">Tic Tac To</div>
             </div>
@@ -130,13 +132,8 @@
                     <h3>Erweiterte Einstellungen</h3>
                     
                     <div>
-                        <label for="tree-border-size-input">Baum Linien Breite (in px):</label>
-                        <input type="number" id="tree-border-size-input" value="2" min="0" max="100">
-                    </div>
-                    
-                    <div>
-                        <label for="border-checkbox">Runde Ecken aktivieren:</label>
-                        <input type="checkbox" id="border-checkbox" checked>
+                        <label for="border-checkbox">Chat Notifications:</label>
+                        <input type="checkbox" id="border-checkbox" onchange="sessionStorage.setItem('toasts', this.checked)" checked>
                     </div>
                 </div>
             </div>
@@ -151,9 +148,19 @@
                 </div>
             </div>
             <div class="app" id="admin-menu" style="display: none;">
-                <input type="text" id="text-input" placeholder="Nachricht eingeben" onkeypress="handleEnter(event)">
+                <input type="text" id="text-input" placeholder="Nachricht eingeben">
                 <div data-btn="blue" class="btn-1" onclick="sendeBroadcast(document.querySelector('#text-input').value);">Broadcast senden</div>
                 <div data-btn="blue" class="btn-1" onclick="sendeAlert(document.querySelector('#text-input').value);">Alert senden</div>
+
+                <div id="account-creation">
+                    <input type="text" id="username-input" placeholder="Benutzername...">
+                    <input type="text" id="password-input" placeholder="Passwort...">
+                    <input type="text" id="role-input" placeholder="Rolle...">
+                    <div data-btn="blue" class="btn-1" onclick="accountRegistrieren()">Account erstellen</div>
+                </div>
+
+                <input type="text" id="command-input" placeholder="Command...">
+                <div data-btn="red" class="btn-1" onclick="sendeBroadcast(document.querySelector('#admin-menu #command-input').value);">Command senden und ausführen</div>
             </div>
             <div class="app" id="tic-tac-to" style="display: none;">
                 <body2 class="game-container">

@@ -1,4 +1,5 @@
 function showToast(text, typ = 'info') {
+    if (sessionStorage.getItem("toasts") == "false" && typ == "chat") return;
     const container = document.getElementById('toast-container');
     if (!container) return;
 

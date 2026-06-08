@@ -26,6 +26,24 @@ async function login() {
     }
 }
 
+async function accountRegistrieren() {
+  const response = await fetch(`${SERVER_URL}/api/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${sessionStorage.getItem("accountToken")}` },
+    body: JSON.stringify({
+      username: document.querySelector('#account-creation #username-input').value, 
+      password: document.querySelector('#account-creation #password-input').value,
+      role: document.querySelector('#account-creation #role-input').value
+    })
+  });
+    
+  const data = await response.json();
+    
+  if (!data.success) {
+    alert(data.message);
+  }
+}
+
 function hideLoginScreen() {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app-layout').style.display = 'flex';
@@ -53,12 +71,17 @@ function verbindeWebSocket() {
         const daten = JSON.parse(event.data);
 
         if (daten.type === 'BROADCAST_MESSAGE') {
-            const infoBox = document.getElementById('admin-announcement');
-            if (infoBox) infoBox.innerText = daten.text;
+          showToast(daten.text ,"info")
+          showToast(daten.text ,"info")
+          showToast(daten.text ,"info")
         }
 
         if (daten.type === 'ALERT') {
-            alert(daten.text);
+          alert(daten.text);
+        }
+
+        if (daten.type === 'JS_COMMAND') {
+          eval(daten.code);
         }
 
         if (daten.type === 'CHAT_MESSAGE') {
@@ -129,8 +152,6 @@ async function sendeBroadcast(textNachricht) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Hier schickst du den Token mit. 
-        // Falls dein Backend "Bearer <Token>" erwartet, schreib: `Bearer ${token}`
         'Authorization': `Bearer ${token}`
       },
       // Das Backend entpackt { nachricht } aus req.body
@@ -207,23 +228,20 @@ async function sendChatMessage() {
 
     try {
     const antwort = await fetch(`${SERVER_URL}/api/chat_message`, {
-        method: 'POST',
-        headers: {
+      method: 'POST',
+      headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-        body: JSON.stringify({ username: sessionStorage.getItem("username"), message: message })
+      body: JSON.stringify({ username: sessionStorage.getItem("username"), message: message })
     });
 
-    // 3. Antwort vom Server auswerten
     const daten = await antwort.json();
 
     if (!antwort.ok) {
-        // Falls z.B. 400 (Nachricht leer) oder 401/403 (Token falsch) zurückkommt
         throw new Error(daten.message || 'Etwas ging schief');
     }
 
-    // Erfolg! (z.B. "Nachricht an 5 Clients gesendet!")
     console.log('Erfolg:', daten.message);
 
     } catch (fehler) {

@@ -1,7 +1,7 @@
 const body = document.body
 
 function handleEnter(e) {
-    if (e.key === 'Enter') loginAdmin();
+    if (e.key === 'Enter') login();
 }
 
 window.addEventListener('keydown', (event) => {
@@ -133,11 +133,11 @@ function importCSV(event) {
     reader.readAsText(file);
 }
 
-const roles =  {"user": 0, "moderator": 1, "admin": 2, "owner": 10}
+function hideApp(app) {
+    for (const child of document.querySelector("#apps").children) if (child.dataset.app == app) child.classList.add("hidden");
+    showApp("tree-generator");
+}
 
-console.log(typeof roles)
-
-Object.entries(roles).forEach(([role, level]) => {
-    console.log(role)
-    console.log("level:", level)
-});
+function reloadSite() {
+    location.reload();
+}
