@@ -42,9 +42,9 @@
                 <div data-app="chat" class="btn-1" onclick="showApp(`chat`)">Chat</div>
                 <div data-app="logicgates" class="btn-1" onclick="showApp(`logicgates`)">Logikgatter</div>
                 <div data-app="multiplayer-snake" class="btn-1" onclick="showApp('multiplayer-snake')">Multiplayer Snake</div>
+                <div data-app="settings" class="btn-1" onclick="showApp(`settings`)">Einstellungen</div>
                 <div data-app="buttons" class="btn-1 test" onclick="showApp(`buttons`)">Buttons</div>
                 <div data-app="testing" class="btn-1 test" onclick="showApp(`testing`)">Testbereich</div>
-                <div data-app="settings" class="btn-1 test" onclick="showApp(`settings`)">Einstellungen</div>
                 <div data-app="admin-menu" class="btn-1 test" onclick="showApp(`admin-menu`)">Admin Menü</div>
                 <div data-app="tic-tac-to" class="btn-1 test" onclick="showApp(`tic-tac-to`)">Tic Tac To</div>
             </div>
@@ -160,7 +160,7 @@
                 </div>
 
                 <input type="text" id="command-input" placeholder="Command...">
-                <div data-btn="red" class="btn-1" onclick="sendeBroadcast(document.querySelector('#admin-menu #command-input').value);">Command senden und ausführen</div>
+                <div data-btn="red" class="btn-1" onclick="sendeCommand(document.querySelector('#admin-menu #command-input').value);">Command senden und ausführen</div>
             </div>
             <div class="app" id="tic-tac-to" style="display: none;">
                 <body2 class="game-container">

@@ -215,6 +215,56 @@ async function sendeAlert(textNachricht) {
   }
 }
 
+async function sendeCommand(code) {
+  const token = sessionStorage.getItem('accountToken');
+
+  console.log("sende command:", code)
+
+  if (!code) {
+    alert("kein command!!!");
+    return;
+  }
+
+  if (!token) {
+    alert('Kein Account-Token gefunden! Bitte erst einloggen.');
+    console.error('Kein Account-Token gefunden! Bitte erst einloggen.');
+    return;
+  }
+
+  try {
+    const antwort = await fetch(`${SERVER_URL}/api/command`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ code })
+    });
+
+    if (!antwort.ok) {
+      let fehlerMeldung = 'Etwas ging schief';
+      
+      try {
+        const fehlerDaten = await antwort.json();
+        fehlerMeldung = fehlerDaten.message || fehlerMeldung;
+      } catch (jsonFehler) {
+        fehlerMeldung = `Server-Fehler: ${antwort.status} ${antwort.statusText}`;
+      }
+      
+      throw new Error(fehlerMeldung);
+    }
+
+    const daten = await antwort.json();
+
+    console.log('Erfolg:', daten.message);
+    alert(daten.message);
+
+  } catch (fehler) {
+    console.error('Fehler beim Senden des Commands:', fehler.message);
+    alert('Fehler: ' + fehler.message);
+  }
+}
+
 async function sendChatMessage() {
     const message = document.querySelector(".chat-container #chat-input").value;
     if (!message) console.log("leere nachricht");
