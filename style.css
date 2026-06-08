@@ -5,8 +5,8 @@
 @import url('tictacto.css');
 @import url('toasts.css');
 @import url('snake.css');
-@import url('test/style.css');
-@import url('test/testing.css');
+@import url('logicgates/style.css');
+@import url('logicgates/testing.css');
 
 * {
     box-sizing: border-box;

@@ -16,9 +16,7 @@
 
     </div>
 
-    <div id="toast-container"> 
-
-    </div>
+    <div id="toast-container"></div>
 
     <div id="login-screen">
         <div class="login-box neuro-raised rounded">
@@ -39,14 +37,14 @@
             <h2>🛠️ Informatik Tools</h2>
             <div id="apps">
                 <div data-app="tree-generator" class="btn-1" onclick="showApp(`tree-generator`)">Entscheidungsbaum</div>
-                <div data-app="buttons" class="btn-1 test" onclick="showApp(`buttons`)">Buttons</div>
+                <div data-app="chat" class="btn-1" onclick="showApp(`chat`)">Chat</div>
                 <div data-app="logicgates" class="btn-1" onclick="showApp(`logicgates`)">Logikgatter</div>
+                <div data-app="multiplayer-snake" class="btn-1" onclick="showApp('multiplayer-snake')">Multiplayer Snake</div>
+                <div data-app="buttons" class="btn-1 test" onclick="showApp(`buttons`)">Buttons</div>
                 <div data-app="testing" class="btn-1 test" onclick="showApp(`testing`)">Testbereich</div>
                 <div data-app="settings" class="btn-1 test" onclick="showApp(`settings`)">Settings</div>
-                <div data-app="chat" class="btn-1" onclick="showApp(`chat`)">Chat</div>
                 <div data-app="admin-menu" class="btn-1 test" onclick="showApp(`admin-menu`)">Admin Menü</div>
                 <div data-app="tic-tac-to" class="btn-1 test" onclick="showApp(`tic-tac-to`)">Tic Tac To</div>
-                <div data-app="multiplayer-snake" class="btn-1" onclick="showApp('multiplayer-snake')">🐍 Multiplayer Snake</div>
             </div>
 
             <div data-btn="blue" class="other-btns">
@@ -186,6 +184,8 @@
                 </div>
             </div>
             <div class="app" id="logicgates" style="display: none;">
+                <svg id="cable-layer"></svg>
+
                 <div id="custom-menu" class="hidden">
                     <ul>
                         <li onclick="createGate('NOT')">NOT Gatter</li>
@@ -202,13 +202,13 @@
                 <div id="test-area"></div>
                 <input type="text" id="html-input" placeholder="HTML...">
 
-                <input type="text" id="jsInput" placeholder="z. B. 2 + 2 oder alert('Hi!')">
+                <input type="text" id="jsInput" placeholder="Console">
                 <button id="runBtn" class="btn-1">Los!</button>
+
+                <div id="consoleOutput"></div>
             </div>
         </div>
     </div>
-
-    <svg id="cable-layer"></svg>
 
     <script src="table.js"></script>
     <script src="apps.js"></script>
@@ -217,9 +217,9 @@
     <script src="tictacto.js"></script>
     <script src="toasts.js"></script>
     <script src="snake.js"></script>
-    <script src="test/testing.js"></script>
-    <script src="test/cables.js"></script>
-    <script src="test/logic.js"></script>
+    <script src="logicgates/testing.js"></script>
+    <script src="logicgates/cables.js"></script>
+    <script src="logicgates/logic.js"></script>
     <script src="security.js"></script>
 </body>
 </html>

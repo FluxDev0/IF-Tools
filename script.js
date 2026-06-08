@@ -132,3 +132,12 @@ function importCSV(event) {
     // Datei als Text einlesen
     reader.readAsText(file);
 }
+
+const roles =  {"user": 0, "moderator": 1, "admin": 2, "owner": 10}
+
+console.log(typeof roles)
+
+Object.entries(roles).forEach(([role, level]) => {
+    console.log(role)
+    console.log("level:", level)
+});

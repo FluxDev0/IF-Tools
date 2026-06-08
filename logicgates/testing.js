@@ -2,9 +2,9 @@ document.querySelector("#testing.app input#html-input").addEventListener('input'
     document.querySelector("#testing.app div#test-area").innerHTML = event.target.value;
 });
 
-const codeInput = document.getElementById('jsInput');
-const ausgabeBox = document.getElementById('ausgabe');
-const runBtn = document.getElementById('runBtn');
+const codeInput = document.querySelector('#testing.app #jsInput');
+const ausgabeBox = document.querySelector('#testing.app #consoleOutput');
+const runBtn = document.querySelector('#testing.app #runBtn');
 
 function codeAusfuehren() {
   const code = codeInput.value;
@@ -13,12 +13,11 @@ function codeAusfuehren() {
   if(!code.trim()) return;
 
   try {
-    // HIER passiert die Magie: eval() führt den String als JS-Code aus
     const ergebnis = eval(code);
-    // Ergebnis anzeigen
-        ausgabeBox.className = 'erfolg';
-        ausgabeBox.textContent = ergebnis !== undefined ? `> ${ergebnis}` : '> Code erfolgreich ausgeführt';
+    ausgabeBox.className = 'erfolg';
+    ausgabeBox.textContent = ergebnis !== undefined ? `/> ${ergebnis}` : '/> Code erfolgreich ausgeführt';
   } catch (fehler) {
+    ausgabeBox.textContent = fehler;
     console.log(fehler);
   }
 }
@@ -26,7 +25,7 @@ function codeAusfuehren() {
 runBtn.addEventListener('click', codeAusfuehren);
 
 codeInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        codeAusfuehren();
-    }
+  if (event.key === 'Enter') {
+    codeAusfuehren();
+  }
 });

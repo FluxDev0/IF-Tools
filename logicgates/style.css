@@ -6,14 +6,6 @@
     --logic-main-color: #15aed4;
 }
 
-.bit {
-    background-color: var(--logic-main-color);
-    height: 40px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 2px solid #285ed1;
-}
-
 #cable-layer {
     position: fixed;
     top: 0;
@@ -38,7 +30,7 @@
 }
 
 .draggable-box {
-    position: absolute; /* Wichtig für die freie Bewegung! */
+    position: absolute;
     width: 250px;
     background-color: var(--neuro-bg-primary, #2f3640);
     border: 1px solid #718093;

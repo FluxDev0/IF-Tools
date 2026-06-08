@@ -37,7 +37,7 @@ function zeichneSnakeSpiel(snakeData, foodData) {
     ctx.shadowColor = "#2ed573";
     snakeData.forEach((segment, index) => {
         // Der Kopf kriegt eine etwas hellere Farbe
-        ctx.fillStyle = index === 0 ? "#57606f" : "#2ed573";
+        ctx.fillStyle = index === 0 ? "#3eff25" : "#19b95c";
         ctx.fillRect(segment.x * CELL_SIZE, segment.y * CELL_SIZE, CELL_SIZE - 2, CELL_SIZE - 2);
     });
     

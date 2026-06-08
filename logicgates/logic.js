@@ -9,6 +9,9 @@ const nor = (A, B) => !(A || B);
 const xor = (A, B) => ((A || B) && !(A && B));
 const xnor = (A, B) => (!(A || B) || (A && B));
 
+let mouseX = 0;
+let mouseY = 0;
+
 
 function createGateHTML(id, type) {
     if (type == "NOT") {
@@ -333,6 +336,12 @@ document.addEventListener('contextmenu', function(event) {
         
         // Menü sichtbar machen
         customMenu.classList.remove('hidden');
+
+        el = document.elementFromPoint(mouseX, mouseY);
+
+        if (el.closest('.gate-box') !== null) {
+            el.closest('.gate-box').remove();
+        }
     }
 });
 
@@ -341,4 +350,9 @@ document.addEventListener('click', function() {
     if (activeApp == "logicgates") {
         customMenu.classList.add('hidden');
     }
+});
+
+window.addEventListener('mousemove', (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
 });
