@@ -257,7 +257,7 @@ async function sendeCommand(code) {
     const daten = await antwort.json();
 
     console.log('Erfolg:', daten.message);
-    alert(daten.message);
+    showToast(daten.message, "info");
 
   } catch (fehler) {
     console.error('Fehler beim Senden des Commands:', fehler.message);
