@@ -23,7 +23,7 @@ async function login() {
         hideLoginScreen();
 
         if (socket && socket.readyState === WebSocket.OPEN) {
-          ocket.send(JSON.stringify({ type: 'IDENTIFY', token: data.token }));
+          socket.send(JSON.stringify({ type: 'IDENTIFY', token: data.token }));
         }
     } else {
         alert(data.message);
@@ -60,6 +60,15 @@ function hideLoginScreen() {
 function showLoginScreen() {
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('app-layout').style.display = 'none';
+}
+
+async function getClients() {
+  const response = await fetch(`${SERVER_URL}/api/getclients`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  });
+
+  console.log(response);
 }
 
 const SOCKET_URL = SERVER_URL.replace(/^http/, 'ws');
