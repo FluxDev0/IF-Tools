@@ -197,17 +197,31 @@ function renderTreeHTML(node, edgeLabel = "", config = {}) {
     }
     
     // Standard-Werte für die Anpassungen setzen, falls nichts übergeben wurde
-    const cfg = Object.assign({ showDatasets: true, prefix: 'Z', showValues: true }, config);
+    const cfg = Object.assign({ showDatasets: true, prefix: 'D', showValues: false }, config);
     
     // Optional: Datensätze-Anzeige zusammenbauen (Customization)
     let datasetHtml = "";
-    if (cfg.showDatasets && node.matchedRows && node.matchedRows.length > 0) {
+    if (cfg.showDatasets && !cfg.showValues && node.matchedRows && node.matchedRows.length > 0) {
+        datasetHtml = `<div class="node-datasets">`;
+        datasetText = ``;
+        node.matchedRows.forEach((row, index) => {
+            let rowStr = `${cfg.prefix}${row.id}`;
+            if (!index == 1) {
+                datasetText += rowStr;
+            }
+            else {
+                datasetText += `, ${rowStr}`;
+            }
+        });
+        datasetHtml += datasetText;
+        datasetHtml += `</div>`;
+    }
+
+    if (cfg.showDatasets && cfg.showValues && node.matchedRows && node.matchedRows.length > 0) {
         datasetHtml = `<div class="node-datasets">`;
         node.matchedRows.forEach(row => {
             let rowStr = `${cfg.prefix}${row.id}`;
-            if (cfg.showValues) {
-                rowStr += `: ${row.values.join(", ")}`;
-            }
+            rowStr += `: ${row.values.join(", ")}`;
             datasetHtml += `<div style="margin-bottom: 1px;">• ${rowStr}</div>`;
         });
         datasetHtml += `</div>`;
@@ -215,7 +229,7 @@ function renderTreeHTML(node, edgeLabel = "", config = {}) {
 
     // 2. Den eigentlichen Knoten (Frage oder Ergebnis) zeichnen
     if (node.isLeaf) {
-        html += `<div class="node" style="background-color: var(--success-color); color: white; border-color: var(--success-color);">${node.name}${datasetHtml}</div>`;
+        html += `<div class="node node-leaf">${node.name}${datasetHtml}</div>`;
     } else {
         html += `<div class="node">${node.name}${datasetHtml}</div>`;
     }
