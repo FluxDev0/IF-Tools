@@ -230,3 +230,16 @@ table#data-table td[contenteditable="true"]:focus { background: rgba(52, 152, 21
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .tree li .edge-label { font-size: 0.8rem; color: #aaaaaa; margin-bottom: 5px; display: block; }
+
+.node-datasets {
+    font-size: 0.7rem; 
+    font-weight: normal; 
+    margin-top: 6px; 
+    padding-top: 6px; 
+    border-top: 1px dashed rgba(128,128,128,0.5); 
+    text-align: left; 
+    opacity: 0.85; 
+    max-height: 80px; 
+    overflow-y: auto; 
+    line-height: 1.3;
+}

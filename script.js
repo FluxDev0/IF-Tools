@@ -27,7 +27,6 @@ function toggleTheme() {
     }
 }
 
-// --- Entscheidungsbaum-Trigger ---
 function generateTree() {
     const table = document.getElementById('data-table');
     const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.innerText.trim());
@@ -35,16 +34,19 @@ function generateTree() {
         return Array.from(tr.querySelectorAll('td')).map(td => td.innerText.trim());
     });
 
-    generateTreeFromData(dataSets, headers);
-}
+    const treeStructure = buildSmartTree(dataSets, headers, true);
 
-// Der Aufruf an die Baum-KI
-function generateTreeFromData(dataSets, headers) {
-    // Hier rufen wir jetzt buildSmartTree auf!
-    const rootNode = buildSmartTree(dataSets, headers);
+    const userConfig = {
+        showDatasets: document.getElementById('cfg-show-data').checked,
+        prefix: document.getElementById('cfg-prefix').value,
+        showValues: document.getElementById('cfg-show-values').checked
+    };
+
+    // 3. Render-Funktion mit der Config aufrufen
+    const treeHTML = renderTreeHTML(treeStructure, "", userConfig);
     
-    const container = document.getElementById('tree-container');
-    container.innerHTML = `<div class="tree"><ul>${renderTreeHTML(rootNode)}</ul></div>`;
+    // Hier fügst du das treeHTML dann wie gewohnt in deinen Baum-Container ein!
+    document.querySelector('.tree-container').innerHTML = `<div class="tree"><ul>${treeHTML}</ul></div>`;
 }
 
 function importCSV(event) {

@@ -120,6 +120,19 @@
                         <p class="placeholder-text">Klicke oben auf "Baum generieren".</p>
                     </div>
                 </div>
+
+                <div class="customization-controls" style="margin: 15px 0; padding: 10px; border: 1px solid var(--tree-border-color); border-radius: 8px;">
+                    <label><input type="checkbox" id="cfg-show-data" checked> Datensätze anzeigen</label>
+                    
+                    <label style="margin-left: 15px;">Präfix: 
+                        <select id="cfg-prefix">
+                            <option value="Z">Z (Zeile)</option>
+                            <option value="D">D (Datensatz)</option>
+                        </select>
+                    </label>
+
+                    <label style="margin-left: 15px;"><input type="checkbox" id="cfg-show-values" checked> Werte anzeigen</label>
+                </div>
             </div>
             <div class="app" id="buttons" style="display: none;">
                 <button class="btn-1" data-btn="blue">Klick mich!!</button>

@@ -34,20 +34,6 @@ function buildSimpleTree(dataSubset, headers, colIndex) {
     return { name: featureName, children: children, isLeaf: false };
 }
 
-function test(headers, dataSets) {
-    const alleGleich = arr => arr.every(wert => wert === arr[0]);
-    const targetColIndex = headers.length - 1;
-
-    headers.slice(0, -1).forEach((header, colIndex) => {
-        groupByCol(dataSets, colIndex).forEach(array => {
-            if (alleGleich(getCol(array, targetColIndex))) {
-                console.log("Wurzel:");
-                console.log(header, array[0][colIndex], array[0][targetColIndex]);
-            }
-        });
-    });
-}
-
 function groupByCol(dataSets, colIndex) {
     const gruppenObjekt = {};
 
@@ -88,6 +74,37 @@ function removeCol(dataSets, headers, colIndex) {
     return neueDataSets, neueHeaders;
 }
 
+function findBestSplit(data, headers, targetColIndex) {
+    let bestGain = -1;
+    let bestColIndex = -1;
+    const baseGini = calculateGini(data, targetColIndex);
+
+    for (let col = 0; col < headers.length; col++) {
+        if (col === targetColIndex) continue;
+
+        const groups = {};
+        data.forEach(row => {
+            const val = row[col];
+            if (!groups[val]) groups[val] = [];
+            groups[val].push(row);
+        });
+
+        let weightedGini = 0;
+        for (let key in groups) {
+            const subset = groups[key];
+            const weight = subset.length / data.length;
+            weightedGini += weight * calculateGini(subset, targetColIndex);
+        }
+
+        const gain = baseGini - weightedGini;
+        if (gain > bestGain) {
+            bestGain = gain;
+            bestColIndex = col;
+        }
+    }
+    return bestColIndex;
+}
+
 function calculateGini(data, targetColIndex) {
     const counts = {};
     data.forEach(row => {
@@ -103,67 +120,46 @@ function calculateGini(data, targetColIndex) {
     return impurity;
 }
 
-// Sucht die beste Spalte, um die Daten aufzuteilen (höchster Informationsgewinn)
-function findBestSplit(data, headers, targetColIndex) {
-    let bestGain = -1;
-    let bestColIndex = -1;
-    const baseGini = calculateGini(data, targetColIndex);
-
-    for (let col = 0; col < headers.length; col++) {
-        if (col === targetColIndex) continue; // Zielspalte nicht prüfen
-
-        // Daten nach dieser Spalte testweise gruppieren
-        const groups = {};
-        data.forEach(row => {
-            const val = row[col];
-            if (!groups[val]) groups[val] = [];
-            groups[val].push(row);
-        });
-
-        // Berechnen, wie rein die neuen Untergruppen wären
-        let weightedGini = 0;
-        for (let key in groups) {
-            const subset = groups[key];
-            const weight = subset.length / data.length;
-            weightedGini += weight * calculateGini(subset, targetColIndex);
-        }
-
-        // Informationsgewinn = Altes Chaos - Neues Chaos
-        const gain = baseGini - weightedGini;
-        if (gain > bestGain) {
-            bestGain = gain;
-            bestColIndex = col;
-        }
-    }
-    return bestColIndex;
-}
-
-// Der smarte, rekursive Haupt-Algorithmus
-function buildSmartTree(data, headers) {
+function buildSmartTree(data, headers, isRoot = true) {
     const targetColIndex = headers.length - 1;
 
-    // Abbruch 1: Keine Daten
     if (data.length === 0) return { name: "Keine Daten", isLeaf: true };
 
-    // Abbruch 2: Alle Ergebnisse sind bereits gleich (Perfektes Blatt!)
-    const uniqueTargets = [...new Set(data.map(r => r[targetColIndex]))];
-    if (uniqueTargets.length === 1) {
-        return { name: "Ergebnis: " + uniqueTargets[0], isLeaf: true };
+    // =========================================================================
+    // STRUKTURIERTES TRACKING: Wir speichern ID und Werte getrennt als Objekt
+    // =========================================================================
+    if (isRoot) {
+        data = data.map((row, index) => [...row, { id: index + 1, values: [...row] }]);
     }
 
-    // Abbruch 3: Keine Spalten mehr übrig, aber Daten noch gemischt (Mehrheitsentscheid)
+    // Das Tracking-Objekt befindet sich immer am allerletzten Index der Zeile
+    const trackingIndex = data[0].length - 1;
+
+    // Abbruch: Perfektes Blatt
+    const uniqueTargets = [...new Set(data.map(r => r[targetColIndex]))];
+    if (uniqueTargets.length === 1) {
+        return { 
+            name: "Ergebnis: " + uniqueTargets[0], 
+            isLeaf: true,
+            matchedRows: data.map(r => r[trackingIndex]) // Objekte weitergeben
+        };
+    }
+
+    // Abbruch: Keine Spalten mehr übrig
     if (headers.length <= 1) {
         const counts = {};
         data.forEach(r => counts[r[targetColIndex]] = (counts[r[targetColIndex]] || 0) + 1);
         const mostCommon = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
-        return { name: "Wahrscheinlich: " + mostCommon, isLeaf: true };
+        return { 
+            name: "Wahrscheinlich: " + mostCommon, 
+            isLeaf: true,
+            matchedRows: data.map(r => r[trackingIndex])
+        };
     }
 
-    // Die beste Spalte für den nächsten Schnitt finden!
     const bestColIndex = findBestSplit(data, headers, targetColIndex);
     const featureName = headers[bestColIndex];
 
-    // Daten nach der besten Spalte gruppieren
     const groups = {};
     data.forEach(row => {
         const val = row[bestColIndex];
@@ -172,43 +168,68 @@ function buildSmartTree(data, headers) {
     });
 
     const children = [];
-    
-    // Wir entfernen die genutzte Spalte, damit sie weiter unten nicht nochmal geprüft wird
     const neueHeaders = headers.filter((_, i) => i !== bestColIndex);
 
     for (let val in groups) {
-        // Auch aus den Datenzeilen schneiden wir die genutzte Spalte heraus
+        // Wir filtern die genutzte Spalte heraus, behalten aber das Tracking-Objekt am Ende automatisch bei
         const bereinigteDaten = groups[val].map(row => row.filter((_, i) => i !== bestColIndex));
         
         children.push({
             edgeLabel: val,
-            node: buildSmartTree(bereinigteDaten, neueHeaders) // Rekursion!
+            node: buildSmartTree(bereinigteDaten, neueHeaders, false)
         });
     }
 
-    return { name: featureName, children: children, isLeaf: false };
+    return { 
+        name: featureName, 
+        children: children, 
+        isLeaf: false,
+        matchedRows: data.map(r => r[trackingIndex])
+    };
 }
 
-// Zeichnet das HTML für den CSS-Baum
-function renderTreeHTML(node) {
+function renderTreeHTML(node, edgeLabel = "", config = {}) {
     let html = `<li>`;
-    // Unterschiedliches Styling für Ergebnisse (Blätter) und Fragen (Knoten)
-    if (node.isLeaf) {
-        html += `<div class="node" style="background-color: var(--success-color); color: white; border-color: var(--success-color);">${node.name}</div>`;
-    } else {
-        html += `<div class="node">${node.name}</div>`;
+    
+    // 1. Wenn eine Linienbeschriftung existiert, kommt sie ganz oben ins <li>
+    if (edgeLabel) {
+        html += `<span class="edge-label">${edgeLabel}</span>`;
     }
     
+    // Standard-Werte für die Anpassungen setzen, falls nichts übergeben wurde
+    const cfg = Object.assign({ showDatasets: true, prefix: 'Z', showValues: true }, config);
+    
+    // Optional: Datensätze-Anzeige zusammenbauen (Customization)
+    let datasetHtml = "";
+    if (cfg.showDatasets && node.matchedRows && node.matchedRows.length > 0) {
+        datasetHtml = `<div class="node-datasets">`;
+        node.matchedRows.forEach(row => {
+            let rowStr = `${cfg.prefix}${row.id}`;
+            if (cfg.showValues) {
+                rowStr += `: ${row.values.join(", ")}`;
+            }
+            datasetHtml += `<div style="margin-bottom: 1px;">• ${rowStr}</div>`;
+        });
+        datasetHtml += `</div>`;
+    }
+
+    // 2. Den eigentlichen Knoten (Frage oder Ergebnis) zeichnen
+    if (node.isLeaf) {
+        html += `<div class="node" style="background-color: var(--success-color); color: white; border-color: var(--success-color);">${node.name}${datasetHtml}</div>`;
+    } else {
+        html += `<div class="node">${node.name}${datasetHtml}</div>`;
+    }
+    
+    // 3. NUR WENN der Knoten echte Kinder hat, öffnen wir EIN gemeinsames <ul>
     if (node.children && node.children.length > 0) {
         html += `<ul>`;
         node.children.forEach(child => {
-            html += `<li>`;
-            html += `<span class="edge-label">${child.edgeLabel}</span>`;
-            html += `<ul>${renderTreeHTML(child.node)}</ul>`;
-            html += `</li>`;
+            // WICHTIG: Wir übergeben das Label an die Rekursion, anstatt hier ein neues <ul> zu bauen
+            html += renderTreeHTML(child.node, child.edgeLabel, cfg);
         });
         html += `</ul>`;
     }
+    
     html += `</li>`;
     return html;
 }

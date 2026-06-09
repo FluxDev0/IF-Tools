@@ -21,6 +21,10 @@ async function login() {
         showToast(data.message, "info");
         document.querySelector(".other-btns #login-btn").innerText = data.username;
         hideLoginScreen();
+
+        if (socket && socket.readyState === WebSocket.OPEN) {
+          ocket.send(JSON.stringify({ type: 'IDENTIFY', token: data.token }));
+        }
     } else {
         alert(data.message);
     }
@@ -41,6 +45,10 @@ async function accountRegistrieren() {
     
   if (!data.success) {
     alert(data.message);
+  }
+  else {
+    console.log('Erfolg:', data.message);
+    showToast(data.message, "info");
   }
 }
 
@@ -63,7 +71,13 @@ function verbindeWebSocket() {
 
     // Sobald die Leitung erfolgreich steht
     socket.onopen = () => {
-        console.log("Erfolgreich mit dem Echtzeit-Server verbunden!");
+      console.log("Erfolgreich mit dem Echtzeit-Server verbunden!");
+      showToast("Erfolgreich mit dem Echtzeit-Server verbunden!", "info");
+
+      const token = sessionStorage.getItem('accountToken');
+      if (token) {
+        socket.send(JSON.stringify({ type: 'IDENTIFY', token: token }));
+      }
     };
 
     // HIER EMPFANGEN WIR DIE NACHRICHTEN VOM SERVER!
