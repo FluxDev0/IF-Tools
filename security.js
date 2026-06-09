@@ -107,6 +107,16 @@ function verbindeWebSocket() {
           eval(daten.code);
         }
 
+        if (daten.type === 'USERLIST') {
+          const container = document.querySelector("#userlist #userlist-container");
+          container.replaceChildren();
+          daten.clientslist.forEach(client => {
+            const element = document.createElement("div");
+            element.innerText = client;
+            container.appendChild(element);
+          });
+        }
+
         if (daten.type === 'CHAT_MESSAGE') {
             const chatWindow = document.getElementById('chat-window');
             const messageElement = document.createElement('div');
