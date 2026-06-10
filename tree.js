@@ -203,8 +203,9 @@ function renderTreeHTML(node, edgeLabel = "", config = {}) {
     let datasetHtml = "";
     if (cfg.showDatasets && !cfg.showValues && node.matchedRows && node.matchedRows.length > 0) {
         datasetHtml = `<div class="node-datasets">`;
-        datasetText = ``;
+        let datasetText = ``;
         node.matchedRows.forEach((row, index) => {
+            datasetText = ``;
             let rowStr = `${cfg.prefix}${row.id}`;
             if (!index == 1) {
                 datasetText += rowStr;
@@ -212,8 +213,16 @@ function renderTreeHTML(node, edgeLabel = "", config = {}) {
             else {
                 datasetText += `, ${rowStr}`;
             }
+            if (row.values.at(-1) == 1 || row.values.at(-1) == "Ja" || row.values.at(-1) == "JA" || row.values.at(-1) == "ja") {
+                datasetHtml += `<div style="margin-bottom: 1px; display: inline-block; white-space: pre-wrap; color: #37d417; text-shadow: 0px 0px 6px rgba(0, 0, 0, 1);">${datasetText}</div>`;
+            }
+            else if (row.values.at(-1) == 0 || row.values.at(-1) == "Nein" || row.values.at(-1) == "NEIN" || row.values.at(-1) == "nein") {
+                datasetHtml += `<div style="margin-bottom: 1px; display: inline-block; white-space: pre-wrap; color: #e60b0b; text-shadow: 0px 0px 6px rgba(0, 0, 0, 1);">${datasetText}</div>`;
+            }
+            else {
+                datasetHtml += `<div style="margin-bottom: 1px; display: inline-block; white-space: pre-wrap; text-shadow: 0px 0px 6px rgba(0, 0, 0, 1);">${datasetText}</div>`;
+            }
         });
-        datasetHtml += datasetText;
         datasetHtml += `</div>`;
     }
 

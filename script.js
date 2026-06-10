@@ -13,8 +13,10 @@ window.addEventListener('keydown', (event) => {
 function toggleTest() {
     if (body.style.getPropertyValue("--test") == "none") {
         body.style.setProperty("--test","flex");
+        sessionStorage.setItem("test", "flex")
     } else {
         body.style.setProperty("--test","none");
+        sessionStorage.setItem("test", "none")
     }
 }
 
@@ -138,8 +140,45 @@ function importCSV(event) {
 function hideApp(app) {
     for (const child of document.querySelector("#apps").children) if (child.dataset.app == app) child.classList.add("hidden");
     showApp("tree-generator");
+    let hiddenApps = JSON.parse(sessionStorage.getItem("hiddenApps"))
+    if (hiddenApps == null) hiddenApps = [];
+    if (hiddenApps.includes(app)) return;
+    hiddenApps.push(app)
+    sessionStorage.setItem("hiddenApps", JSON.stringify(hiddenApps))
+}
+
+function unhideApp(app) {
+    for (const child of document.querySelector("#apps").children) if (child.dataset.app == app) child.classList.remove("hidden");
+    showApp("tree-generator");
+    let hiddenApps = JSON.parse(sessionStorage.getItem("hiddenApps"))
+    if (hiddenApps == null) hiddenApps = [];
+    hiddenApps = hiddenApps.filter(wert => wert !== app)
+    sessionStorage.setItem("hiddenApps", JSON.stringify(hiddenApps))
 }
 
 function reloadSite() {
     location.reload();
+}
+
+if (sessionStorage.getItem("hiddenApps") == null) {
+    sessionStorage.setItem("hiddenApps", JSON.stringify([]));
+}
+else {
+    updateHiddenApps()
+}
+
+function updateHiddenApps() {
+    for (const child of document.querySelector("#apps").children) child.classList.remove("hidden");
+    JSON.parse(sessionStorage.getItem("hiddenApps")).forEach(element => {
+        hideApp(element)
+    });
+}
+
+if (sessionStorage.getItem("test") !== null) {
+    body.style.setProperty("--test", sessionStorage.getItem("test"))
+}
+
+function unhideAllApps() {
+    sessionStorage.setItem("hiddenApps", JSON.stringify([]))
+    updateHiddenApps();
 }

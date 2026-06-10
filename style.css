@@ -247,6 +247,6 @@ table#data-table td[contenteditable="true"]:focus { background: rgba(52, 152, 21
 
 .tree li .node.node-leaf {
     background-color: var(--success-color); 
-    color: white; 
+    color: white;
     border-color: var(--success-color);
 }
