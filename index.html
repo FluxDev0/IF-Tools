@@ -47,6 +47,7 @@
                 <div data-app="testing" class="btn-1 test" onclick="showApp(`testing`)">Testbereich</div>
                 <div data-app="admin-menu" class="btn-1 test" onclick="showApp(`admin-menu`)">Admin Menü</div>
                 <div data-app="userlist" class="btn-1 test" onclick="showApp(`userlist`)">Benutzerliste</div>
+                <div data-app="pathfinding" class="btn-1 test" onclick="showApp(`pathfinding`)">Pathfinding</div>
                 <div data-app="tic-tac-to" class="btn-1 test" onclick="showApp(`tic-tac-to`)">Tic Tac To</div>
             </div>
 
@@ -231,9 +232,13 @@
             <div class="app" id="userlist" style="display: none;">
                 <div class="card" id="userlist-container"></div>
             </div>
+            <div class="app" id="pathfinding" style="display: none;">
+
+            </div>
         </div>
     </div>
 
+    <script src="pathfinding/logic.js"></script>
     <script src="table.js"></script>
     <script src="apps.js"></script>
     <script src="tree.js"></script>
