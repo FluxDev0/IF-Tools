@@ -6,6 +6,7 @@
 @import url('toasts.css');
 @import url('snake.css');
 @import url('logicgates/style.css');
+@import url('pathfinding/style.css');
 @import url('logicgates/testing.css');
 
 * {
