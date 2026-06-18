@@ -165,7 +165,7 @@ class BitOutput extends LogicGate {
 
 class AndGate extends LogicGate {
     update() {
-        if (this.in1On() || this.in2On()) {
+        if (this.in1On() && this.in2On()) {
             this.out.classList.add("on");
         }
         else {
@@ -176,7 +176,7 @@ class AndGate extends LogicGate {
 
 class NandGate extends LogicGate {
     update() {
-        if (!(this.in1On() || this.in2On())) {
+        if (!(this.in1On() && this.in2On())) {
             this.out.classList.add("on");
         }
         else {
