@@ -31,12 +31,16 @@ class Cable {
             }
         });
 
-        if (this.in1) {
-            if (this.in1.classList.contains("input")) observer.observe(this.in1, { attributes: true });
+        if (this.el1) {
+            if (this.el1.classList.contains("output")) {
+                observer.observe(this.el1, { attributes: true });
+            }
         }
 
-        if (this.in2) {
-            if (this.in2.classList.contains("input")) observer.observe(this.in2, { attributes: true });
+        if (this.el2) {
+            if (this.el2.classList.contains("output")) {
+                observer.observe(this.el2, { attributes: true });
+            }
         }
 
         window.addEventListener('resize', () => this.update());

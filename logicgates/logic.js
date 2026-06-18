@@ -9,14 +9,11 @@ const nor = (A, B) => !(A || B);
 const xor = (A, B) => ((A || B) && !(A && B));
 const xnor = (A, B) => (!(A || B) || (A && B));
 
-let mouseX = 0;
-let mouseY = 0;
 
-
-function createGateHTML(id, type) {
+function createGateHTML(id, type, position = ["50%", "50%"]) {
     if (type == "NOT") {
         const notGate = `
-            <div class="draggable-box gate-box" id="gate-${id}" style="top: 50%; left: 50%;">
+            <div class="draggable-box gate-box" id="gate-${id}" style="top: ${position[1]}; left: ${position[0]};">
                 <div class="gate-inputs">
                     <div class="pin input" id="${id}-in1" title="Eingang 1"></div>
                 </div>
@@ -31,7 +28,7 @@ function createGateHTML(id, type) {
         return notGate;
     }
     const gate = `
-        <div class="draggable-box gate-box" id="gate-${id}" style="top: 50%; left: 50%;">
+        <div class="draggable-box gate-box" id="gate-${id}" style="top: ${position[1]}; left: ${position[0]};">
             <div class="gate-inputs">
                 <div class="pin input" id="${id}-in1" title="Eingang 1"></div>
                 <div class="pin input" id="${id}-in2" title="Eingang 2"></div>
@@ -46,7 +43,6 @@ function createGateHTML(id, type) {
     `
     return gate;
 }
-
 
 class Draggable {
     /**
@@ -248,11 +244,10 @@ function addToLogicGates(html) {
 
 let gates = 0
 
-function createGate(type) {
+function createGate(type, position = [(mouseX - 50) + 'px', (mouseY - 35) + 'px']) {
     const id = `g${gates}`;
-    console.log(id);
     gates++;
-    const html = createGateHTML(id, type);
+    const html = createGateHTML(id, type, position);
     addToLogicGates(html);
     new Draggable(`gate-${id}`);
     if (type == "AND") {
@@ -328,19 +323,18 @@ const customMenu = document.getElementById('custom-menu');
 
 document.addEventListener('contextmenu', function(event) {
     if (activeApp == "logicgates") {
-        event.preventDefault(); // Standard-Menü blockieren
-        
-        // Position des Menüs anpassen
-        customMenu.style.left = event.pageX + 'px';
-        customMenu.style.top = event.pageY + 'px';
-        
-        // Menü sichtbar machen
-        customMenu.classList.remove('hidden');
+        event.preventDefault();
 
-        el = document.elementFromPoint(mouseX, mouseY);
+        const el = document.elementFromPoint(mouseX, mouseY);
 
         if (el.closest('.gate-box') !== null) {
             el.closest('.gate-box').remove();
+        }
+        else {
+            customMenu.style.left = event.pageX + 'px';
+            customMenu.style.top = event.pageY + 'px';
+            
+            customMenu.classList.remove('hidden');
         }
     }
 });
@@ -350,9 +344,4 @@ document.addEventListener('click', function() {
     if (activeApp == "logicgates") {
         customMenu.classList.add('hidden');
     }
-});
-
-window.addEventListener('mousemove', (event) => {
-    mouseX = event.clientX;
-    mouseY = event.clientY;
 });

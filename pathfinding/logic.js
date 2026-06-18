@@ -209,11 +209,13 @@ class PathfindingVisualization {
                 this.update();
             }, 200); 
         });
+
+        this.canvas.width = this.canvas.clientWidth;
+        this.canvas.height = this.canvas.clientHeight;
     }
 
     update() {
         this.paths.forEach((path) => {
-            console.log(path)
             this.drawLine([this.nodes[path["node1"]]["x"], this.nodes[path["node1"]]["y"]], [this.nodes[path["node2"]]["x"], this.nodes[path["node2"]]["y"]])
         })
 
@@ -338,4 +340,5 @@ const paths2 = [
     {"node1": "Siegburg", "node2": "Troisdorf", "cost":1}
 ]
 
-const pathfinding = new PathfindingVisualization('#pathfinding #canvas', nodes3, paths2)
+const pathfinding = new PathfindingVisualization('#pathfinding #canvas', nodes3, paths2);
+pathfinding.update();

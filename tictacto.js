@@ -30,6 +30,20 @@ cells.forEach(cell => {
     });
 });
 
+function clickCell(symbol = "X", cellindex = 0) {
+    cells.forEach(cell => {
+        if (cell.getAttribute('data-index') == cellindex) {
+            if (board[cellindex] !== "" || !isGameActive) return;
+
+            board[cellindex] = symbol;
+            cell.innerText = symbol;
+            cell.classList.add(symbol.toLowerCase());
+
+            checkResult();
+        };
+    });
+}
+
 // Ergebnis prüfen
 function checkResult() {
     let roundWon = false;
