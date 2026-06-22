@@ -1,0 +1,11 @@
+#maps #map1 path {
+    stroke: #000000;
+    stroke-width: 2px;
+    stroke-linejoin: round;
+}
+
+#maps #map1 path:hover {
+    filter: brightness(1.5) saturate(1.2) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.5));
+    z-index: 5;
+    cursor: pointer;
+}
