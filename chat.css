@@ -32,6 +32,12 @@
     border: 2px solid #9b0f27;
 }
 
+.owner-role {
+    background: linear-gradient(140deg, #0c0c0c, #242121, #0c0c0c);
+    border-radius: 10px;
+    border: 2px solid #080808;
+}
+
 .message div {
     display: inline-block;
     white-space: pre-wrap;

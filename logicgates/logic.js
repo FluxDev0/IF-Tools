@@ -27,6 +27,21 @@ function createGateHTML(id, type, position = ["50%", "50%"]) {
         `
         return notGate;
     }
+    if (type == "TEST") {
+        const test = `<div 
+                    class="draggable-box gate-box switch" 
+                    id="gate-${id}" 
+                    style="top: ${position[1]}; left: ${position[0]};" 
+                    onclick="this.classList.contains('on') ? this.classList.remove('on') : this.classList.add('on')"
+                >
+                    <div class="switch"></div>
+                    
+                    <div class="gate-outputs">
+                        <div class="pin output" id="${id}-out" title="Ausgang"></div>
+                    </div>
+                </div>`
+        return test;
+    }
     const gate = `
         <div class="draggable-box gate-box" id="gate-${id}" style="top: ${position[1]}; left: ${position[0]};">
             <div class="gate-inputs">
@@ -159,6 +174,25 @@ class BitOutput extends LogicGate {
     }
 }
 
+class Test extends LogicGate {
+    /**
+     * @param {string} element_id
+     * @param {string} output_id
+     */
+    constructor(element_id, output_id) {
+        super("undefined", "undefined", output_id)
+        this.element = document.getElementById(element_id);
+
+        this.update();
+    }
+
+    update() {
+        if (this.in1On()) {
+            this.element.classList.add("on");
+        }
+    }
+}
+
 class AndGate extends LogicGate {
     update() {
         if (this.in1On() && this.in2On()) {
@@ -256,27 +290,36 @@ function createGate(type, position = [(mouseX - 50) + 'px', (mouseY - 35) + 'px'
     if (type == "OR") {
         new OrGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
     }
-    if (type == "NAND") {
+    else if (type == "NAND") {
         new NandGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
     }
-    if (type == "NOR") {
+    else if (type == "NOR") {
         new NorGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
     }
-    if (type == "XOR") {
+    else if (type == "XOR") {
         new XorGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
     }
-    if (type == "XNOR") {
+    else if (type == "XNOR") {
         new XnorGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
     }
-    if (type == "NOT") {
+    else if (type == "NOT") {
         new NotGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
     }
+    else if (type == "TEST") {
+        new Test(`gate-${id}`);
+    }
 }
+
+new Draggable(`gate-test`);
 
 let startPinId = null;
 
 // Wir lauschen auf Klicks auf der GANZEN Seite
 document.addEventListener('click', (event) => {
+    if (activeApp == "logicgates") {
+        customMenu.classList.add('hidden');
+    }
+
     // Prüfen, ob das angeklickte Element überhaupt ein Pin ist
     const geklickterPin = event.target.closest('.pin');
     
@@ -336,12 +379,5 @@ document.addEventListener('contextmenu', function(event) {
             
             customMenu.classList.remove('hidden');
         }
-    }
-});
-
-// Menü schließen, wenn man irgendwo anders klickt
-document.addEventListener('click', function() {
-    if (activeApp == "logicgates") {
-        customMenu.classList.add('hidden');
     }
 });

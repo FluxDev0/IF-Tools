@@ -132,3 +132,8 @@
 .hidden {
     display: none;
 }
+
+.switch {
+    background-color: var(--logic-main-color);
+    transition: background-color 0.5s ease;
+}

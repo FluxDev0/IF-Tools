@@ -218,6 +218,7 @@
                         <li onclick="createGate('NAND')">NAND Gatter</li>
                         <li onclick="createGate('NOR')">NOR Gatter</li>
                         <li onclick="createGate('XNOR')">XNOR Gatter</li>
+                        <li onclick="createGate('TEST')">Input</li>
                     </ul>
                 </div>
             </div>
@@ -237,6 +238,44 @@
                 <canvas id="canvas" width="800" height="600"></canvas>
             </div>
             <div class="app" id="mini-game1" style="display: none;">
+                <div id="coin-display"></div>
+
+                <div id="maps">
+                    <svg id="map1" viewBox="0 0 500 500">
+                        <path
+                        style="fill:#be1e1e"
+                        d="M 57.423313,13.803681 33.128834,108.77301 149.07975,60.736196 Z"
+                        id="path63" />
+                        <path
+                        style="fill:#9b1616"
+                        d="M 33.128834,108.77301 17.668712,187.17791 138.58896,206.50307 149.07975,60.736196 Z"
+                        id="path64" />
+                        <path
+                        style="fill:#db5b5b"
+                        d="m 149.07975,60.736196 118.15951,60.184054 -128.6503,85.58282 z"
+                        id="path65" />
+                        <path
+                        style="fill:#9c0606"
+                        d="m 138.58896,206.50307 40.85889,85.03067 128.65031,4.41718 45.27607,-109.8773 -86.13497,-65.15337 z"
+                        id="path66" />
+                        <path
+                        style="fill:#bb1d1d"
+                        d="m 149.07975,60.736196 54.11043,-36.993865 67.36197,8.834356 -3.31289,88.343563 z"
+                        id="path67" />
+                        <path
+                        style="fill:#7e0101"
+                        d="m 267.23926,120.92025 3.31289,-88.343563 78.40491,28.159509 4.41717,125.337424 z"
+                        id="path68" />
+                        <path
+                        style="fill:#df1212"
+                        d="m 17.668712,187.17791 45.828221,86.68712 115.950917,17.66871 -40.85889,-85.03067 z"
+                        id="path69" />
+                        <path
+                        style="fill:#f14a4a"
+                        d="m 57.423313,13.803681 145.766867,9.93865 -54.11043,36.993865 z"
+                        id="path70" />
+                    </svg>
+                </div>
             </div>
         </div>
     </div>
@@ -254,5 +293,6 @@
     <script src="logicgates/logic.js"></script>
     <script src="security.js"></script>
     <script src="pathfinding/logic.js"></script>
+    <script src="mini_game_1/logic.js"></script>
 </body>
 </html>
