@@ -36,11 +36,17 @@ class Cable {
                 observer.observe(this.el1, { attributes: true });
             }
         }
+        else {
+            console.log("cable error: nor el1")
+        }
 
         if (this.el2) {
             if (this.el2.classList.contains("output")) {
                 observer.observe(this.el2, { attributes: true });
             }
+        }
+        else {
+            console.log("cable error: nor el2")
         }
 
         window.addEventListener('resize', () => this.update());

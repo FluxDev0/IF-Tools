@@ -31,8 +31,7 @@ function createGateHTML(id, type, position = ["50%", "50%"]) {
         const test = `<div 
                     class="draggable-box gate-box switch" 
                     id="gate-${id}" 
-                    style="top: ${position[1]}; left: ${position[0]};" 
-                    onclick="this.classList.contains('on') ? this.classList.remove('on') : this.classList.add('on')"
+                    style="top: ${position[1]}; left: ${position[0]};"
                 >
                     <div class="switch"></div>
                     
@@ -182,8 +181,21 @@ class Test extends LogicGate {
     constructor(element_id, output_id) {
         super("undefined", "undefined", output_id)
         this.element = document.getElementById(element_id);
+        this.output = document.getElementById(output_id);
 
         this.update();
+
+        this.element.addEventListener("click", (event) => {
+            this.update();
+            if (this.element.classList.contains('on')) {
+                this.element.classList.remove('on');
+                this.output.classList.remove('on');
+            }
+            else {
+                this.element.classList.add('on');
+                this.output.classList.add('on');
+            }
+        })
     }
 
     update() {
@@ -306,7 +318,7 @@ function createGate(type, position = [(mouseX - 50) + 'px', (mouseY - 35) + 'px'
         new NotGate(`${id}-in1`, `${id}-in2`, `${id}-out`);
     }
     else if (type == "TEST") {
-        new Test(`gate-${id}`);
+        new Test(`gate-${id}`, `${id}-out`);
     }
 }
 
