@@ -1,7 +1,6 @@
 @import url('themes.css');
 @import url('mini_game_1/style.css');
 @import url('chat.css');
-@import url('buttons.css');
 @import url('neuro.css');
 @import url('tictacto.css');
 @import url('toasts.css');
@@ -9,6 +8,8 @@
 @import url('logicgates/style.css');
 @import url('pathfinding/style.css');
 @import url('logicgates/testing.css');
+@import url('gemini_games/style.css');
+@import url('buttons.css');
 
 * {
     box-sizing: border-box;

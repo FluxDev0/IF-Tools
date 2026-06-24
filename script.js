@@ -24,9 +24,14 @@ function toggleTest() {
 function toggleTheme() {
     if (body.getAttribute('data-theme') === 'dark') {
         body.removeAttribute('data-theme');
-    } else {
+    } 
+    else {
         body.setAttribute('data-theme', 'dark');
     }
+}
+
+function setTheme(theme) {
+    body.setAttribute('data-theme', theme);
 }
 
 function generateTree() {

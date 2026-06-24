@@ -5,7 +5,6 @@
 }
 
 #maps #map1 path:hover {
-    filter: brightness(1.5) saturate(1.2) drop-shadow(4px 8px 6px rgba(0, 0, 0, 0.5));
-    z-index: 5;
+    filter: brightness(1.7) saturate(1.5);
     cursor: pointer;
 }

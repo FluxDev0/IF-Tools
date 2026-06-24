@@ -3,7 +3,7 @@
 }
 
 .on {
-    --logic-main-color: #15aed4;
+    --logic-main-color: #3bd415;
 }
 
 #cable-layer {
@@ -97,7 +97,7 @@
 }
 
 .pin.selected {
-    background-color: #ffca28 !important; /* Gelb */
+    background-color: #ffca28 !important;
     box-shadow: 0 0 12px #ffca28;
     transform: scale(1.2);
 }

@@ -1,5 +1,7 @@
 let coins = JSON.parse(sessionStorage.getItem("coins"))
 
+const svgpaths = document.querySelectorAll('#maps #map1 path');
+
 if (sessionStorage.getItem("coins") == null) {
     addCoins(100)
 }
@@ -23,8 +25,6 @@ function buy(cost) {
 }
 
 function getFieldCoordinates(target) {
-    // Falls target ein String (Selector) ist, suchen wir das Element.
-    // Falls es schon ein Objekt ist, nehmen wir es direkt.
     const element = typeof target === 'string' ? document.querySelector(target) : target;
 
     // Sicherheits-Check: Existiert das Element und ist es ein SVG-Pfad?
@@ -33,21 +33,93 @@ function getFieldCoordinates(target) {
         return [];
     }
 
-    // Pfad-Daten standardisieren (benötigt das path-data-polyfill)
     const pfadDaten = element.getPathData({ normalize: true });
     const koordinaten = [];
 
-    // Durch alle Segmente loopen und X/Y-Werte extrahieren
+    // Der "Stift"-Tracker für die aktuelle Position
+    let currentX = 0;
+    let currentY = 0;
+
     pfadDaten.forEach(segment => {
-        if (segment.values && segment.values.length >= 2) {
-            for (let i = 0; i < segment.values.length; i += 2) {
-                koordinaten.push({
-                    x: segment.values[i],
-                    y: segment.values[i + 1]
-                });
+        const cmd = segment.type;
+        const vals = segment.values || [];
+        const isRelative = cmd === cmd.toLowerCase();
+        const upperCmd = cmd.toUpperCase();
+
+        // Standard-Linien und Startpunkte (M, m, L, l, T, t)
+        if (upperCmd === 'M' || upperCmd === 'L' || upperCmd === 'T') {
+            for (let i = 0; i < vals.length; i += 2) {
+                if (isRelative) {
+                    currentX += vals[i];
+                    currentY += vals[i + 1];
+                } else {
+                    currentX = vals[i];
+                    currentY = vals[i + 1];
+                }
+                koordinaten.push({ x: currentX, y: currentY });
+            }
+        } 
+        // Horizontale Linien (H, h)
+        else if (upperCmd === 'H') {
+            for (let i = 0; i < vals.length; i++) {
+                if (isRelative) currentX += vals[i];
+                else currentX = vals[i];
+                koordinaten.push({ x: currentX, y: currentY });
+            }
+        } 
+        // Vertikale Linien (V, v)
+        else if (upperCmd === 'V') {
+            for (let i = 0; i < vals.length; i++) {
+                if (isRelative) currentY += vals[i];
+                else currentY = vals[i];
+                koordinaten.push({ x: currentX, y: currentY });
+            }
+        } 
+        // Kurven (C, c) - Hier ist jeweils das letzte Paar der Endpunkt
+        else if (upperCmd === 'C') {
+            for (let i = 0; i < vals.length; i += 6) {
+                if (isRelative) {
+                    currentX += vals[i + 4];
+                    currentY += vals[i + 5];
+                } else {
+                    currentX = vals[i + 4];
+                    currentY = vals[i + 5];
+                }
+                koordinaten.push({ x: currentX, y: currentY });
             }
         }
+        // Falls deine Karte S, Q oder A Kurven nutzt, kann das analog erweitert werden.
     });
 
     return koordinaten;
 }
+
+function areConnectedAreas(area1, area2) {
+    const coords1 = getFieldCoordinates(area1);
+    const coords2 = getFieldCoordinates(area2);
+
+    let same = 0;
+
+    coords1.forEach((pos1) => {
+        coords2.forEach((pos2) => {
+            if (
+                Math.round(pos1["x"] * 100) == Math.round(pos2["x"] * 100) &&
+                Math.round(pos1["y"] * 100) == Math.round(pos2["y"] * 100)
+                ) {
+                same++;
+            };
+        });
+    });
+
+    return same > 1;
+}
+
+document.addEventListener('click', (event) => {
+    if (activeApp == "mini-game1") {
+        const clickedElement = event.target.closest('#mini-game1 #maps svg path');
+
+        if (clickedElement) {
+            console.log("clicked on area: ", clickedElement.id)
+        }
+    }
+});
