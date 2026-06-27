@@ -1,6 +1,6 @@
 // --- FRONTEND MULTIPLAYER SNAKE LOGIK ---
-const canvas = document.getElementById('snakeCanvas');
-const ctx = canvas ? canvas.getContext('2d') : null;
+const snakeCanvas = document.getElementById('snakeCanvas');
+const snakeCtx = snakeCanvas ? canvas.getContext('2d') : null;
 const snakeStatus = document.getElementById('snake-status');
 const CELL_SIZE = 20;
 
@@ -21,26 +21,26 @@ window.addEventListener('keydown', (e) => {
 });
 
 function zeichneSnakeSpiel(snakeData, foodData) {
-    if (!ctx) return;
+    if (!snakeCtx) return;
 
     // 1. Spielfeld leeren
-    ctx.fillStyle = "#1e272e";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    snakeCtx.fillStyle = "#1e272e";
+    snakeCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
 
     // 2. Essen zeichnen (Neon-Rot)
-    ctx.fillStyle = "#ff4757";
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = "#ff4757";
-    ctx.fillRect(foodData.x * CELL_SIZE, foodData.y * CELL_SIZE, CELL_SIZE - 2, CELL_SIZE - 2);
+    snakeCtx.fillStyle = "#ff4757";
+    snakeCtx.shadowBlur = 10;
+    snakeCtx.shadowColor = "#ff4757";
+    snakeCtx.fillRect(foodData.x * CELL_SIZE, foodData.y * CELL_SIZE, CELL_SIZE - 2, CELL_SIZE - 2);
 
     // 3. Schlange zeichnen (Neon-Grün)
-    ctx.shadowColor = "#2ed573";
+    snakeCtx.shadowColor = "#2ed573";
     snakeData.forEach((segment, index) => {
         // Der Kopf kriegt eine etwas hellere Farbe
-        ctx.fillStyle = index === 0 ? "#3eff25" : "#19b95c";
-        ctx.fillRect(segment.x * CELL_SIZE, segment.y * CELL_SIZE, CELL_SIZE - 2, CELL_SIZE - 2);
+        snakeCtx.fillStyle = index === 0 ? "#3eff25" : "#19b95c";
+        snakeCtx.fillRect(segment.x * CELL_SIZE, segment.y * CELL_SIZE, CELL_SIZE - 2, CELL_SIZE - 2);
     });
     
     // Shadow-Effekt zurücksetzen für Performance
-    ctx.shadowBlur = 0;
+    snakeCtx.shadowBlur = 0;
 }
