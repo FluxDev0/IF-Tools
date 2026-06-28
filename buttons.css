@@ -98,3 +98,26 @@
 .btn-3:hover {
     background: #ffd82b;
 }
+
+
+
+.btn-4 {
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: calc(1em + 15px);
+    background: var(--accent-color-1);
+    color: var(--text-color);
+  
+    position: relative;
+
+    transition: background 0.3s ease;
+}
+
+.btn-4:hover {
+    background: var(--accent-color-2);
+}
+
+.btn-4:active {
+    background: var(--accent-color-3);
+}

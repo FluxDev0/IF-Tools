@@ -11,6 +11,11 @@
     --danger-hover: #c0392b;
     --success-color: #27ae60;
 
+    --accent-color-1: #d2d2d6;
+    --accent-color-2: #b6b6bb;
+    --accent-color-3: #939397;
+    --accent-color-4: #7a7a80;
+
     --btn-bg: #db1c3c;
     --btn-bg-hover: #ee3755;
     --btn-shadow: #8d0d23;
@@ -45,14 +50,19 @@
 }
 
 [data-theme="dark2"] {
-    --bg-color: #1d1d20;
+    --bg-color: #121213;
     --text-color: #e0e0e0;
-    --sidebar-bg: #1d1e22;
+    --sidebar-bg: #242529;
     --sidebar-text: #e0e0e0;
     --primary-color: #e94560;
     --primary-hover: #d13050;
     --card-bg: #2b2b35;
     --border-color: #1b1a22;
+
+    --accent-color-1: #1d1d1f;
+    --accent-color-2: #29292c;
+    --accent-color-3: #323236;
+    --accent-color-4: #3e3e42;
 
     --neuro-bg-primary: #374151;
     --neuro-bg-secondary: #1f2937;

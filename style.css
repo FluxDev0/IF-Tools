@@ -10,6 +10,7 @@
 @import url('logicgates/testing.css');
 @import url('gemini_games/style.css');
 @import url('buttons.css');
+@import url('td_game/style.css');
 
 * {
     box-sizing: border-box;

@@ -1,9 +1,9 @@
 const TD_STANDARD_CONFIG = {
     tdState: {
-        gold: 200,
+        gold: 2000,
         lives: 20,
         wave: 0,
-        essence: 0,
+        essence: 100,
         isRunning: false,
         selectedTower: null,
         selectedPlacedTower: null, 
@@ -15,18 +15,21 @@ const TD_STANDARD_CONFIG = {
     },
     tdMaps: [
         {
+            name: "Wiese",
             color: "#27ae60",
             pathColor: "#34495e",
             path: [{x: 0, y: 100}, {x: 200, y: 100}, {x: 200, y: 400}, {x: 600, y: 400}, {x: 600, y: 200}, {x: 800, y: 200}],
             width: 40
         },
         {
+            name: "Wüste",
             color: "#e67e22",
             pathColor: "#d35400",
             path: [{x: 100, y: 0}, {x: 100, y: 500}, {x: 400, y: 500}, {x: 400, y: 100}, {x: 700, y: 100}, {x: 700, y: 600}],
             width: 40
         },
         {
+            name: "Antarktis",
             color: "#74b9ff",
             pathColor: "#0984e3",
             path: [{x: 0, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 500, y: 100}, {x: 500, y: 500}, {x: 800, y: 500}],
@@ -34,16 +37,22 @@ const TD_STANDARD_CONFIG = {
         }
     ],
     enemyTypes: {
-        normal: { hpMult: 1.0,  speed: 1.5, reward: 10,  color: "#e74c3c", radius: 11 },
-        fast:   { hpMult: 0.6,  speed: 2.8, reward: 12,  color: "#f1c40f", radius: 8  },
-        tank:   { hpMult: 3.0,  speed: 0.8, reward: 25,  color: "#8e44ad", radius: 15 },
-        boss:   { hpMult: 10.0, speed: 0.5, reward: 100, color: "#2c3e50", radius: 20 }
+        normal: { hp: 30,  speed: 1.5, reward: 10,  color: "#e74c3c", radius: 11 },
+        fast:   { hp: 18,  speed: 2.8, reward: 12,  color: "#f1c40f", radius: 8  },
+        tank:   { hp: 90,  speed: 0.8, reward: 25,  color: "#8e44ad", radius: 15 },
+        boss:   { hp: 300, speed: 0.5, reward: 100, color: "#2c3e50", radius: 20 }
     },
     towerTypes: {
-        basic:  { cost: 100, range: 120, damage: 15, cooldown: 30, color: "#3498db" },
-        sniper: { cost: 200, range: 250, damage: 45, cooldown: 60, color: "#e67e22" },
-        bomb:   { cost: 250, range: 100, damage: 40, cooldown: 50, color: "#e74c3c" },
-        ice:    { cost: 150, range: 110, damage: 5,  cooldown: 25, color: "#2ecc71" }
+        basic:  { name: "Basis-Turm",   cost: 100, range: 120, cooldown: 30, color: "#3498db", projectile: "normal" },
+        sniper: { name: "Sniper",       cost: 200, range: 250, cooldown: 60, color: "#e67e22", projectile: "sniper" },
+        bomb:   { name: "Bombenwerfer", cost: 250, range: 100, cooldown: 50, color: "#e74c3c", projectile: "bomb" },
+        ice:    { name: "Eiswerfer",    cost: 150, range: 110, cooldown: 25, color: "#2ecc71", projectile: "ice" }
+    },
+    projectileTypes: {
+        normal: { color: "#f1c40f", damage: 15, speed: 8, attributes: {} },
+        sniper: { color: "#f1c40f", damage: 40, speed: 12, attributes: {} },
+        bomb:   { color: "#e74c3c", damage: 20, speed: 6, attributes: { explosion: { radius: 40, damage: 20 } } },
+        ice:    { color: "#74b9ff", damage: 30, speed: 8, attributes: { slowness: { duration: 90, factor: 0.5 } } }
     }
 }
 
@@ -52,60 +61,23 @@ class TowerDefenseGame {
         this.tdCanvas = document.getElementById('tdCanvas');
         this.tdCtx = this.tdCanvas.getContext('2d');
 
+        this.config = TD_STANDARD_CONFIG
+
         // 1. Spielfeld & Karten Konfigurationen
-        this.tdMaps = [
-            {
-                color: "#27ae60",
-                pathColor: "#34495e",
-                path: [{x: 0, y: 100}, {x: 200, y: 100}, {x: 200, y: 400}, {x: 600, y: 400}, {x: 600, y: 200}, {x: 800, y: 200}],
-                width: 40
-            },
-            {
-                color: "#e67e22",
-                pathColor: "#d35400",
-                path: [{x: 100, y: 0}, {x: 100, y: 500}, {x: 400, y: 500}, {x: 400, y: 100}, {x: 700, y: 100}, {x: 700, y: 600}],
-                width: 40
-            },
-            {
-                color: "#74b9ff",
-                pathColor: "#0984e3",
-                path: [{x: 0, y: 300}, {x: 300, y: 300}, {x: 300, y: 100}, {x: 500, y: 100}, {x: 500, y: 500}, {x: 800, y: 500}],
-                width: 40
-            }
-        ];
+        this.tdMaps = this.config.tdMaps;
+
         this.currentMapIndex = 0;
 
         // 2. Turm & Gegner Basis-Konfigurationen
-        this.towerTypes = {
-            basic:  { cost: 100, range: 120, damage: 15, cooldown: 30, color: '#3498db' },
-            sniper: { cost: 200, range: 250, damage: 45, cooldown: 60, color: '#e67e22' },
-            bomb:   { cost: 250, range: 100, damage: 40, cooldown: 50, color: '#e74c3c' },
-            ice:    { cost: 150, range: 110, damage: 5,  cooldown: 25, color: '#2ecc71' }
-        };
+        this.towerTypes = this.config.towerTypes;
 
-        this.enemyTypes = {
-            normal:    { hpMult: 1.0,  speed: 1.5, reward: 10,  color: '#e74c3c', radius: 11 },
-            fast:      { hpMult: 0.6,  speed: 2.8, reward: 12,  color: '#f1c40f', radius: 8  },
-            tank:      { hpMult: 3.0,  speed: 0.8, reward: 25,  color: '#8e44ad', radius: 15 },
-            boss:      { hpMult: 10.0, speed: 0.5, reward: 100, color: '#2c3e50', radius: 20 }
-        };
+        this.enemyTypes = this.config.enemyTypes;
+
+        this.projectileTypes = this.config.projectileTypes;
 
         // 3. Game State
         if (tdState == null) { 
-            this.tdState = {
-                gold: 200,
-                lives: 20,
-                wave: 0,
-                essence: 0,
-                isRunning: false,
-                selectedTower: null,
-                selectedPlacedTower: null, 
-                skills: {
-                    damage: 0,
-                    cost: 0,
-                    hp: 0
-                }
-            }; 
+            this.tdState = structuredClone(this.config.tdState);
         }
         else {
             this.tdState = tdState;
@@ -148,9 +120,20 @@ class TowerDefenseGame {
                 }
             } else {
                 this.tdState.selectedPlacedTower = null;
-                document.getElementById('td-tower-details').style.display = 'none';
+                this.updateTowerDetailsUI();
             }
         });
+
+        this.ui = new TowerDefenseGameUI(this);
+    }
+
+    restart() {
+        this.towers = [];
+        this.projectiles = [];
+        this.enemiesToSpawn = 0;
+        this.spawnTimer = 0;
+        this.tdState = structuredClone(this.config.tdState);
+        this.updateTdUI();
     }
 
     // 4. UI Updates
@@ -172,7 +155,7 @@ class TowerDefenseGame {
     selectTower(type) {
         this.tdState.selectedTower = type;
         this.tdState.selectedPlacedTower = null;
-        document.getElementById('td-tower-details').style.display = 'none';
+        this.updateTowerDetailsUI();
     }
 
     // 10. Zeichen-Funktion für Pfade
@@ -200,19 +183,17 @@ class TowerDefenseGame {
             return;
         }
         this.currentMapIndex = index;
-        this.towers = [];
-        this.projectiles = [];
-        this.tdState.selectedPlacedTower = null;
-        document.getElementById('td-tower-details').style.display = 'none';
+        this.updateTowerDetailsUI();
         for (let i = 0; i < this.tdMaps.length; i++) {
             document.getElementById(`map-btn-${i}`).dataset.btn = (i === index) ? "green" : "gray";
         }
+        this.restart();
     }
 
     // 13. Skill Tree Logik
     toggleSkillTree() {
         const st = document.getElementById('td-skill-tree');
-        st.style.display = st.style.display === 'none' ? 'block' : 'none';
+        st.style.display = st.style.display === 'none' ? 'flex' : 'none';
         updateSkillUI();
     }
 
@@ -246,25 +227,17 @@ class TowerDefenseGame {
         } else {
             if (typeof showToast === "function") showToast("Nicht genug Essenz!", "error");
         }
+
+        this.towers.forEach((t) => {
+            t.recalculateBaseDmg()
+        })
+
+        this.updateTowerDetailsUI()
     }
 
     // 14. In-Game Upgrades & Verkauf
     updateTowerDetailsUI() {
-        let t = this.tdState.selectedPlacedTower;
-        if (!t) {
-            document.getElementById('td-tower-details').style.display = 'none';
-            return;
-        }
-        document.getElementById('td-tower-details').style.display = 'block';
-        document.getElementById('tw-type').innerText = t.type.toUpperCase();
-        document.getElementById('tw-dmg').innerText = t.damage;
-        document.getElementById('tw-lvl-dmg').innerText = t.lvlDmg;
-        document.getElementById('tw-speed').innerText = (60 / t.cooldown).toFixed(1);
-        document.getElementById('tw-lvl-speed').innerText = t.lvlSpeed;
-        document.getElementById('tw-range').innerText = t.range;
-        document.getElementById('tw-lvl-range').innerText = t.lvlRange;
-        document.getElementById('tw-target-mode').value = t.targetMode;
-        document.getElementById('tw-sell-value').innerText = t.sellValue;
+        this.ui.updateTowerDetailsUI()
     }
 
     upgradeTowerStat(stat) {
@@ -300,7 +273,7 @@ class TowerDefenseGame {
         this.tdState.gold += t.sellValue;
         this.towers = this.towers.filter(tower => tower !== t);
         this.tdState.selectedPlacedTower = null;
-        document.getElementById('td-tower-details').style.display = 'none';
+        this.updateTowerDetailsUI();
         updateTdUI();
     }
 
@@ -336,7 +309,10 @@ class TowerDefenseGame {
             let isAlive = e.update();
             if (isAlive && e.hp <= 0) {
                 this.tdState.gold += e.reward;
-                if (this.tdState.wave > 2 && Math.random() < 0.12) this.tdState.essence++;
+                if (this.tdState.wave > 2 && Math.random() < 0.12) {
+                    this.tdState.essence++;
+                    this.updateSkillUI()
+                }
                 updateTdUI();
                 if (this.tdState.selectedPlacedTower) updateTowerDetailsUI();
                 return false;
@@ -379,11 +355,16 @@ class TowerDefenseGame {
     spawnEnemy(type) {
         this.enemies.push(new Enemy(type, this.tdState.wave, this));
     }
+
+    getBaseDamage(towerType) {
+        return this.projectileTypes[this.towerTypes[towerType].projectile].damage + (this.tdState.skills.damage * 5);
+    }
 }
 
 class TowerDefenseGameUI {
-    constructor() {
-
+    constructor(gameObj) {
+        this.gameObj = gameObj;
+        this.tdState = gameObj.tdState;
     }
 
     updateUI() {
@@ -399,15 +380,40 @@ class TowerDefenseGameUI {
         document.getElementById('lvl-cost').innerText = this.tdState.skills.cost;
         document.getElementById('lvl-hp').innerText = this.tdState.skills.hp;
         
-        let basicCost = Math.max(10, this.towerTypes.basic.cost - (this.tdState.skills.cost * 5));
-        let sniperCost = Math.max(10, this.towerTypes.sniper.cost - (this.tdState.skills.cost * 5));
-        let bombCost = Math.max(10, this.towerTypes.bomb.cost - (this.tdState.skills.cost * 5));
-        let iceCost = Math.max(10, this.towerTypes.ice.cost - (this.tdState.skills.cost * 5));
+        let basicCost = Math.max(10, this.gameObj.towerTypes.basic.cost - (this.tdState.skills.cost * 5));
+        let sniperCost = Math.max(10, this.gameObj.towerTypes.sniper.cost - (this.tdState.skills.cost * 5));
+        let bombCost = Math.max(10, this.gameObj.towerTypes.bomb.cost - (this.tdState.skills.cost * 5));
+        let iceCost = Math.max(10, this.gameObj.towerTypes.ice.cost - (this.tdState.skills.cost * 5));
         
         document.getElementById('btn-buy-basic').innerText = `Basis-Turm (${basicCost}G)`;
         document.getElementById('btn-buy-sniper').innerText = `Sniper-Turm (${sniperCost}G)`;
         document.getElementById('btn-buy-bomb').innerText = `Splatter-Turm (${bombCost}G)`;
         document.getElementById('btn-buy-ice').innerText = `Frost-Turm (${iceCost}G)`;
+    }
+
+    updateTowerDetailsUI() {
+        let t = this.tdState.selectedPlacedTower;
+        if (!t) {
+            document.getElementById('tw-type').innerText = 0;
+            document.getElementById('tw-dmg').innerText = 0;
+            document.getElementById('tw-lvl-dmg').innerText = 0;
+            document.getElementById('tw-speed').innerText = 0;
+            document.getElementById('tw-lvl-speed').innerText = 0;
+            document.getElementById('tw-range').innerText = 0;
+            document.getElementById('tw-lvl-range').innerText = 0;
+            document.getElementById('tw-target-mode').value = 0;
+            document.getElementById('tw-sell-value').innerText = 0;
+            return;
+        }
+        document.getElementById('tw-type').innerText = t.type.toUpperCase();
+        document.getElementById('tw-dmg').innerText = t.damage;
+        document.getElementById('tw-lvl-dmg').innerText = t.lvlDmg;
+        document.getElementById('tw-speed').innerText = (60 / t.cooldown).toFixed(1);
+        document.getElementById('tw-lvl-speed').innerText = t.lvlSpeed;
+        document.getElementById('tw-range').innerText = t.range;
+        document.getElementById('tw-lvl-range').innerText = t.lvlRange;
+        document.getElementById('tw-target-mode').value = t.targetMode;
+        document.getElementById('tw-sell-value').innerText = t.sellValue;
     }
 }
 
@@ -420,7 +426,7 @@ class Enemy {
         this.type = type;
         this.x = currentPath[0].x;
         this.y = currentPath[0].y;
-        this.hp = Math.round((30 + (wave * 18)) * config.hpMult);
+        this.hp = config.hp;
         this.maxHp = this.hp;
         this.baseSpeed = config.speed + (wave * 0.04);
         this.speed = this.baseSpeed;
@@ -429,12 +435,13 @@ class Enemy {
         this.radius = config.radius;
         this.pathIndex = 1;
         this.slowTimer = 0;
+        this.slowFactor = 0;
     }
 
     update() {
         if (this.slowTimer > 0) {
             this.slowTimer--;
-            this.speed = this.baseSpeed * 0.5; // 50% Verlangsamung
+            this.speed = this.baseSpeed * this.slowFactor; // 50% Verlangsamung
             if (this.slowTimer <= 0) this.speed = this.baseSpeed;
         }
 
@@ -490,9 +497,10 @@ class Tower {
 
         this.x = x;
         this.y = y;
-        this.type = type;
+        this.type = type; 
+        this.projectile = this.gameObj.towerTypes[type].projectile
         this.baseRange = this.gameObj.towerTypes[type].range;
-        this.baseDamage = this.gameObj.towerTypes[type].damage + (this.gameObj.tdState.skills.damage * 5);
+        this.baseDamage = this.gameObj.getBaseDamage(type);
         this.baseCooldown = this.gameObj.towerTypes[type].cooldown;
         this.lvlDmg = 0;
         this.lvlSpeed = 0;
@@ -504,12 +512,16 @@ class Tower {
 
     get damage() { return this.baseDamage + (this.lvlDmg * 8); }
     get range() { return this.baseRange + (this.lvlRange * 15); }
-    get cooldown() { return Math.max(8, this.baseCooldown - (this.lvlSpeed * 5)); }
+    get cooldown() { return Math.max(0, this.baseCooldown - (this.lvlSpeed * 5)); }
     get sellValue() { 
         let baseCost = this.gameObj.towerTypes[this.type].cost;
         let finalCost = Math.max(10, baseCost - (this.gameObj.tdState.skills.cost * 5));
         let upgradesCost = (this.lvlDmg + this.lvlSpeed + this.lvlRange) * 30;
         return Math.round((finalCost + upgradesCost) * 0.7);
+    }
+
+    recalculateBaseDmg() {
+        this.baseDamage = this.gameObj.getBaseDamage(this.type);
     }
 
     update() {
@@ -537,7 +549,7 @@ class Tower {
                 }
 
                 if (target) {
-                    this.gameObj.projectiles.push(new Projectile(this.x, this.y, target, this.damage, this.type, this.gameObj));
+                    this.gameObj.projectiles.push(new Projectile(this.x, this.y, target, this.gameObj.projectileTypes[this.projectile], this.damage, this.gameObj));
                     this.currentCooldown = this.cooldown;
                 }
             }
@@ -563,15 +575,16 @@ class Tower {
 
 // 7. Projektil Klasse (Inklusive Flächen- und Frosteffekt)
 class Projectile {
-    constructor(x, y, target, damage, towerType, gameObj) {
+    constructor(x, y, target, type, damage, gameObj) {
         this.gameObj = gameObj;
 
         this.x = x;
         this.y = y;
         this.target = target;
+        this.targetX = this.target.x;
+        this.targetY = this.target.y;
+        this.type = type;
         this.damage = damage;
-        this.towerType = towerType;
-        this.speed = 8;
     }
 
     update() {
@@ -579,33 +592,35 @@ class Projectile {
         let dy = this.target.y - this.y;
         let dist = Math.hypot(dx, dy);
 
-        if (dist < this.speed) {
+        if (dist < this.type.speed) {
             // Treffer-Logik basierend auf Turmtyp
-            if (this.towerType === "bomb") {
+            if (this.type.attributes.explosion) {
                 // AoE Schadenskreis (Splatter)
                 this.gameObj.enemies.forEach(e => {
-                    if (Math.hypot(e.x - this.x, e.y - this.y) <= 60) {
-                        e.hp -= this.damage;
+                    if (Math.hypot(e.x - this.x, e.y - this.y) <= this.type.attributes.explosion.radius) {
+                        e.hp -= this.type.attributes.explosion.damage;
                     }
                 });
-            } else if (this.towerType === "ice") {
+            } 
+            if (this.type.attributes.slowness) {
                 this.target.hp -= this.damage;
-                this.target.slowTimer = 90; // 1.5 Sekunden verlangsamt bei 60 FPS
+                this.target.slowTimer = this.type.attributes.slowness.duration; // 1.5 Sekunden verlangsamt bei 60 FPS
+                this.target.slowFactor = this.type.attributes.slowness.factor;
             } else {
                 this.target.hp -= this.damage;
             }
             return false;
         } else {
-            this.x += (dx / dist) * this.speed;
-            this.y += (dy / dist) * this.speed;
+            this.x += (dx / dist) * this.type.speed;
+            this.y += (dy / dist) * this.type.speed;
             return true;
         }
     }
 
     draw() {
-        this.gameObj.tdCtx.fillStyle = this.towerType === "ice" ? "#74b9ff" : (this.towerType === "bomb" ? "#e74c3c" : "#f1c40f");
+        this.gameObj.tdCtx.fillStyle = this.type.color;
         this.gameObj.tdCtx.beginPath();
-        this.gameObj.tdCtx.arc(this.x, this.y, this.towerType === "bomb" ? 6 : 4, 0, Math.PI * 2);
+        this.gameObj.tdCtx.arc(this.x, this.y, this.type == "bomb" ? 6 : 4, 0, Math.PI * 2);
         this.gameObj.tdCtx.fill();
     }
 }

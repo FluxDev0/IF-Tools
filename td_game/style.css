@@ -1,0 +1,37 @@
+#tower-defense .middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.tower-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    max-width: 20%;
+    margin-top: 15px; 
+    border: 2px solid var(--accent-color-2); 
+    padding: 15px; 
+    border-radius: 8px;
+}
+
+.tower-details .tower-upgrades {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: center; 
+    gap: 10px; 
+    flex-wrap: wrap;
+}
+
+.tower-details .tower-upgrades .tower-upgrade {
+    padding: 10px; 
+    text-align: center; 
+    min-width: 160px;
+    flex: 1;
+    background-color: var(--accent-color-1);
+}
