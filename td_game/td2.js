@@ -49,9 +49,9 @@ const TD_STANDARD_CONFIG = {
     },
     projectileTypes: {
         normal: { color: "#f1c40f", damage: 15, speed: 8, attributes: {} },
-        sniper: { color: "#f1c40f", damage: 40, speed: 12, attributes: {} },
-        bomb:   { color: "#e74c3c", damage: 20, speed: 6, attributes: { explosion: { radius: 40, damage: 20 } } },
-        ice:    { color: "#74b9ff", damage: 30, speed: 8, attributes: { slowness: { duration: 90, factor: 0.5 } } }
+        sniper: { color: "#f1c40f", damage: 25, speed: 12, attributes: {} },
+        bomb:   { color: "#e74c3c", damage: 15, speed: 6, attributes: { explosion: { radius: 100, damage: 15 } } },
+        ice:    { color: "#74b9ff", damage: 20, speed: 8, attributes: { slowness: { duration: 90, factor: 0.5 } } }
     },
     waves: {
         1: {
@@ -257,10 +257,12 @@ class TowerDefenseGame {
                     this.spawnTimer = type === "fast" ? 25 : 45;
                 }
             }
+
             if (this.enemies.length == 0 && this.enemiesToSpawn <= 0) {
                 this.waveType = null;
             }
         }
+
         if (this.waveType == "preset") {
             this.spawnTimer++;
             if (this.currentWave[this.spawnTimer]) {
@@ -269,7 +271,7 @@ class TowerDefenseGame {
                 });
             }
 
-            if (this.currentWave.ticks == this.spawnTimer && this.enemies.length == 0) this.waveType = null;
+            if (this.currentWave.ticks <= this.spawnTimer && this.enemies.length == 0) this.waveType = null;
         }
     }
 
@@ -530,11 +532,7 @@ class Enemy {
 
         // Verlangsamungs-Effekt zeichnen
         if (this.slowTimer > 0) {
-            this.gameObj.tdCtx.strokeStyle = '#74b9ff';
-            this.gameObj.tdCtx.lineWidth = 3;
-            this.gameObj.tdCtx.beginPath();
-            this.gameObj.tdCtx.arc(this.x, this.y, this.radius + 2, 0, Math.PI * 2);
-            this.gameObj.tdCtx.stroke();
+            this.drawOutline('#74b9ff');
         }
 
         // Lebensbalken
@@ -542,6 +540,14 @@ class Enemy {
         this.gameObj.tdCtx.fillRect(this.x - 15, this.y - (this.radius + 8), 30, 4);
         this.gameObj.tdCtx.fillStyle = '#2ecc71';
         this.gameObj.tdCtx.fillRect(this.x - 15, this.y - (this.radius + 8), 30 * (this.hp / this.maxHp), 4);
+    }
+
+    drawOutline(color) {
+        this.gameObj.tdCtx.strokeStyle = color;
+        this.gameObj.tdCtx.lineWidth = 3;
+        this.gameObj.tdCtx.beginPath();
+        this.gameObj.tdCtx.arc(this.x, this.y, this.radius + 2, 0, Math.PI * 2);
+        this.gameObj.tdCtx.stroke();
     }
 }
 
