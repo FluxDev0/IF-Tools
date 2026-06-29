@@ -1,6 +1,6 @@
 const TD_STANDARD_CONFIG = {
     tdState: {
-        gold: 200,
+        gold: 150,
         lives: 20,
         wave: 0,
         essence: 0,
@@ -36,16 +36,20 @@ const TD_STANDARD_CONFIG = {
         }
     ],
     enemyTypes: {
-        normal: { hp: 30,  speed: 1.5, reward: 10,  color: "#e74c3c", radius: 11 },
-        fast:   { hp: 18,  speed: 2.8, reward: 12,  color: "#f1c40f", radius: 8  },
-        tank:   { hp: 90,  speed: 0.8, reward: 25,  color: "#8e44ad", radius: 15 },
-        boss:   { hp: 300, speed: 0.5, reward: 100, color: "#2c3e50", radius: 20 }
+        normal1: { hp: 30,  speed: 1.5, reward: 10,  color: "#e74c3c", radius: 11 },
+        normal2: { hp: 50,  speed: 1.8, reward: 10,  color: "#e96e1d", radius: 11 },
+        fast1:   { hp: 18,  speed: 3,   reward: 10,  color: "#f1c40f", radius: 8  },
+        fast2:   { hp: 25,  speed: 4,   reward: 10,  color: "#70dd18", radius: 8  },
+        fast3:   { hp: 20,  speed: 6,   reward: 8,   color: "#0ebe75", radius: 8  },
+        tank1:   { hp: 90,  speed: 0.8, reward: 20,  color: "#b450df", radius: 14 },
+        tank2:   { hp: 200, speed: 1,   reward: 20,  color: "#7625d1", radius: 14 },
+        boss1:   { hp: 300, speed: 1,   reward: 80,  color: "#0628e7", radius: 16 }
     },
     towerTypes: {
-        basic:  { name: "Basis-Turm",   cost: 100, range: 120, cooldown: 2, color: "#3498db", projectile: "normal" },
-        sniper: { name: "Sniper",       cost: 200, range: 250, cooldown: 1, color: "#e67e22", projectile: "sniper" },
-        bomb:   { name: "Bombenwerfer", cost: 250, range: 100, cooldown: 1.2, color: "#e74c3c", projectile: "bomb" },
-        ice:    { name: "Eiswerfer",    cost: 150, range: 110, cooldown: 1.5, color: "#2ecc71", projectile: "ice" }
+        basic:  { name: "Basis-Turm",   cost: 100, range: 120, cooldown: 1.5, color: "#3498db", projectile: "normal" },
+        sniper: { name: "Sniper",       cost: 200, range: 220, cooldown: 0.5, color: "#e67e22", projectile: "sniper" },
+        bomb:   { name: "Bombenwerfer", cost: 250, range: 100, cooldown: 0.8, color: "#e74c3c", projectile: "bomb" },
+        ice:    { name: "Eiswerfer",    cost: 150, range: 110, cooldown: 1.2, color: "#2ecc71", projectile: "ice" }
     },
     projectileTypes: {
         normal: { color: "#f1c40f", damage: 15, speed: 8, attributes: {} },
@@ -55,34 +59,110 @@ const TD_STANDARD_CONFIG = {
     },
     waves: {
         1: {
-            ticks: 120,
-            1: ["normal"],
-            30: ["normal"],
-            60: ["normal"],
-            90: ["normal"],
-            120: ["normal"]
+            ticks: 160,
+            1: ["normal1"],
+            40: ["normal1"],
+            80: ["normal1"],
+            120: ["normal1"],
+            160: ["normal1"]
         },
         2: {
             ticks: 180,
-            1: ["normal"],
-            30: ["normal"],
-            60: ["normal"],
-            90: ["normal"],
-            120: ["normal"],
-            150: ["normal"],
-            180: ["normal"],
+            1: ["normal1"],
+            30: ["normal1"],
+            60: ["normal1"],
+            90: ["normal1"],
+            100: ["fast1"],
+            120: ["normal1"],
+            150: ["normal1"],
+            180: ["normal1"],
         },
         3: {
             ticks: 210,
-            1: ["normal"],
-            30: ["normal"],
-            60: ["normal"],
-            90: ["fast"],
-            120: ["fast"],
-            150: ["fast"],
-            180: ["normal"],
-            210: ["normal"]
-        }
+            1: ["normal1"],
+            30: ["normal1"],
+            60: ["normal1"],
+            90: ["fast1"],
+            120: ["fast1"],
+            150: ["fast1", "normal1"],
+            180: ["normal1"],
+            210: ["normal1"]
+        },
+        4: {
+            ticks: 230,
+            1: ["tank1"],
+            30: ["fast1"],
+            60: ["normal1"],
+            90: ["fast1"],
+            120: ["normal1"],
+            150: ["fast1"],
+            200: ["tank1"],
+            230: ["tank1"]
+        },
+        5: {
+            ticks: 210,
+            1: ["tank1"],
+            30: ["normal1"],
+            60: ["tank1"],
+            110: ["boss1", "tank1"],
+            120: ["normal1"],
+            150: ["tank1"],
+            210: ["tank1", "normal1"]
+        },
+        6: {
+            ticks: 180,
+            1: ["tank1"],
+            30: ["normal1"],
+            60: ["normal2"],
+            90: ["normal1", "normal2"],
+            120: ["normal2"],
+            150: ["tank1"],
+            180: ["normal1", "normal2"]
+        },
+        7: {
+            ticks: 180,
+            1: ["normal2"],
+            40: ["fast1"],
+            60: ["fast1", "fast2"],
+            90: ["fast3", "fast2", "tank2"],
+            120: ["normal2"],
+            150: ["fast2"],
+            180: ["fast3", "fast2"]
+        },
+        8: {
+            ticks: 180,
+            1: ["tank1", "normal2"],
+            30: ["tank2"],
+            60: ["normal2"],
+            90: ["normal1", "tank2"],
+            150: ["tank1"],
+            180: ["tank2"],
+            190: ["tank2"]
+        },
+        9: {
+            ticks: 180,
+            1: ["tank1"],
+            30: ["normal1"],
+            60: ["normal2"],
+            90: ["normal1", "normal2"],
+            120: ["normal2"],
+            150: ["tank1"],
+            180: ["normal1", "normal2"]
+        },
+        10: {
+            ticks: 250,
+            1: ["tank2", "normal2"],
+            30: ["normal2"],
+            60: ["normal2"],
+            90: ["normal2"],
+            120: ["normal2"],
+            150: ["tank1", "tank2"],
+            160: ["fast2", "fast3"],
+            160: ["fast1", "fast3"],
+            180: ["fast2", "boss1"],
+            220: ["tank2", "boss1"],
+            250: ["fast3", "boss1"]
+        },
     }
 }
 
@@ -243,13 +323,13 @@ class TowerDefenseGame {
             if (this.enemiesToSpawn > 0) {
                 this.spawnTimer--;
                 if (this.spawnTimer <= 0) {
-                    let type = "normal";
+                    let type = "normal1";
                     if (this.tdState.wave % 5 === 0 && this.enemiesToSpawn === 1) {
-                        type = "boss";
+                        type = "boss1";
                     } else if (this.tdState.wave > 5 && Math.random() < 0.25) {
-                        type = "tank";
+                        type = "tank1";
                     } else if (this.tdState.wave > 2 && Math.random() < 0.35) {
-                        type = "fast";
+                        type = "fast1";
                     }
                     
                     this.enemies.push(new Enemy(type, this));
@@ -344,7 +424,7 @@ class TowerDefenseGame {
             console.log("this.tdState.selectedPlacedTower not found or is null")
             return;
         }
-        let cost = 30;
+        let cost = 50;
 
         if (this.tdState.gold >= cost) {
             this.tdState.gold -= cost;
