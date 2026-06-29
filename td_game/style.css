@@ -31,7 +31,11 @@
 .tower-details .tower-upgrades .tower-upgrade {
     padding: 10px; 
     text-align: center; 
-    min-width: 160px;
+    min-width: 180px;
     flex: 1;
     background-color: var(--accent-color-1);
+}
+
+.tower-details .tower-upgrades .tower-upgrade button {
+    width: 140px;
 }

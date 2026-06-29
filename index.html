@@ -43,7 +43,7 @@
                 <div data-app="logicgates" class="btn-1" onclick="showApp(`logicgates`)">Logikgatter</div>
                 <div data-app="multiplayer-snake" class="btn-1" onclick="showApp('multiplayer-snake')">Multiplayer Snake</div>
                 <div data-app="settings" class="btn-1" onclick="showApp(`settings`)">Einstellungen</div>
-                <div data-app="tower-defense" class="btn-1 test" onclick="showApp('tower-defense')">🏰 Tower Defense</div>
+                <div data-app="tower-defense" class="btn-1" onclick="showApp('tower-defense')">🏰 Tower Defense</div>
                 <div data-app="memory-game" class="btn-1 test" onclick="showApp('memory-game')">🧠 Memory</div>
                 <div data-app="reaction-game" class="btn-1 test" onclick="showApp('reaction-game')">⚡ Reaktionstest</div>
                 <div data-app="solo-pong" class="btn-1 test" onclick="showApp('solo-pong')">🏓 Solo Pong</div>
@@ -392,15 +392,15 @@
                     <div class="tower-upgrades">
                         <div class="card tower-upgrade">
                             <p style="font-size: 0.9rem;">⚔️ Schaden: <span id="tw-dmg">0</span> (Lv.<span id="tw-lvl-dmg">0</span>)</p>
-                            <button class="btn-1" data-btn="blue" id="btn-up-dmg" onclick="upgradeTowerStat('damage')" style="font-size: 0.8rem; padding: 5px 10px; margin-top: 5px;">+8 Dmg (30G)</button>
+                            <button class="btn-5" id="btn-up-dmg" onclick="upgradeTowerStat('damage')" style="font-size: 0.8rem; padding: 5px 10px; margin-top: 5px;">+8 Dmg (30G)</button>
                         </div>
                         <div class="card tower-upgrade">
                             <p style="font-size: 0.9rem;">⏱️ Tempo: <span id="tw-speed">0</span>/s (Lv.<span id="tw-lvl-speed">0</span>)</p>
-                            <button class="btn-1" data-btn="blue" id="btn-up-speed" onclick="upgradeTowerStat('speed')" style="font-size: 0.8rem; padding: 5px 10px; margin-top: 5px;">+Freq (30G)</button>
+                            <button class="btn-5" id="btn-up-speed" onclick="upgradeTowerStat('speed')" style="font-size: 0.8rem; padding: 5px 10px; margin-top: 5px;">+Freq (30G)</button>
                         </div>
                         <div class="card tower-upgrade">
                             <p style="font-size: 0.9rem;">👁️ Reichweite: <span id="tw-range">0</span> (Lv.<span id="tw-lvl-range">0</span>)</p>
-                            <button class="btn-1" data-btn="blue" id="btn-up-range" onclick="upgradeTowerStat('range')" style="font-size: 0.8rem; padding: 5px 10px; margin-top: 5px;">+15 Range (30G)</button>
+                            <button class="btn-5" id="btn-up-range" onclick="upgradeTowerStat('range')" style="font-size: 0.8rem; padding: 5px 10px; margin-top: 5px;">+15 Range (30G)</button>
                         </div>
                         <div class="card tower-upgrade">
                             <p style="font-size: 0.9rem; margin-bottom: 5px;">🎯 Zielmodus</p>
@@ -411,7 +411,7 @@
                                 <option value="weakest">Schwächster</option>
                             </select>
                         </div>
-                        <button class="btn-1" data-btn="red" onclick="sellTower()" style="padding: 10px 15px;">💰 Verkaufen (<span id="tw-sell-value">0</span>G)</button>
+                        <button class="btn-4" onclick="sellTower()" style="padding: 10px 15px; min-width: 180px;">💰 Verkaufen (<span id="tw-sell-value">0</span>G)</button>
                     </div>
                 </div>
 
