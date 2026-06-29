@@ -1,9 +1,9 @@
 const TD_STANDARD_CONFIG = {
     tdState: {
-        gold: 2000,
+        gold: 200,
         lives: 20,
         wave: 0,
-        essence: 100,
+        essence: 0,
         selectedTower: null,
         selectedPlacedTower: null, 
         skills: {
@@ -42,10 +42,10 @@ const TD_STANDARD_CONFIG = {
         boss:   { hp: 300, speed: 0.5, reward: 100, color: "#2c3e50", radius: 20 }
     },
     towerTypes: {
-        basic:  { name: "Basis-Turm",   cost: 100, range: 120, cooldown: 30, color: "#3498db", projectile: "normal" },
-        sniper: { name: "Sniper",       cost: 200, range: 250, cooldown: 60, color: "#e67e22", projectile: "sniper" },
-        bomb:   { name: "Bombenwerfer", cost: 250, range: 100, cooldown: 50, color: "#e74c3c", projectile: "bomb" },
-        ice:    { name: "Eiswerfer",    cost: 150, range: 110, cooldown: 25, color: "#2ecc71", projectile: "ice" }
+        basic:  { name: "Basis-Turm",   cost: 100, range: 120, cooldown: 2, color: "#3498db", projectile: "normal" },
+        sniper: { name: "Sniper",       cost: 200, range: 250, cooldown: 1, color: "#e67e22", projectile: "sniper" },
+        bomb:   { name: "Bombenwerfer", cost: 250, range: 100, cooldown: 1.2, color: "#e74c3c", projectile: "bomb" },
+        ice:    { name: "Eiswerfer",    cost: 150, range: 110, cooldown: 1.5, color: "#2ecc71", projectile: "ice" }
     },
     projectileTypes: {
         normal: { color: "#f1c40f", damage: 15, speed: 8, attributes: {} },
@@ -573,7 +573,7 @@ class Tower {
 
     get damage() { return this.baseDamage + (this.lvlDmg * 8); }
     get range() { return this.baseRange + (this.lvlRange * 15); }
-    get cooldown() { return Math.max(0, this.baseCooldown - (this.lvlSpeed * 5)); }
+    get cooldown() { return Math.max(0, 60 / (this.baseCooldown + this.lvlSpeed)); }
     get sellValue() { 
         let baseCost = this.gameObj.towerTypes[this.type].cost;
         let finalCost = Math.max(10, baseCost - (this.gameObj.tdState.skills.cost * 5));
