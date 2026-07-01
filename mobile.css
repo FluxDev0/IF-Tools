@@ -1,15 +1,8 @@
 @import url('themes.css');
-@import url('icons.css');
-@import url('mini_game_1/style.css');
 @import url('chat.css');
 @import url('neuro.css');
 @import url('tictacto.css');
 @import url('toasts.css');
-@import url('snake.css');
-@import url('logicgates/style.css');
-@import url('pathfinding/style.css');
-@import url('logicgates/testing.css');
-@import url('gemini_games/style.css');
 @import url('buttons.css');
 @import url('td_game/style.css');
 
@@ -254,4 +247,8 @@ table#data-table td[contenteditable="true"]:focus { background: rgba(52, 152, 21
 
 .test {
     display: var(--test);
+}
+
+.hidden {
+    display: none;
 }

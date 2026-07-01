@@ -1,7 +1,7 @@
 const TD_STANDARD_CONFIG = {
     tdState: {
         gold: 150,
-        lives: 20,
+        lives: 5,
         wave: 0,
         essence: 0,
         selectedTower: null,
@@ -16,7 +16,7 @@ const TD_STANDARD_CONFIG = {
         {
             name: "Wiese",
             color: "#27ae60",
-            pathColor: "#34495e",
+            pathColor: "#48617a",
             path: [{x: 0, y: 100}, {x: 200, y: 100}, {x: 200, y: 400}, {x: 600, y: 400}, {x: 600, y: 200}, {x: 800, y: 200}],
             width: 40
         },
@@ -55,7 +55,7 @@ const TD_STANDARD_CONFIG = {
         normal: { color: "#f1c40f", damage: 15, speed: 8, attributes: {} },
         sniper: { color: "#f1c40f", damage: 25, speed: 12, attributes: {} },
         bomb:   { color: "#e74c3c", damage: 15, speed: 6, attributes: { explosion: { radius: 100, damage: 15 } } },
-        ice:    { color: "#74b9ff", damage: 20, speed: 8, attributes: { slowness: { duration: 90, factor: 0.5 } } }
+        ice:    { color: "#71b8ff", damage: 20, speed: 8, attributes: { slowness: { duration: 90, factor: 0.5 } } }
     },
     waves: {
         1: {
@@ -161,7 +161,7 @@ const TD_STANDARD_CONFIG = {
             160: ["fast1", "fast3"],
             180: ["fast2", "boss1"],
             220: ["tank2", "boss1"],
-            250: ["fast3", "boss1"]
+            250: ["fast3", "normal1"]
         },
     }
 }
@@ -639,7 +639,7 @@ class Tower {
         this.x = x;
         this.y = y;
         this.type = type; 
-        this.projectile = this.gameObj.towerTypes[type].projectile
+        this.projectile = structuredClone(this.gameObj.projectileTypes[this.gameObj.towerTypes[type].projectile]);
         this.baseRange = this.gameObj.towerTypes[type].range;
         this.baseDamage = this.gameObj.getBaseDamage(type);
         this.baseCooldown = this.gameObj.towerTypes[type].cooldown;
@@ -657,8 +657,8 @@ class Tower {
     get sellValue() { 
         let baseCost = this.gameObj.towerTypes[this.type].cost;
         let finalCost = Math.max(10, baseCost - (this.gameObj.tdState.skills.cost * 5));
-        let upgradesCost = (this.lvlDmg + this.lvlSpeed + this.lvlRange) * 30;
-        return Math.round((finalCost + upgradesCost) * 0.7);
+        let upgradesCost = (this.lvlDmg + this.lvlSpeed + this.lvlRange) * 50;
+        return Math.round((finalCost + upgradesCost) * 0.8);
     }
 
     recalculateBaseDmg() {
@@ -690,7 +690,7 @@ class Tower {
                 }
 
                 if (target) {
-                    this.gameObj.projectiles.push(new Projectile(this.x, this.y, target, this.gameObj.projectileTypes[this.projectile], this.damage, this.gameObj));
+                    this.gameObj.projectiles.push(new Projectile(this.x, this.y, target, this.projectile, this.damage, this.gameObj));
                     this.currentCooldown = this.cooldown;
                 }
             }

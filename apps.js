@@ -28,3 +28,4 @@ if (sessionStorage.getItem("activeApp")) {
 else {
     showApp("tree-generator");
 }
+

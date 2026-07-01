@@ -1,6 +1,6 @@
 // --- FRONTEND MULTIPLAYER SNAKE LOGIK ---
 const snakeCanvas = document.getElementById('snakeCanvas');
-const snakeCtx = snakeCanvas ? canvas.getContext('2d') : null;
+const snakeCtx = snakeCanvas ? snakeCanvas.getContext('2d') : null;
 const snakeStatus = document.getElementById('snake-status');
 const CELL_SIZE = 20;
 
