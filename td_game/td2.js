@@ -829,3 +829,24 @@ function selectTower(type) {
 function updateTdUI() {
     TDGAME.updateTdUI()
 }
+
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'ä') {
+        openTDtestMenu();
+    }
+});
+
+function openTDtestMenu() {
+    document.querySelector("#td-test-menu").classList.toggle("hidden")
+}
+
+function tdSetGold(gold) {
+    TDGAME.tdState.gold = gold;
+    TDGAME.updateTdUI();
+}
+
+function tdSetWave(wave) {
+    console.log()
+    TDGAME.tdState.wave = wave;
+    TDGAME.updateTdUI();
+}
