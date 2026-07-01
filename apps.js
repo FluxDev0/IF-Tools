@@ -29,3 +29,12 @@ else {
     showApp("tree-generator");
 }
 
+function apps() {
+    const button = document.querySelector("#apps-btn");
+    const sidebar = document.querySelector(".sidebar");
+    
+    button.classList.toggle('rotate-90');
+    
+    // Schaltet die Klasse für das Schließen der Sidebar um
+    sidebar.classList.toggle('closed');
+}

@@ -129,6 +129,8 @@ button:hover { background-color: var(--primary-hover); }
     display: flex; 
     flex-direction: column; 
     gap: 20px;
+
+    transition: all 1s ease;
 }
 
 .main-content { 
@@ -254,4 +256,8 @@ table#data-table td[contenteditable="true"]:focus { background: rgba(52, 152, 21
 
 .test {
     display: var(--test);
+}
+
+.hidden {
+    display: none;
 }
