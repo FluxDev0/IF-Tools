@@ -227,6 +227,7 @@ class TowerDefenseGame {
                 }
                 else {
                     showToast("Nicht genug Gold", "error");
+                    this.tdState.selectedTower = null;
                 }
             } else {
                 this.tdState.selectedPlacedTower = null;
