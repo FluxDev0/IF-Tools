@@ -459,16 +459,13 @@
                     <div class="controls" style="justify-content: center; margin-top: 20px; gap: 11px; flex-wrap: wrap; width: 800px;">
                         <button class="btn-4" onclick="startWave()">Welle starten</button>
                         <button class="btn-4" style="display: none;" onclick="toggleSkillTree()">🔮 Skill Tree</button>
-                        <button class="btn-4" id="btn-buy-basic" onclick="selectTower('basic')">Basis-Turm (100G)</button>
-                        <button class="btn-4" id="btn-buy-sniper" onclick="selectTower('sniper')">Sniper-Turm (200G)</button>
-                        <button class="btn-4" id="btn-buy-bomb" onclick="selectTower('bomb')">Splatter-Turm (250G)</button>
-                        <button class="btn-4" id="btn-buy-ice" onclick="selectTower('ice')">Frost-Turm (150G)</button>
                     </div>
                 </div>
 
                 <div id="td-test-menu" class="hidden">
                     <input id="td-gold">
                     <button class="btn-4" onclick="tdSetGold(document.querySelector('input#td-gold').value)">Set Gold</button>
+                    <br>
                     <input id="td-wave">
                     <button class="btn-4" onclick="tdSetWave(document.querySelector('input#td-wave').value)">Set Wave</button>
                 </div>

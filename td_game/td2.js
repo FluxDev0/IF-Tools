@@ -119,7 +119,7 @@ const TD_STANDARD_CONFIG = {
             150: ["tank1"],
             180: ["normal1", "normal2"]
         },
-        7: {
+        7: { 
             ticks: 180,
             1: ["normal2"],
             40: ["fast1"],
@@ -497,16 +497,11 @@ class TowerDefenseGameUI {
         document.getElementById('lvl-dmg').innerText = this.tdState.skills.damage;
         document.getElementById('lvl-cost').innerText = this.tdState.skills.cost;
         document.getElementById('lvl-hp').innerText = this.tdState.skills.hp;
-        
-        let basicCost = Math.max(10, this.gameObj.towerTypes.basic.cost - (this.tdState.skills.cost * 5));
-        let sniperCost = Math.max(10, this.gameObj.towerTypes.sniper.cost - (this.tdState.skills.cost * 5));
-        let bombCost = Math.max(10, this.gameObj.towerTypes.bomb.cost - (this.tdState.skills.cost * 5));
-        let iceCost = Math.max(10, this.gameObj.towerTypes.ice.cost - (this.tdState.skills.cost * 5));
-        
-        document.getElementById('btn-buy-basic').innerText = `Basis-Turm (${basicCost}G)`;
-        document.getElementById('btn-buy-sniper').innerText = `Sniper-Turm (${sniperCost}G)`;
-        document.getElementById('btn-buy-bomb').innerText = `Splatter-Turm (${bombCost}G)`;
-        document.getElementById('btn-buy-ice').innerText = `Frost-Turm (${iceCost}G)`;
+
+        Object.entries(this.gameObj.towerTypes).forEach(([key, value]) => {
+            let cost = Math.max(0, value.cost - (this.tdState.skills.cost * 5));
+            document.querySelector(`.controls #btn-buy-${key}`).innerText = `${value.name} (${cost}G)`;
+        })
     }
 
     updateTowerDetailsUI() {
@@ -534,6 +529,17 @@ class TowerDefenseGameUI {
         document.getElementById('tw-lvl-range').innerText = t.lvlRange;
         document.getElementById('tw-target-mode').value = t.targetMode;
         document.getElementById('tw-sell-value').innerText = t.sellValue;
+    }
+
+    createBuyButtons() {
+        const controlsElement = document.querySelector(`div#tower-defense.app .controls`);
+        let buttonsHtml = "";
+
+        Object.entries(this.gameObj.towerTypes).forEach(([key, value]) => {
+            buttonsHtml += `<button class="btn-4" id="btn-buy-${key}" onclick="selectTower('${key}')">${value.name} (${value.cost}G)</button>`;
+        })
+
+        controlsElement.innerHTML += buttonsHtml;
     }
 
     drawPath() {
@@ -771,6 +777,7 @@ class Projectile {
 const TDGAME = new TowerDefenseGame;
 TDGAME.updateTdUI()
 TDGAME.gameLoop()
+TDGAME.ui.createBuyButtons();
 
 
 
