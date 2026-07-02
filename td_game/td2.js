@@ -183,6 +183,8 @@ class TowerDefenseGame {
         this.currentWave = null;
         this.waveType = null;
 
+        this.mouse = { x: 0, y: 0 }
+
         // 3. Game State
         if (tdState == null) { 
             this.tdState = structuredClone(this.config.tdState);
@@ -223,10 +225,19 @@ class TowerDefenseGame {
                     this.tdState.selectedTower = null;
                     updateTdUI();
                 }
+                else {
+                    showToast("Nicht genug Gold", "error");
+                }
             } else {
                 this.tdState.selectedPlacedTower = null;
                 this.updateTowerDetailsUI();
             }
+        });
+
+        this.tdCanvas.addEventListener('mousemove', (e) => {
+            const rect = this.tdCanvas.getBoundingClientRect();
+            this.mouse.x = e.clientX - rect.left;
+            this.mouse.y = e.clientY - rect.top;
         });
 
         this.ui = new TowerDefenseGameUI(this);
@@ -261,19 +272,17 @@ class TowerDefenseGame {
         // Reichweiten-Vorschau beim Platzieren rendern
         if (this.tdState.selectedTower) {
             // Pseudo-Mouse-Tracking könnte hier optional ergänzt werden
-            this.tdCtx.fillStyle = this.towerTypes[this.tdState.selectedTower];
-            this.tdCtx.fillRect(this.x - 15, this.y - 15, 30, 30);
+            this.tdCtx.fillStyle = this.towerTypes[this.tdState.selectedTower].color;
+            this.tdCtx.fillRect(this.mouse.x - 15, this.mouse.y - 15, 30, 30);
+
+            this.tdCtx.strokeStyle = 'rgba(52, 152, 219, 0.6)';
+            this.tdCtx.lineWidth = 2;
+            this.tdCtx.beginPath();
+            this.tdCtx.arc(this.mouse.x, this.mouse.y, this.towerTypes[this.tdState.selectedTower].range, 0, Math.PI * 2);
+            this.tdCtx.stroke();
+            this.tdCtx.strokeStyle = '#3498db';
+            this.tdCtx.strokeRect(this.mouse.x - 18, this.mouse.y - 18, 36, 36);
             
-            // Markierung für selektierten Turm auf dem Feld
-            if (this.tdState.selectedPlacedTower === this) {
-                this.tdCtx.strokeStyle = 'rgba(52, 152, 219, 0.6)';
-                this.tdCtx.lineWidth = 2;
-                this.tdCtx.beginPath();
-                this.tdCtx.arc(this.x, this.y, this.range, 0, Math.PI * 2);
-                this.tdCtx.stroke();
-                this.tdCtx.strokeStyle = '#3498db';
-                this.tdCtx.strokeRect(this.x - 18, this.y - 18, 36, 36);
-            }
         }
 
         if (this.tdState.lives <= 0) {
