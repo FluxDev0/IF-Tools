@@ -9,18 +9,18 @@
     overflow-y: auto;
 }
 
-.tower-details {
+#tower-defense .tower-details {
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    max-width: 20%;
-    margin-top: 15px; 
+    align-items: center;
+    width: fit-content;
+    margin: auto 0;
     border: 2px solid var(--accent-color-2); 
     padding: 15px; 
     border-radius: 8px;
 }
 
-.tower-details .tower-upgrades {
+#tower-defense .tower-details .tower-upgrades {
     display: flex;
     flex-direction: column;
     justify-content: space-between; 
@@ -29,7 +29,7 @@
     flex-wrap: wrap;
 }
 
-.tower-details .tower-upgrades .tower-upgrade {
+#tower-defense .tower-details .tower-upgrades .tower-upgrade {
     padding: 10px; 
     text-align: center; 
     min-width: 180px;
@@ -37,6 +37,13 @@
     background-color: var(--accent-color-1);
 }
 
-.tower-details .tower-upgrades .tower-upgrade button {
+#tower-defense .tower-details .tower-upgrades .tower-upgrade button {
     width: 140px;
+}
+
+#tower-defense canvas#tdCanvas {
+    background-color: #1e272e;
+    border: 4px solid var(--border-color);
+    border-radius: 8px;
+    cursor: crosshair;
 }

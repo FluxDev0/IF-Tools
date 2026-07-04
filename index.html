@@ -454,7 +454,7 @@
                         <h3 style="color: #9b59b6; margin: 0;">🔮 Essenz: <span id="td-essence">0</span></h3>
                     </div>
 
-                    <canvas id="tdCanvas" width="800" height="600" style="background-color: #1e272e; border: 4px solid var(--border-color); border-radius: 8px; cursor: crosshair;"></canvas>
+                    <canvas id="tdCanvas" width="800" height="600"></canvas>
 
                     <div class="controls" style="justify-content: center; margin-top: 20px; gap: 11px; flex-wrap: wrap; width: 800px;">
                         <button class="btn-4" onclick="startWave()">Welle starten</button>
@@ -464,10 +464,10 @@
 
                 <div id="td-test-menu" class="hidden">
                     <input id="td-gold">
-                    <button class="btn-4" onclick="tdSetGold(document.querySelector('input#td-gold').value)">Set Gold</button>
+                    <button class="btn-4" onclick="tdSetGold(document.querySelector('#tower-defense input#td-gold').value)">Set Gold</button>
                     <br>
                     <input id="td-wave">
-                    <button class="btn-4" onclick="tdSetWave(document.querySelector('input#td-wave').value)">Set Wave</button>
+                    <button class="btn-4" onclick="tdSetWave(document.querySelector('#tower-defense input#td-wave').value)">Set Wave</button>
                 </div>
             </div>
         </div>

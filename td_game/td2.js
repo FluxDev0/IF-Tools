@@ -49,13 +49,15 @@ const TD_STANDARD_CONFIG = {
         basic:  { name: "Basis-Turm",   cost: 100, range: 120, cooldown: 1.5, color: "#3498db", projectile: "normal" },
         sniper: { name: "Sniper",       cost: 200, range: 220, cooldown: 0.5, color: "#e67e22", projectile: "sniper" },
         bomb:   { name: "Bombenwerfer", cost: 250, range: 100, cooldown: 0.8, color: "#e74c3c", projectile: "bomb" },
-        ice:    { name: "Eiswerfer",    cost: 150, range: 110, cooldown: 1.2, color: "#2ecc71", projectile: "ice" }
+        ice:    { name: "Eiswerfer",    cost: 150, range: 110, cooldown: 1.2, color: "#2ecc71", projectile: "ice" },
+        fire:   { name: "Feuerwerfer",  cost: 150, range: 110, cooldown: 30, color: "#bf280e", projectile: "fire" }
     },
     projectileTypes: {
-        normal: { color: "#f1c40f", damage: 15, speed: 8, attributes: {} },
-        sniper: { color: "#f1c40f", damage: 25, speed: 12, attributes: {} },
-        bomb:   { color: "#e74c3c", damage: 15, speed: 6, attributes: { explosion: { radius: 100, damage: 15 } } },
-        ice:    { color: "#71b8ff", damage: 20, speed: 8, attributes: { slowness: { duration: 90, factor: 0.5 } } }
+        normal: { color: "#f1c40f", damage: 15, speed: 8,  radius: 4, attributes: {} },
+        sniper: { color: "#f1c40f", damage: 25, speed: 12, radius: 4, attributes: {} },
+        bomb:   { color: "#e74c3c", damage: 15, speed: 6,  radius: 6, attributes: { explosion: { radius: 100, damage: 15 } } },
+        ice:    { color: "#71b8ff", damage: 20, speed: 8,  radius: 4, attributes: { effects: [{ type: "slowness", duration: 90, factor: 0.5 }] } },
+        fire:   { color: "#ee370a", damage: 1,  speed: 5,  radius: 7, attributes: {} }
     },
     waves: {
         1: {
@@ -119,7 +121,7 @@ const TD_STANDARD_CONFIG = {
             150: ["tank1"],
             180: ["normal1", "normal2"]
         },
-        7: { 
+        7: {
             ticks: 180,
             1: ["normal2"],
             40: ["fast1"],
@@ -202,37 +204,7 @@ class TowerDefenseGame {
         }
 
         this.tdCanvas.addEventListener('click', (e) => {
-            const rect = this.tdCanvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            let clickedTower = this.towers.find(t => Math.hypot(t.x - x, t.y - y) < 20);
-            if (clickedTower) {
-                this.tdState.selectedPlacedTower = clickedTower;
-                this.tdState.selectedTower = null;
-                updateTowerDetailsUI();
-                return;
-            }
-
-            if (this.tdState.selectedTower) {
-                let type = this.tdState.selectedTower;
-                let baseCost = this.towerTypes[type].cost;
-                let finalCost = Math.max(10, baseCost - (this.tdState.skills.cost * 5));
-
-                if (this.tdState.gold >= finalCost) {
-                    this.towers.push(new Tower(x, y, type, this));
-                    this.tdState.gold -= finalCost;
-                    this.tdState.selectedTower = null;
-                    updateTdUI();
-                }
-                else {
-                    showToast("Nicht genug Gold", "error");
-                    this.tdState.selectedTower = null;
-                }
-            } else {
-                this.tdState.selectedPlacedTower = null;
-                this.updateTowerDetailsUI();
-            }
+            this.handleCanvasClick(e);
         });
 
         this.tdCanvas.addEventListener('mousemove', (e) => {
@@ -299,6 +271,40 @@ class TowerDefenseGame {
         requestAnimationFrame(gameLoop);
     }
 
+    handleCanvasClick(e) {
+        const rect = this.tdCanvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        let clickedTower = this.towers.find(t => Math.hypot(t.x - x, t.y - y) < 20);
+        if (clickedTower) {
+            this.tdState.selectedPlacedTower = clickedTower;
+            this.tdState.selectedTower = null;
+            updateTowerDetailsUI();
+            return;
+        }
+
+        if (this.tdState.selectedTower) {
+            let type = this.tdState.selectedTower;
+            let baseCost = this.towerTypes[type].cost;
+            let finalCost = Math.max(10, baseCost - (this.tdState.skills.cost * 5));
+
+            if (this.tdState.gold >= finalCost) {
+                this.towers.push(new Tower(x, y, type, this));
+                this.tdState.gold -= finalCost;
+                this.tdState.selectedTower = null;
+                updateTdUI();
+            }
+            else {
+                showToast("Nicht genug Gold", "error");
+                this.tdState.selectedTower = null;
+            }
+        } else {
+            this.tdState.selectedPlacedTower = null;
+            this.updateTowerDetailsUI();
+        }
+    }
+
     restart() {
         this.towers = [];
         this.projectiles = [];
@@ -309,7 +315,6 @@ class TowerDefenseGame {
         this.updateTowerDetailsUI();
     }
 
-    // 8. Wellen-Management & Spawning
     startWave() {
         if (this.waveType !== null) return;
         this.tdState.wave++;
@@ -361,7 +366,13 @@ class TowerDefenseGame {
                 });
             }
 
-            if (this.currentWave.ticks <= this.spawnTimer && this.enemies.length == 0) this.waveType = null;
+            if (this.currentWave.ticks <= this.spawnTimer && this.enemies.length == 0) {
+                this.waveType = null;
+                if (this.currentWave.reward) {
+                    this.tdState.gold += this.currentWave.reward;
+                    this.ui.updateUI();
+                }
+            }
         }
     }
 
@@ -370,7 +381,6 @@ class TowerDefenseGame {
         this.updateTowerDetailsUI();
     }
 
-    // 10. Zeichen-Funktion für Pfade
     drawPath() {
         let mapData = this.tdMaps[this.currentMapIndex];
         this.tdCtx.fillStyle = mapData.color;
@@ -388,7 +398,6 @@ class TowerDefenseGame {
         this.tdCtx.stroke();
     }
 
-    // 12. Map Wechsel
     selectMap(index) {
         if (this.enemiesToSpawn > 0 || this.enemies.length > 0) {
             if (typeof showToast === "function") showToast("Nicht während einer Welle wechseln!", "error");
@@ -423,7 +432,6 @@ class TowerDefenseGame {
         this.updateTowerDetailsUI()
     }
 
-    // 14. In-Game Upgrades & Verkauf
     updateTowerDetailsUI() {
         this.ui.updateTowerDetailsUI()
     }
@@ -589,14 +597,12 @@ class Enemy {
         this.pathIndex = 1;
         this.slowTimer = 0;
         this.slowFactor = 0;
+
+        this.effects = [];
     }
 
     update() {
-        if (this.slowTimer > 0) {
-            this.slowTimer--;
-            this.speed = this.baseSpeed * this.slowFactor; // 50% Verlangsamung
-            if (this.slowTimer <= 0) this.speed = this.baseSpeed;
-        }
+        this.effects = this.effects.filter((effect) => this.handleEffect(effect));
 
         let currentPath = this.gameObj.tdMaps[this.gameObj.currentMapIndex].path;
         let target = currentPath[this.pathIndex];
@@ -620,14 +626,28 @@ class Enemy {
         return true;
     }
 
+    handleEffect(effect) {
+        effect.duration--;
+
+        if (effect.duration <= 0) {
+            this.speed = this.baseSpeed;
+            return false;
+        }
+
+        if (effect.type == "slowness") {
+            if (this.baseSpeed * effect.factor < this.speed) this.speed = this.baseSpeed * effect.factor;
+        }
+
+        return true;
+    }
+
     draw() {
         this.gameObj.tdCtx.fillStyle = this.color;
         this.gameObj.tdCtx.beginPath();
         this.gameObj.tdCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         this.gameObj.tdCtx.fill();
 
-        // Verlangsamungs-Effekt zeichnen
-        if (this.slowTimer > 0) {
+        if (this.effects.some((effect) => effect.type == 'slowness')) {
             this.drawOutline('#74b9ff');
         }
 
@@ -750,22 +770,7 @@ class Projectile {
         let dist = Math.hypot(dx, dy);
 
         if (dist < this.type.speed) {
-            // Treffer-Logik basierend auf Turmtyp
-            if (this.type.attributes.explosion) {
-                // AoE Schadenskreis (Splatter)
-                this.gameObj.enemies.forEach(e => {
-                    if (Math.hypot(e.x - this.x, e.y - this.y) <= this.type.attributes.explosion.radius) {
-                        e.hp -= this.type.attributes.explosion.damage;
-                    }
-                });
-            } 
-            if (this.type.attributes.slowness) {
-                this.target.hp -= this.damage;
-                this.target.slowTimer = this.type.attributes.slowness.duration; // 1.5 Sekunden verlangsamt bei 60 FPS
-                this.target.slowFactor = this.type.attributes.slowness.factor;
-            } else {
-                this.target.hp -= this.damage;
-            }
+            this.hitTarget();
             return false;
         } else {
             this.x += (dx / dist) * this.type.speed;
@@ -774,10 +779,32 @@ class Projectile {
         }
     }
 
+    hitTarget() {
+        if (this.type.attributes.explosion) {
+            this.gameObj.enemies.forEach(e => {
+                if (Math.hypot(e.x - this.x, e.y - this.y) <= this.type.attributes.explosion.radius) {
+                    e.hp -= this.type.attributes.explosion.damage;
+                }
+            });
+        }
+
+        if (this.type.attributes.slowness) {
+            this.target.slowTimer = this.type.attributes.slowness.duration;
+            this.target.slowFactor = this.type.attributes.slowness.factor;
+        }
+
+        if (this.type.attributes.effects) {
+            const clonedEffects = this.type.attributes.effects.map(effect => ({ ...effect }));
+            this.target.effects = [...clonedEffects, ...this.target.effects];
+        }
+
+        this.target.hp -= this.damage;
+    }
+
     draw() {
         this.gameObj.tdCtx.fillStyle = this.type.color;
         this.gameObj.tdCtx.beginPath();
-        this.gameObj.tdCtx.arc(this.x, this.y, this.type == "bomb" ? 6 : 4, 0, Math.PI * 2);
+        this.gameObj.tdCtx.arc(this.x, this.y, this.type.radius, 0, Math.PI * 2);
         this.gameObj.tdCtx.fill();
     }
 }
@@ -854,7 +881,7 @@ window.addEventListener('keydown', (event) => {
 });
 
 function openTDtestMenu() {
-    document.querySelector("#td-test-menu").classList.toggle("hidden")
+    document.querySelector("#tower-defense #td-test-menu").classList.toggle("hidden")
 }
 
 function tdSetGold(gold) {
