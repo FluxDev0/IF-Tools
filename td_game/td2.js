@@ -59,7 +59,7 @@ const TD_STANDARD_CONFIG = {
         sniper: { color: "#81807d", damage: 25, speed: 12, radius: 4, attributes: {} },
         bomb:   { color: "#e74c3c", damage: 15, speed: 6,  radius: 6, attributes: { explosion: { radius: 100, damage: 15 } } },
         ice:    { color: "#71b8ff", damage: 20, speed: 8,  radius: 4, attributes: { effects: [{ type: "slowness", duration: 90, factor: 0.5 }] } },
-        fire:   { color: "#ee370a", damage: 1,  speed: 10, radius: 7, attributes: {} },
+        fire:   { color: "#ee370a", damage: 1,  speed: 10, radius: 7, attributes: {} }
     },
     waves: {
         1: {
