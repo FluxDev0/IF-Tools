@@ -36,28 +36,30 @@ const TD_STANDARD_CONFIG = {
         }
     ],
     enemyTypes: {
-        normal1: { hp: 30,  speed: 1.5, reward: 10,  color: "#e74c3c", radius: 11 },
-        normal2: { hp: 50,  speed: 1.8, reward: 10,  color: "#e96e1d", radius: 11 },
-        fast1:   { hp: 18,  speed: 3,   reward: 10,  color: "#f1c40f", radius: 8  },
-        fast2:   { hp: 25,  speed: 4,   reward: 10,  color: "#70dd18", radius: 8  },
-        fast3:   { hp: 20,  speed: 6,   reward: 8,   color: "#0ebe75", radius: 8  },
-        tank1:   { hp: 90,  speed: 0.8, reward: 20,  color: "#b450df", radius: 14 },
-        tank2:   { hp: 200, speed: 1,   reward: 20,  color: "#7625d1", radius: 14 },
-        boss1:   { hp: 300, speed: 1,   reward: 80,  color: "#0628e7", radius: 16 }
+        normal1: { hp: 30,   speed: 1.5, reward: 10,  color: "#e74c3c", radius: 11 },
+        normal2: { hp: 50,   speed: 1.8, reward: 10,  color: "#e96e1d", radius: 11 },
+        fast1:   { hp: 18,   speed: 3,   reward: 10,  color: "#f1c40f", radius: 8  },
+        fast2:   { hp: 25,   speed: 4,   reward: 10,  color: "#70dd18", radius: 8  },
+        fast3:   { hp: 20,   speed: 6,   reward: 8,   color: "#0ebe75", radius: 8  },
+        tank1:   { hp: 90,   speed: 0.8, reward: 20,  color: "#b450df", radius: 14 },
+        tank2:   { hp: 200,  speed: 1,   reward: 20,  color: "#7625d1", radius: 14 },
+        boss1:   { hp: 300,  speed: 1,   reward: 80,  color: "#0628e7", radius: 16 },
+        boss2:   { hp: 1500, speed: 0.3, reward: 100, color: "#247ad0", radius: 20 }
     },
     towerTypes: {
-        basic:  { name: "Basis-Turm",   cost: 100, range: 120, cooldown: 1.5, color: "#3498db", projectile: "normal" },
-        sniper: { name: "Sniper",       cost: 200, range: 220, cooldown: 0.5, color: "#e67e22", projectile: "sniper" },
-        bomb:   { name: "Bombenwerfer", cost: 250, range: 100, cooldown: 0.8, color: "#e74c3c", projectile: "bomb" },
-        ice:    { name: "Eiswerfer",    cost: 150, range: 110, cooldown: 1.2, color: "#2ecc71", projectile: "ice" },
-        fire:   { name: "Feuerwerfer",  cost: 150, range: 110, cooldown: 30, color: "#bf280e", projectile: "fire" }
+        basic:       { name: "Basis-Turm",      cost: 100, range: 120, cooldown: 1.5, color: "#3498db", projectile: "normal" },
+        sniper:      { name: "Sniper",          cost: 200, range: 220, cooldown: 0.5, color: "#e67e22", projectile: "sniper" },
+        bomb:        { name: "Bombenwerfer",    cost: 250, range: 100, cooldown: 0.8, color: "#e74c3c", projectile: "bomb" },
+        ice:         { name: "Eiswerfer",       cost: 150, range: 110, cooldown: 1.2, color: "#2ecc71", projectile: "ice" },
+        fire:        { name: "Feuerwerfer",     cost: 150, range: 110, cooldown: 30,  color: "#bf280e", projectile: "fire" },
+        machine_gun: { name: "Machinengewehr",  cost: 500, range: 200, cooldown: 60,  color: "#59251c", projectile: "sniper" }
     },
     projectileTypes: {
         normal: { color: "#f1c40f", damage: 15, speed: 8,  radius: 4, attributes: {} },
-        sniper: { color: "#f1c40f", damage: 25, speed: 12, radius: 4, attributes: {} },
+        sniper: { color: "#81807d", damage: 25, speed: 12, radius: 4, attributes: {} },
         bomb:   { color: "#e74c3c", damage: 15, speed: 6,  radius: 6, attributes: { explosion: { radius: 100, damage: 15 } } },
         ice:    { color: "#71b8ff", damage: 20, speed: 8,  radius: 4, attributes: { effects: [{ type: "slowness", duration: 90, factor: 0.5 }] } },
-        fire:   { color: "#ee370a", damage: 1,  speed: 5,  radius: 7, attributes: {} }
+        fire:   { color: "#ee370a", damage: 1,  speed: 10, radius: 7, attributes: {} },
     },
     waves: {
         1: {
