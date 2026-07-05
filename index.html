@@ -386,6 +386,7 @@
             </div>
 
             <div class="app" id="tower-defense" style="display: none; position: relative;">
+                <div class="grid">
 
                 <div id="td-tower-details" class="tower-details">
                     <h3 style="color: var(--primary-color); margin-bottom: 10px;">Turm-Details (<span id="tw-type">Basis</span>)</h3>
@@ -441,7 +442,7 @@
 
                 <div class="middle">
                     
-                    <div style="display: flex; gap: 10px; margin-bottom: 15px; width: 800px; justify-content: center;">
+                    <div class="map-selection">
                         <button class="btn-1" data-btn="green" id="map-btn-0" onclick="selectMap(0)">🗺️ Grüne Wiese</button>
                         <button class="btn-1" data-btn="gray" id="map-btn-1" onclick="selectMap(1)">🏜️ Wüstenpfad</button>
                         <button class="btn-1" data-btn="gray" id="map-btn-2" onclick="selectMap(2)">❄️ Eiskanal</button>
@@ -458,16 +459,24 @@
 
                     <div class="controls" style="justify-content: center; margin-top: 20px; gap: 11px; flex-wrap: wrap; width: 800px;">
                         <button class="btn-4" onclick="startWave()">Welle starten</button>
+                        <button class="btn-4" onclick="save()">Spielstand speichern</button>
+                        <button class="btn-4" onclick="load()">Spielstand laden</button>
                         <button class="btn-4" style="display: none;" onclick="toggleSkillTree()">🔮 Skill Tree</button>
                     </div>
                 </div>
 
                 <div id="td-test-menu" class="hidden">
-                    <input id="td-gold">
-                    <button class="btn-4" onclick="tdSetGold(document.querySelector('#tower-defense input#td-gold').value)">Set Gold</button>
+                    <input id="td-gold" type="number">
+                    <button class="btn-4" onclick="tdSetGold(Number(document.querySelector('#tower-defense input#td-gold').value))">Set Gold</button>
                     <br>
-                    <input id="td-wave">
-                    <button class="btn-4" onclick="tdSetWave(document.querySelector('#tower-defense input#td-wave').value)">Set Wave</button>
+                    <input id="td-wave" type="number">
+                    <button class="btn-4" onclick="tdSetWave(Number(document.querySelector('#tower-defense input#td-wave').value))">Set Wave</button>
+                    <br>
+                    <button class="btn-4" onclick="save()">Save</button>
+                    <button class="btn-4" onclick="load()">Load</button>
+                </div>
+
+                <div class="tower-selection">
                 </div>
             </div>
         </div>

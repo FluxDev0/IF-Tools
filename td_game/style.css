@@ -1,8 +1,10 @@
+#tower-defense .grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    place-items: center;
+}
+
 #tower-defense .middle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column; 
     align-items: center; 
@@ -18,6 +20,22 @@
     border: 2px solid var(--accent-color-2); 
     padding: 15px; 
     border-radius: 8px;
+}
+
+#tower-defense .tower-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    margin: auto 0;
+    border: 2px solid var(--accent-color-2); 
+    padding: 15px; 
+    border-radius: 8px;
+    gap: 10px;
+}
+
+#tower-defense .tower-selection button {
+    min-width: 240px;
 }
 
 #tower-defense .tower-details .tower-upgrades {
@@ -46,4 +64,12 @@
     border: 4px solid var(--border-color);
     border-radius: 8px;
     cursor: crosshair;
+}
+
+#tower-defense .map-selection {
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 15px; 
+    width: 800px; 
+    justify-content: center;
 }

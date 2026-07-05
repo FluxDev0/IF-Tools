@@ -36,15 +36,20 @@ const TD_STANDARD_CONFIG = {
         }
     ],
     enemyTypes: {
-        normal1: { hp: 30,   speed: 1.5, reward: 10,  color: "#e74c3c", radius: 11 },
-        normal2: { hp: 50,   speed: 1.8, reward: 10,  color: "#e96e1d", radius: 11 },
-        fast1:   { hp: 18,   speed: 3,   reward: 10,  color: "#f1c40f", radius: 8  },
-        fast2:   { hp: 25,   speed: 4,   reward: 10,  color: "#70dd18", radius: 8  },
-        fast3:   { hp: 20,   speed: 6,   reward: 8,   color: "#0ebe75", radius: 8  },
-        tank1:   { hp: 90,   speed: 0.8, reward: 20,  color: "#b450df", radius: 14 },
-        tank2:   { hp: 200,  speed: 1,   reward: 20,  color: "#7625d1", radius: 14 },
-        boss1:   { hp: 300,  speed: 1,   reward: 80,  color: "#0628e7", radius: 16 },
-        boss2:   { hp: 1500, speed: 0.3, reward: 100, color: "#247ad0", radius: 20 }
+        normal1: { hp: 30,     speed: 1.5, reward: 10,  color: "#e74c3c", radius: 11  },
+        normal2: { hp: 50,     speed: 1.8, reward: 10,  color: "#e96e1d", radius: 11  },
+        normal3: { hp: 100,    speed: 1.8, reward: 12,  color: "#b5510e", radius: 11  },
+        fast1:   { hp: 18,     speed: 3,   reward: 10,  color: "#f1c40f", radius: 8   },
+        fast2:   { hp: 25,     speed: 4,   reward: 10,  color: "#70dd18", radius: 8   },
+        fast3:   { hp: 20,     speed: 6,   reward: 8,   color: "#0ebe75", radius: 8   },
+        fast4:   { hp: 200,    speed: 6,   reward: 8,   color: "#458d6f", radius: 10  },
+        tank1:   { hp: 90,     speed: 0.8, reward: 20,  color: "#b450df", radius: 14  },
+        tank2:   { hp: 200,    speed: 1,   reward: 20,  color: "#7625d1", radius: 14  },
+        tank3:   { hp: 500,    speed: 1,   reward: 20,  color: "#5910ad", radius: 14  },
+        boss1:   { hp: 300,    speed: 1,   reward: 80,  color: "#0628e7", radius: 16  },
+        boss2:   { hp: 1500,   speed: 0.3, reward: 100, color: "#247ad0", radius: 20  },
+        boss3:   { hp: 5000,   speed: 0.5, reward: 120, color: "#4a93dc", radius: 20  },
+        boss4:   { hp: 100000, speed: 0.1, reward: 500, color: "#1c1c1d", radius: 24  }
     },
     towerTypes: {
         basic:       { name: "Basis-Turm",      cost: 100, range: 120, cooldown: 1.5, color: "#3498db", projectile: "normal" },
@@ -52,14 +57,16 @@ const TD_STANDARD_CONFIG = {
         bomb:        { name: "Bombenwerfer",    cost: 250, range: 100, cooldown: 0.8, color: "#e74c3c", projectile: "bomb" },
         ice:         { name: "Eiswerfer",       cost: 150, range: 110, cooldown: 1.2, color: "#2ecc71", projectile: "ice" },
         fire:        { name: "Feuerwerfer",     cost: 150, range: 110, cooldown: 30,  color: "#bf280e", projectile: "fire" },
-        machine_gun: { name: "Machinengewehr",  cost: 500, range: 200, cooldown: 60,  color: "#59251c", projectile: "sniper" }
+        machine_gun: { name: "Machinengewehr",  cost: 500, range: 200, cooldown: 60,  color: "#59251c", projectile: "sniper" },
+        laser:       { name: "Laser",           cost: 500, range: 150, cooldown: 60,  color: "#0f4eba", projectile: "laser" },
     },
     projectileTypes: {
-        normal: { color: "#f1c40f", damage: 15, speed: 8,  radius: 4, attributes: {} },
-        sniper: { color: "#81807d", damage: 25, speed: 12, radius: 4, attributes: {} },
-        bomb:   { color: "#e74c3c", damage: 15, speed: 6,  radius: 6, attributes: { explosion: { radius: 100, damage: 15 } } },
-        ice:    { color: "#71b8ff", damage: 20, speed: 8,  radius: 4, attributes: { effects: [{ type: "slowness", duration: 90, factor: 0.5 }] } },
-        fire:   { color: "#ee370a", damage: 1,  speed: 10, radius: 7, attributes: {} }
+        normal: { color: "#f1c40f", damage: 15,  speed: 8,  radius: 4, attributes: {} },
+        sniper: { color: "#81807d", damage: 25,  speed: 12, radius: 4, attributes: {} },
+        bomb:   { color: "#e74c3c", damage: 15,  speed: 6,  radius: 6, attributes: { explosion: { radius: 100, damage: 15 } } },
+        ice:    { color: "#71b8ff", damage: 20,  speed: 8,  radius: 4, attributes: { effects: [{ type: "slowness", duration: 90, factor: 0.5 }] } },
+        fire:   { color: "#ee370a", damage: 1,   speed: 10, radius: 7, attributes: {} },
+        laser:  { color: "#13cce0", damage: 0.1, speed: 10, radius: 7, attributes: { effects: [{ type: "slowness", duration: 90, factor: 0.25 }] }, laser: true}
     },
     waves: {
         1: {
@@ -166,6 +173,26 @@ const TD_STANDARD_CONFIG = {
             180: ["fast2", "boss1"],
             220: ["tank2", "boss1"],
             250: ["fast3", "normal1"]
+        },
+        11: {
+            ticks: 180,
+            1: ["tank2"],
+            30: ["normal2"],
+            60: ["normal3"],
+            90: ["normal1", "normal2"],
+            120: ["normal3"],
+            150: ["tank2"],
+            180: ["normal3", "normal2"]
+        },
+        12: {
+            ticks: 200,
+            1: ["fast2"],
+            30: ["fast3"],
+            60: ["fast2"],
+            90: ["fast3", "fast4"],
+            120: ["fast4"],
+            150: ["fast3"],
+            180: ["fast4", "fast2"]
         },
     }
 }
@@ -490,6 +517,75 @@ class TowerDefenseGame {
     updateTdUI() {
         this.ui.updateUI();
     }
+
+    save() {
+        try {
+            // Wir filtern die Türme und speichern NUR die wichtigen Rohdaten,
+            // um zirkuläre Referenzen (this.gameObj) zu vermeiden.
+            const towersData = this.towers.map(t => ({
+                x: t.x,
+                y: t.y,
+                type: t.type,
+                lvlDmg: t.lvlDmg,
+                lvlSpeed: t.lvlSpeed,
+                lvlRange: t.lvlRange,
+                targetMode: t.targetMode
+            }));
+
+            const saveState = {
+                tdState: this.tdState,
+                towers: towersData,
+                currentMapIndex: this.currentMapIndex
+            };
+
+            sessionStorage.setItem("TDGAME", JSON.stringify(saveState));
+            if (typeof showToast === "function") showToast("Spielstand gespeichert!", "success");
+        } catch (error) {
+            console.error("Fehler beim Speichern:", error);
+        }
+    }
+
+    load() {
+        try {
+            const dataStr = sessionStorage.getItem("TDGAME");
+            if (!dataStr) {
+                if (typeof showToast === "function") showToast("Kein Spielstand gefunden!", "error");
+                return;
+            }
+
+            const saveState = JSON.parse(dataStr);
+
+            // 1. Basis-Zustand und Map wiederherstellen
+            this.tdState = saveState.tdState;
+            this.currentMapIndex = saveState.currentMapIndex || 0;
+
+            // 2. Türme als ECHTE Klassen-Instanzen neu erschaffen
+            this.towers = saveState.towers.map(tData => {
+                let tower = new Tower(tData.x, tData.y, tData.type, this);
+                tower.lvlDmg = tData.lvlDmg;
+                tower.lvlSpeed = tData.lvlSpeed;
+                tower.lvlRange = tData.lvlRange;
+                tower.targetMode = tData.targetMode;
+                return tower;
+            });
+
+            // 3. Laufende Projektile und Gegner sicherheitshalber leeren
+            this.projectiles = [];
+            this.enemies = [];
+            this.waveType = null;
+            this.enemiesToSpawn = 0;
+
+            // 4. Komplette UI aktualisieren, damit die geladenen Werte sofort sichtbar sind
+            this.updateTdUI();
+            this.updateSkillUI();
+            this.updateTowerDetailsUI();
+
+            if (typeof showToast === "function") showToast("Spielstand geladen!", "success");
+        } catch (error) {
+            console.error("Fehler beim Laden:", error);
+            if (typeof showToast === "function") showToast("Laden fehlgeschlagen!", "error");
+        }
+    }
 }
 
 class TowerDefenseGameUI {
@@ -552,7 +648,7 @@ class TowerDefenseGameUI {
     }
 
     createBuyButtons() {
-        const controlsElement = document.querySelector(`div#tower-defense.app .controls`);
+        const controlsElement = document.querySelector(`div#tower-defense.app .tower-selection`);
         let buttonsHtml = "";
 
         Object.entries(this.gameObj.towerTypes).forEach(([key, value]) => {
@@ -687,6 +783,8 @@ class Tower {
         this.currentCooldown = 0;
         this.color = this.gameObj.towerTypes[type].color;
         this.targetMode = "first";
+        this.drawLaser = false;
+        this.laserTarget = { x: 0, y: 0 };
     }
 
     get damage() { return this.baseDamage + (this.lvlDmg * 8); }
@@ -728,7 +826,28 @@ class Tower {
                 }
 
                 if (target) {
-                    this.gameObj.projectiles.push(new Projectile(this.x, this.y, target, this.projectile, this.damage, this.gameObj));
+                    if (this.projectile.laser) {
+                        this.drawLaser = true;
+                        this.laserTarget = { x: target.x, y: target.y }
+
+                        if (this.projectile.attributes.explosion) {
+                            this.gameObj.enemies.forEach(e => {
+                                if (Math.hypot(e.x - target.x, e.y - target.y) <= this.projectile.attributes.explosion.radius) {
+                                    e.hp -= this.projectile.attributes.explosion.damage;
+                                }
+                            });
+                        }
+                    
+                        if (this.projectile.attributes.effects) {
+                            const clonedEffects = this.projectile.attributes.effects.map(effect => ({ ...effect }));
+                            target.effects = [...clonedEffects, ...target.effects];
+                        }
+                    
+                        target.hp -= this.projectile.damage;
+                    }
+                    else {
+                        this.gameObj.projectiles.push(new Projectile(this.x, this.y, target, this.projectile, this.damage, this.gameObj));
+                    }
                     this.currentCooldown = this.cooldown;
                 }
             }
@@ -748,6 +867,17 @@ class Tower {
             this.gameObj.tdCtx.stroke();
             this.gameObj.tdCtx.strokeStyle = '#3498db';
             this.gameObj.tdCtx.strokeRect(this.x - 18, this.y - 18, 36, 36);
+        }
+
+        if (this.drawLaser) {
+            this.gameObj.tdCtx.beginPath();
+            this.gameObj.tdCtx.moveTo(this.x, this.y);
+            this.gameObj.tdCtx.lineTo(this.laserTarget.x, this.laserTarget.y);
+            this.gameObj.tdCtx.strokeStyle = this.projectile.color;
+            this.gameObj.tdCtx.lineWidth = this.projectile.radius;
+            this.gameObj.tdCtx.stroke();
+
+            this.drawLaser = false;
         }
     }
 }
@@ -788,11 +918,6 @@ class Projectile {
                     e.hp -= this.type.attributes.explosion.damage;
                 }
             });
-        }
-
-        if (this.type.attributes.slowness) {
-            this.target.slowTimer = this.type.attributes.slowness.duration;
-            this.target.slowFactor = this.type.attributes.slowness.factor;
         }
 
         if (this.type.attributes.effects) {
@@ -895,4 +1020,12 @@ function tdSetWave(wave) {
     console.log()
     TDGAME.tdState.wave = wave;
     TDGAME.updateTdUI();
+}
+
+function save() {
+    TDGAME.save();
+}
+
+function load() {
+    TDGAME.load();
 }
