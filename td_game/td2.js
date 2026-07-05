@@ -185,7 +185,7 @@ const TD_STANDARD_CONFIG = {
             180: ["normal3", "normal2"]
         },
         12: {
-            ticks: 200,
+            ticks: 180,
             1: ["fast2"],
             30: ["fast3"],
             60: ["fast2"],
@@ -193,6 +193,39 @@ const TD_STANDARD_CONFIG = {
             120: ["fast4"],
             150: ["fast3"],
             180: ["fast4", "fast2"]
+        },
+        13: {
+            ticks: 200,
+            1: ["boss1"],
+            30: ["normal2"],
+            60: ["normal3"],
+            90: ["fast4", "normal3"],
+            120: ["boss1"],
+            150: ["tank3"],
+            180: ["tank2", "fast4"],
+            200: ["tank3", "normal3"]
+        },
+        14: {
+            ticks: 200,
+            1: ["normal3"],
+            30: ["fast3"],
+            60: ["tank3"],
+            90: ["tank2", "normal3"],
+            120: ["fast4"],
+            150: ["normal3"],
+            180: ["tank3", "fast4"],
+            180: ["tank3", "normal2"]
+        },
+        15: {
+            ticks: 200,
+            1: ["fast4", "boss2"],
+            30: ["tank3"],
+            60: ["fast3"],
+            90: ["fast4", "normal3"],
+            120: ["fast4"],
+            150: ["boss1"],
+            180: ["tank3", "fast4"],
+            180: ["normal3"]
         },
     }
 }
@@ -538,7 +571,7 @@ class TowerDefenseGame {
                 currentMapIndex: this.currentMapIndex
             };
 
-            sessionStorage.setItem("TDGAME", JSON.stringify(saveState));
+            localStorage.setItem("TDGAME", JSON.stringify(saveState));
             if (typeof showToast === "function") showToast("Spielstand gespeichert!", "success");
         } catch (error) {
             console.error("Fehler beim Speichern:", error);
@@ -547,7 +580,7 @@ class TowerDefenseGame {
 
     load() {
         try {
-            const dataStr = sessionStorage.getItem("TDGAME");
+            const dataStr = localStorage.getItem("TDGAME");
             if (!dataStr) {
                 if (typeof showToast === "function") showToast("Kein Spielstand gefunden!", "error");
                 return;
@@ -616,7 +649,7 @@ class TowerDefenseGameUI {
 
         Object.entries(this.gameObj.towerTypes).forEach(([key, value]) => {
             let cost = Math.max(0, value.cost - (this.tdState.skills.cost * 5));
-            document.querySelector(`.controls #btn-buy-${key}`).innerText = `${value.name} (${cost}G)`;
+            document.querySelector(`.tower-selection #btn-buy-${key}`).innerText = `${value.name} (${cost}G)`;
         })
     }
 
